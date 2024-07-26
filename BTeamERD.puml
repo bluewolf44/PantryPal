@@ -1,0 +1,44 @@
+@startuml
+
+skinparam linetype polyline
+skinparam linetype ortho
+
+    entity User {
+        * userId:VarChar(10)
+        --
+        * username:VarChar(30)
+        * password:VarChar(30)
+        * firstName:VarChar(50)
+        * lastName:VarChar(50)
+        * email:VarChar(100)
+    }
+
+    entity Ingredient {
+        *ingredientName:VarChar(50)
+        *userId:VarChar(10) <FK>
+        --
+        *amount:Int
+        describe:text
+    }
+
+    entity Recipe {
+        *recipeName:VarChar(50)
+        *userId:VarChar(10) <FK>
+        --
+        *recipe:text
+    }
+
+    entity Required {
+        *recipeName:VarChar(50) <Fk>
+        *ingredientName:VarChar(50) <Fk>
+        *userId:VarChar(10) <FK>
+        --
+        * amount:Int
+    }
+
+    User ||--o{ Ingredient
+    User ||--o{ Recipe
+    Required ||---|| Recipe
+    Required ||---|| Ingredient
+
+@enduml
