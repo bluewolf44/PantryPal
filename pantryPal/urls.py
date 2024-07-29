@@ -1,5 +1,3 @@
-from django.http import HttpResponse
-
 """
 URL configuration for pantryPal project.
 
@@ -17,12 +15,9 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-
-def index(request):
-    return HttpResponse("Hello, world. You're at the polls index.")
+from django.urls import path,include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("index/",index,name="index")
+    path("", include("main.urls")),
 ]
