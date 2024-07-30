@@ -14,24 +14,26 @@ skinparam linetype ortho
     }
 
     entity Ingredient {
-        *ingredientName:VarChar(50)
-        *userId:VarChar(10) <FK>
+        * ingredientName:VarChar(50)
+        * userId:VarChar(10) <FK>
         --
-        *amount:Int
-        describe:text
+        * amount:Int
+        * describe:text
+        picture:image
     }
 
     entity Recipe {
-        *recipeName:VarChar(50)
-        *userId:VarChar(10) <FK>
+        * recipeName:VarChar(50)
+        * userId:VarChar(10) <FK>
         --
-        *recipe:text
+        * recipe:text
+        picture:image
     }
 
     entity Required {
-        *recipeName:VarChar(50) <Fk>
-        *ingredientName:VarChar(50) <Fk>
-        *userId:VarChar(10) <FK>
+        * recipeName:VarChar(50) <Fk>
+        * ingredientName:VarChar(50) <Fk>
+        * userId:VarChar(10) <FK>
         --
         * amount:Int
     }
