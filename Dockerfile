@@ -22,6 +22,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the content of the local src directory to the working directory
 COPY . .
 
+# Set the correct permissions
+RUN chmod +x /app/setup.sh
+
 # Specify the command to run on container start --noinput --username $USERNAME --email $EMAIL
-CMD /app/setup.sh
+CMD ["/app/setup.sh"]
 # ["python", "manage.py", "runserver", "0.0.0.0:8000"]
