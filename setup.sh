@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Set up the migrations
 python manage.py makemigrations
 # Create the migrate to the db
