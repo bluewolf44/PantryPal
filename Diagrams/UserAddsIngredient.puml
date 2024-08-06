@@ -22,28 +22,27 @@ skinparam {
 ' === Actors / Participants
 
 actor "User" as user
-participant "add-ingredients" as addIngredient << HTML Page >>
-participant "Session" as session
-participant "userDAO" as userDao << DAO >>
-participant "ingredientDao" as ingredientDao << DAO >>
+participant "/View" as view << Web Page >>
+participant "/Template" as template
+participant "/Model" as model 
 database "Database" as db
 
 
 ' === Interactions ===
 
-user -> addIngredient++ : User has signed in\n and now views the page
+user -> view++ : User has signed in\n and now views the page
 
-addIngredient -> session++ : getAttribute("user")
-session -> userDao : getUserById()
-userDao -> session : return user
-session -> addIngredient : user
+model -> template++ : getAttribute("user")
+template -> model : getUserById()
+model -> template : return user
+template -> view : user
 
 
-user -> addIngredient : User enters an ingredient
-addIngredient -> ingredientDao++ : addIngredient()
-ingredientDao -> db++ : INSERT INTO Ingredient
+user -> view : User enters an ingredient
+view -> model++ : addIngredient()
+model -> db++ : INSERT INTO Ingredient
 
-addIngredient -> user : Display notification ingredient added
+view -> user : Display notification ingredient added
 
 
 @enduml
