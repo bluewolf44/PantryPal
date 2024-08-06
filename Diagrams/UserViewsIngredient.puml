@@ -24,7 +24,7 @@ skinparam {
 actor "User" as user
 participant "view-ingredients" as viewIngredients << HTML Page >>
 participant "Session" as session
-participant "CustomerJdbiDAO" as dao << DAO >>
+participant "userDAO" as userDao << DAO >>
 participant "ingredientDao" as ingredientDao << DAO >>
 database "Database" as db
 
@@ -34,14 +34,18 @@ database "Database" as db
 user -> viewIngredients++ : User has signed in\n and now views the page
 
 viewIngredients -> session++ : getAttribute("user")
+session -> userDao : getUserById()
+userDao -> session : return user
 session -> viewIngredients : user
 
-viewIngredients -> ingredientDao++ : getAll()
+
+viewIngredients -> ingredientDao++ : getAllIngredients()
 ingredientDao -> db++ : SELECT * FROM Ingredient
 db -> ingredientDao : Ingredient <<List>>
 ingredientDao -> viewIngredients : Ingredient <<List>>
 
-viewIngredients -> viewIngredients : Display ingrdients
+viewIngredients -> viewIngredients : Display ingredients
 viewIngredients -> user : Ingredients displayed to user.
+
 
 @enduml
