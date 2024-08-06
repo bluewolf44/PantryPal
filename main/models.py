@@ -17,6 +17,7 @@ class Ingredient(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
 	amount = models.IntegerField()
 	describe = models.TextField()
+	picture = models.ImageField(null=True)
 	def __str__(self):
 		return self.ingredientName +" by " + self.user.username
 
@@ -24,6 +25,8 @@ class Recipe(models.Model):
 	recipeName = models.CharField(max_length=50)
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
 	recipe = models.TextField()
+	picture = models.ImageField(null=True)
+	liquid = models.BooleanField()
 	def __str__(self):
 		return self.recipeName +" by " + self.user.username
 
