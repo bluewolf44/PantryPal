@@ -1,0 +1,54 @@
+@startuml customerViewsProductPage
+
+' === Style Tweaks ===
+
+skinparam {
+  Style StrictUML
+  RoundCorner 5
+  ParticipantPadding 10
+  Padding 2
+  SequenceStereotype {
+    Font {
+      Size 11
+      Style plain
+    }
+  }
+  Database {
+	BorderColor #A80036
+  }
+}
+
+
+' === Actors / Participants
+
+actor "User" as user
+'=== Django.view
+participant "Django.view" as view <</view>>
+'=== Django.models
+participant "Django.models" as model <</model>>
+participant "React" as template <</Template>>
+database "Postgres" as db <<Database>>
+
+
+' === Interactions ===
+
+user -> view++ : User has signed in\nand now views the create recipe page
+
+
+view -> model++ : getAttribute("ingredients")
+model -> db++ : select * from ingredient \nwhere userId = "{userId}"
+return recipes : Array[ingredient]
+return recipes : Array[ingredient]
+view -> view : createRecipes(array[ingredient]):uses AI
+view -> template++ : displayRecipes(user,Array[AIRecipes])
+return html+js+css
+return html+js+css
+
+user -> view++ : User clicks save recipe
+view -> model++ : CreateRecipe(recipe)
+model -> db++ : INSERT recipe
+return
+return
+return Confirm the save
+
+@enduml
