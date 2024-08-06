@@ -1,0 +1,47 @@
+@startuml customerViewsProductPage
+
+' === Style Tweaks ===
+
+skinparam {
+  Style StrictUML
+  RoundCorner 5
+  ParticipantPadding 10
+  Padding 2
+  SequenceStereotype {
+    Font {
+      Size 11
+      Style plain
+    }
+  }
+  Database {
+	BorderColor #A80036
+  }
+}
+
+
+' === Actors / Participants
+
+actor "User" as user
+participant "view-ingredients" as viewIngredients << HTML Page >>
+participant "Session" as session
+participant "CustomerJdbiDAO" as dao << DAO >>
+participant "ingredientDao" as ingredientDao << DAO >>
+database "Database" as db
+
+
+' === Interactions ===
+
+user -> viewIngredients++ : User has signed in\n and now views the page
+
+viewIngredients -> session++ : getAttribute("user")
+session -> viewIngredients : user
+
+viewIngredients -> ingredientDao++ : getAll()
+ingredientDao -> db++ : SELECT * FROM Ingredient
+db -> ingredientDao : Ingredient <<List>>
+ingredientDao -> viewIngredients : Ingredient <<List>>
+
+viewIngredients -> viewIngredients : Display ingrdients
+viewIngredients -> user : Ingredients displayed to user.
+
+@enduml
