@@ -20,6 +20,7 @@ skinparam linetype ortho
         * amount:Int
         * describe:text
         picture:image
+        * liquid
     }
 
     entity Recipe {
