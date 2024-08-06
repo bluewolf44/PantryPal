@@ -1,0 +1,43 @@
+@startuml createAccount
+
+' === Style Tweaks ===
+
+skinparam {
+  Style StrictUML
+  RoundCorner 5
+  ParticipantPadding 10
+  Padding 2
+  SequenceStereotype {
+    Font {
+      Size 11
+      Style plain
+    }
+  }
+  Database {
+    BorderColor #A80036
+  }
+}
+
+' === Actors / Participants ===
+
+actor "User" as user
+participant "/CreateAccountView" as CreateAccountView << Web Page >>
+participant "/Template" as template
+participant "/Model" as model 
+database "Database" as db
+
+' === Interactions ===
+
+user -> CreateAccountView++ : User opens sign-up page
+
+user -> CreateAccountView : User enters sign-up details\n (username, password, etc.)
+user -> CreateAccountView : User clicked "Create Account" button
+CreateAccountView -> model++ : createUser(CreateAccountDetails)
+model -> db++ : INSERT INTO Users
+
+db -> model : return success/failure
+model -> CreateAccountView : return success/failure
+
+CreateAccountView -> user : Display account creation success/failure message
+
+@enduml
