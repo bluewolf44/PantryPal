@@ -1,0 +1,40 @@
+@startuml
+
+skinparam {
+  Style StrictUML
+  RoundCorner 5
+  ParticipantPadding 10
+  Padding 2
+  SequenceStereotype {
+    Font {
+      Size 11
+      Style plain
+    }
+  }
+  Database {
+    BorderColor #A80036
+  }
+}
+
+actor "User" as user
+participant "view-recipe" as viewRecipe << HTML Page >>
+participant "Session" as session
+participant "userDAO" as userDao << DAO >>
+participant "recipeDao" as recipeDao << DAO >>
+database "Database" as db
+
+user -> viewRecipe++ : User has signed in\nand now views the page
+
+viewRecipe -> session++ : getAttribute("user")
+session -> userDao : getUserById()
+userDao -> session : return user
+session -> viewRecipe : update recipe list
+viewRecipe -> user : Display user recipes
+
+viewRecipe -> recipeDao++ : getRecipeById()
+recipeDao -> db++ : DELETE FROM Recipe WHERE recipeId = ? AND userId = ?
+db -> recipeDao : Recipe deleted
+recipeDao -> viewRecipe : Recipe deleted notification
+
+viewRecipe -> user : Display updated recipe list
+@enduml
