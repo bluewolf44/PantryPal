@@ -22,9 +22,7 @@ skinparam {
 ' === Actors / Participants
 
 actor "User" as user
-'=== Django.view
 participant "Django.view" as view <</view>>
-'=== Django.models
 participant "Django.models" as model <</model>>
 participant "React" as template <</Template>>
 database "Postgres" as db <<Database>>
