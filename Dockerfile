@@ -26,5 +26,5 @@ COPY . .
 RUN chmod +x /app/setup.sh
 
 # Specify the command to run on container start --noinput --username $USERNAME --email $EMAIL
-CMD ["sh","/app/setup.sh"]
-# CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["/app/setup.sh"]
+# ["python", "manage.py", "runserver", "0.0.0.0:8000"]
