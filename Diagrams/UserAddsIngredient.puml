@@ -41,6 +41,9 @@ template -> view : user
 user -> view : User enters an ingredient
 view -> model++ : addIngredient()
 model -> db++ : INSERT INTO Ingredient
+db -> model : return List <Ingredient>
+model -> template : return List <Ingredient>
+template -> view : update ingredient list
 
 view -> user : Display notification ingredient added
 
