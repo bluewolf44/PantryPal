@@ -1,0 +1,55 @@
+@startuml shareRecipe
+
+' === Style Tweaks ===
+
+skinparam {
+  Style StrictUML
+  RoundCorner 5
+  ParticipantPadding 10
+  Padding 2
+  SequenceStereotype {
+    Font {
+      Size 11
+      Style plain
+    }
+  }
+  Database {
+	BorderColor #A80036
+  }
+}
+
+
+' === Actors / Participants
+
+actor "User" as user
+participant "Django.view" as view <</view>>
+participant "Django.models" as model <</model>>
+participant "Template" as template <</template>>
+database "Postgres" as db <<database>>
+
+
+' === Interactions ===
+
+user -> view++ : User clicks on one of their saved generated recipe
+
+view -> model++ : getRecipe()
+
+model -> db++: Obtain recipe
+
+return recipe
+return recipe
+
+view -> model++ : saveSharedRecipe(user1, user2, recipe)
+
+model -> db++ : save shared recipe
+
+return sharedRecipe
+return sharedRecipe
+
+view -> template++ :displayShareSuccess()
+return html+js+css
+return html+js+css
+
+
+
+@enduml
