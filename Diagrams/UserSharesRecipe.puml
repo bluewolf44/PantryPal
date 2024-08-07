@@ -30,7 +30,7 @@ database "Postgres" as db <<database>>
 
 ' === Interactions ===
 
-user -> view++ : User clicks on one of their saved generated recipe
+user -> view++ : User clicks on one of their saved generated recipe to share
 
 view -> model++ : getRecipe()
 
