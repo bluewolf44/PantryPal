@@ -26,15 +26,15 @@ database "Database" as db
 user -> viewRecipe++ : User has signed in\nand now views the page
 
 viewRecipe -> session++ : getAttribute("user")
-session -> userDao : getUserById()
-userDao -> session : return user
-session -> viewRecipe : update recipe list
+session -> userDao++ : getUserById()
+return  user
+return update recipe list
 viewRecipe -> user : Display user recipes
 
 viewRecipe -> recipeDao++ : getRecipeById()
 recipeDao -> db++ : DELETE FROM Recipe WHERE recipeId = ? AND userId = ?
-db -> recipeDao : Recipe deleted
-recipeDao -> viewRecipe : Recipe deleted notification
+return Recipe deleted
+return Recipe deleted notification
 
-viewRecipe -> user : Display updated recipe list
+return Display updated recipe list
 @enduml
