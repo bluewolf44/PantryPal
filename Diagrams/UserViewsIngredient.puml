@@ -22,9 +22,9 @@ skinparam {
 ' === Actors / Participants
 
 actor "User" as user
-participant "view-ingredients" as viewIngredients << HTML Page >>
-participant "Session" as session
-participant "userDAO" as userDao << DAO >>
+participant "view/Ingredeints" as viewIngredients << HTML Page >>
+participant "/Template" as template
+participant "/Model" as model << DAO >>
 participant "ingredientDao" as ingredientDao << DAO >>
 database "Database" as db
 
@@ -33,18 +33,18 @@ database "Database" as db
 
 user -> viewIngredients++ : User has signed in\n and now views the page
 
-viewIngredients -> session++ : getAttribute("user")
-session -> userDao : getUserById()
-userDao -> session : return user
-session -> viewIngredients : user
+viewIngredients -> template++ : getAttribute("user")
+template -> model : getUserById()
+model -> template : return user
+template -> viewIngredients : user
 
 
-viewIngredients -> ingredientDao++ : getAllIngredients()
-ingredientDao -> db++ : SELECT * FROM Ingredient
-db -> ingredientDao : Ingredient <<List>>
-ingredientDao -> viewIngredients : Ingredient <<List>>
+viewIngredients -> model++ : getAllIngredients()
+model -> db++ : SELECT * FROM Ingredient
+db -> model : Ingredient <<List>>
+model -> template : Ingredient <<List>>
 
-viewIngredients -> viewIngredients : Display ingredients
+template -> viewIngredients : Display ingredients
 viewIngredients -> user : Ingredients displayed to user.
 
 
