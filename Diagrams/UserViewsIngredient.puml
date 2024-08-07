@@ -34,17 +34,17 @@ user -> viewIngredients++ : User has signed in\n and now views the page
 
 viewIngredients -> template++ : getAttribute("user")
 template -> model : getUserById()
-model -> template : return user
-template -> viewIngredients : user
+model --> template : return user
+template --> viewIngredients : html+css+js
 
 
 viewIngredients -> model++ : getAllIngredients()
 model -> db++ : SELECT * FROM Ingredient
-db -> model : Ingredient <<List>>
-model -> template : Ingredient <<List>>
+db --> model : Ingredient <<List>>
+model --> template : Ingredient <<List>>
 
-template -> viewIngredients : Display ingredients
-viewIngredients -> user : Ingredients displayed to user.
+template --> viewIngredients : html+css+js
+viewIngredients --> user : Ingredients displayed to user.
 
 
 @enduml

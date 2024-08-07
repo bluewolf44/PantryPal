@@ -35,15 +35,15 @@ user -> view++ : User has signed in\n and now views the page
 model -> template++ : getAttribute("user")
 template -> model : getUserById()
 model -> template : return user
-template -> view : user
+template --> view : html+css+js
 
 
 user -> view : User enters an ingredient
 view -> model++ : addIngredient()
 model -> db++ : INSERT INTO Ingredient
-db -> model : return List <Ingredient>
-model -> template : return List <Ingredient>
-template -> view : update ingredient list
+db --> model : return List <Ingredient>
+model --> template : return List <Ingredient>
+template --> view : html+css+js
 
 view -> user : Display notification ingredient added
 
