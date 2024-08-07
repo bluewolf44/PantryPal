@@ -24,9 +24,8 @@ skinparam {
 actor "User" as user
 participant "view/Ingredeints" as viewIngredients << HTML Page >>
 participant "/Template" as template
-participant "/Model" as model << DAO >>
-participant "ingredientDao" as ingredientDao << DAO >>
-database "Database" as db
+participant "/Model" as model << Python >>
+database "Database" as db <<Postgres>>
 
 
 ' === Interactions ===
