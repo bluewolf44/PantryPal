@@ -20,7 +20,7 @@ skinparam linetype ortho
         * amount:Int
         * describe:text
         picture:image
-        * liquid
+        * liquid:Boolean
     }
 
     entity Recipe {
@@ -41,7 +41,7 @@ skinparam linetype ortho
 
     User ||--o{ Ingredient
     User ||--o{ Recipe
-    Required ||---|| Recipe
-    Required ||---|| Ingredient
+    Required }o---|| Recipe
+    Required }o---|| Ingredient
 
 @enduml

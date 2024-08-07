@@ -1,0 +1,43 @@
+@startuml deleteIngredient
+
+' === Style Tweaks ===
+
+skinparam {
+  Style StrictUML
+  RoundCorner 5
+  ParticipantPadding 10
+  Padding 2
+  SequenceStereotype {
+    Font {
+      Size 11
+      Style plain
+    }
+  }
+  Database {
+    BorderColor #A80036
+  }
+}
+
+' === Actors / Participants ===
+
+actor "User" as user
+participant "/DeleteIngredientView" as deleteIngredientView << Web Page >>
+participant "/Template" as template
+participant "/Model" as model 
+database "Database" as db
+
+' === Interactions ===
+
+user -> deleteIngredientView++ : User opens ingredient list
+
+user -> deleteIngredientView : User selects an ingredient to delete
+user -> deleteIngredientView : User clicked "Delete Ingredient" button
+deleteIngredientView -> model++ : deleteIngredient(ingredientId)
+model -> db++ : DELETE FROM Ingredient WHERE id=ingredientId
+
+db -> model : return success/failure
+model -> deleteIngredientView : return success/failure
+
+deleteIngredientView -> user : Display ingredient deletion success/failure message
+
+@enduml

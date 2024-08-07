@@ -1,0 +1,43 @@
+@startuml loginToAccount
+
+' === Style Tweaks ===
+
+skinparam {
+  Style StrictUML
+  RoundCorner 5
+  ParticipantPadding 10
+  Padding 2
+  SequenceStereotype {
+    Font {
+      Size 11
+      Style plain
+    }
+  }
+  Database {
+    BorderColor #A80036
+  }
+}
+
+' === Actors / Participants ===
+
+actor "User" as user
+participant "/LoginView" as loginView << Web Page >>
+participant "/Template" as template
+participant "/Model" as model 
+database "Database" as db
+
+' === Interactions ===
+
+user -> loginView++ : User opens login page
+
+user -> loginView : User enters login credentials\n (username, password, etc.)
+user -> loginView : User clicked "Login" button
+loginView -> model++ : authenticateUser(loginDetails)
+model -> db++ : SELECT * FROM Users WHERE username=username AND password=password
+
+db -> model : return user record / null
+model -> loginView : return success/failure
+
+loginView -> user : Display login success/failure message
+
+@enduml

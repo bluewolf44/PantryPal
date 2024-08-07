@@ -6,6 +6,9 @@ build/
 !**/src/test/**/build/
 .DS_Store
 *.pyc
+/main/migrations
+/main/__pycache__
+/pantryPal/__pycache__
 
 ### STS ###
 .apt_generated
