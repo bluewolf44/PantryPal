@@ -24,8 +24,8 @@ skinparam {
 actor "User" as user
 participant "/View" as view << Web Page >>
 participant "/Template" as template
-participant "/Model" as model 
-database "Database" as db
+participant "/Model" as model << Python >>
+database "Database" as db <<Postgres>>
 
 
 ' === Interactions ===
@@ -35,12 +35,15 @@ user -> view++ : User has signed in\n and now views the page
 model -> template++ : getAttribute("user")
 template -> model : getUserById()
 model -> template : return user
-template -> view : user
+template --> view : html+css+js
 
 
 user -> view : User enters an ingredient
 view -> model++ : addIngredient()
 model -> db++ : INSERT INTO Ingredient
+db --> model : return List <Ingredient>
+model --> template : return List <Ingredient>
+template --> view : html+css+js
 
 view -> user : Display notification ingredient added
 
