@@ -39,9 +39,17 @@ skinparam linetype ortho
         * amount:Int
     }
 
+    entity Shared {
+        * userId <FK>
+        * recipeName <FK>
+        * userShared <FK>
+    }
+
     User ||--o{ Ingredient
     User ||--o{ Recipe
     Required }o---|| Recipe
     Required }o---|| Ingredient
+    Shared }o---||Recipe
+    User ||--o{Shared
 
 @enduml
