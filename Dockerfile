@@ -22,6 +22,12 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the content of the local src directory to the working directory
 COPY . .
 
+#adding nodejs
+RUN apt-get update
+RUN apt-get -y install curl gnupg
+RUN curl -sL https://deb.nodesource.com/setup_18.x  | bash -
+RUN apt-get -y install nodejs
+
 # Set the correct permissions
 RUN chmod +x /app/setup.sh
 

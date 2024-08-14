@@ -1,18 +1,9 @@
+from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import User
 from django.db import models
 
 
 #From BTeamERD.puml
-
-class User(models.Model):
-    userId = models.CharField(max_length=10)
-    username = models.CharField(max_length=30)
-    password = models.CharField(max_length=30)
-    firstname = models.CharField(max_length=50)
-    lastname = models.CharField(max_length=50)
-    email = models.CharField(max_length=100)
-
-    def __str__(self):
-        return self.username
 
 
 class Ingredient(models.Model):
