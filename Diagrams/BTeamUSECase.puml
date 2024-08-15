@@ -1,0 +1,34 @@
+@startuml
+'https://plantuml.com/use-case-diagram
+left to right direction
+
+rectangle "Pantry Pal"{
+
+    (View Ingredients) as ingredients
+    (Generate Recipes) as GRecipes
+    (View Saved Recipes) as SRecipes
+    (View Other\nUsers Recipes) as ORecipes
+    (Account Creation) .> (Login) : <include>
+
+   (User Logout)
+
+   ingredients ..> (Delete Ingredients) :<extend>
+   ingredients ..> (Edit Ingredients) :<extend>
+   ingredients ..> (Add Ingredients) :<extend>
+
+   GRecipes ..> (Save Recipes)  :<extend>
+   SRecipes ..> (Share saved recipes):<extend>
+   SRecipes ..> (Remove saved recipes):<extend>
+   ORecipes ..> (Give feedback):<extend>
+
+}
+
+User --> (Login)
+User --> (Account Creation)
+User --> (User Logout)
+User --> ingredients
+User --> GRecipes
+User --> SRecipes
+User --> ORecipes
+
+@enduml
