@@ -4,9 +4,8 @@ skinparam linetype polyline
 skinparam linetype ortho
 
     entity User {
-        * userId:VarChar(10)
-        --
         * username:VarChar(30)
+        --
         * password:VarChar(30)
         * firstName:VarChar(50)
         * lastName:VarChar(50)
@@ -43,7 +42,21 @@ skinparam linetype ortho
         * userId <FK>
         * recipeName <FK>
         * userShared <FK>
+        --
+        Feedback:VarChar(200)
     }
+
+'Break if more that one feedback perperson
+
+'    entity Feedback {
+'        * userId <FK>
+'        * recipeName <FK>
+'       * userShared <FK>
+'        * index:Int
+'        --
+'        * Feedback:VarChar(200)
+'    }
+
 
     User ||-o{ Ingredient
     User ||-o{ Recipe
