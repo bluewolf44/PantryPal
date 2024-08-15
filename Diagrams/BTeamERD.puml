@@ -45,11 +45,11 @@ skinparam linetype ortho
         * userShared <FK>
     }
 
-    User ||--o{ Ingredient
-    User ||--o{ Recipe
-    Required }o---|| Recipe
-    Required }o---|| Ingredient
-    Shared }o---||Recipe
+    User ||-o{ Ingredient
+    User ||-o{ Recipe
+    Required }o-|| Recipe
+    Required }o-|| Ingredient
+    Shared }o-||Recipe
     User ||--o{Shared
 
 @enduml
