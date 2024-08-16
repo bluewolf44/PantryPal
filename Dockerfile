@@ -31,6 +31,6 @@ RUN apt-get -y install nodejs
 # Set the correct permissions
 RUN chmod +x /app/setup.sh
 
-# Specify the command to run on container start --noinput --username $USERNAME --email $EMAIL
+#CMD ["sleep","1000000"]
 CMD ["sh","/app/setup.sh"]
-# ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+#CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
