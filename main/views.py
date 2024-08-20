@@ -6,12 +6,20 @@ from django.contrib.auth import authenticate, login
 from django.views.decorators.http import require_POST
 
 
-def index(request):
+def index_page(request):
     return render(request, "dist/index.html")
 
 
+def login_page(request):
+    return render(request, "dist/login.html")
+
+
+def create_account_page(request):
+    return render(request,"dist/createaccount.html")
+
+
 @require_POST
-def login(request):
+def api_login(request):
     body = json.loads(request.body)
     username = body.get("username")
     password = body.get("password")
