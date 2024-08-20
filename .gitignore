@@ -9,6 +9,7 @@ build/
 /main/migrations
 /main/__pycache__
 /pantryPal/__pycache__
+.coverage
 
 ### STS ###
 .apt_generated
