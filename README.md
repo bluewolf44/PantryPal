@@ -5,7 +5,7 @@ CANVA PRESENTATION: https://www.canva.com/design/DAGNIbQ1osg/jr4-NtIY27FauC_LPJN
 ### Docker
 To run use "docker-compose -p pantrypal up" with docker desktop running
 ### Not Docker
-#### Install:
+#### Install and add to path:
 - python
 - nodejs
 - postgresql
