@@ -75,12 +75,21 @@ WSGI_APPLICATION = 'pantryPal.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
+    'default': {},
+    'docker': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'pantryPal',
         'USER': 'postgres',
         'PASSWORD': 'postgres',
         'HOST': 'db',
+        'PORT': '5432'
+    },
+    'local_host': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'pantrypal',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': 'localhost',
         'PORT': '5432'
     }
 }
