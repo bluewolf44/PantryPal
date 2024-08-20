@@ -16,9 +16,9 @@ class UserFactory(factory.django.DjangoModelFactory):
 class IngredientFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Ingredient
-    ingredeintName = "Cheese"
+    ingredientName = "Cheese"
     user = factory.SubFactory(UserFactory)
     amount = 2
     describe = "I have two slices of cheese"
-    liquid = FALSE
+    liquid = False
 
