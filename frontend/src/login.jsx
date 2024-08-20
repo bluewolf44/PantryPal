@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
+import './loginUI.css'
 
 function Login() {
     const [username, setUsername] = useState('');
