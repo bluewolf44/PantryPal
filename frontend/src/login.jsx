@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import './loginUI.css'
 
-function Login() {
+function Login({}) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
@@ -41,4 +41,5 @@ function Login() {
     );
 }
 
-ReactDOM.render(<Login />, document.getElementById('login-root'));
+// ReactDOM.render(<Login />, document.getElementById('login-root'));
+export default Login;
