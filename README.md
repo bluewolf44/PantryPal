@@ -3,3 +3,5 @@ TEAM NOTES:  https://otagouni-my.sharepoint.com/:w:/r/personal/andol082_student_
 CANVA PRESENTATION: https://www.canva.com/design/DAGNIbQ1osg/jr4-NtIY27FauC_LPJNXUg/edit
 ## To start
 To run use "docker-compose -p pantrypal up" with docker desktop running
+
+cd TeamBINFO301
