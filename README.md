@@ -9,12 +9,14 @@ To run use "docker-compose -p pantrypal up" with docker desktop running
 - python
 - nodejs
 - postgresql
+
 ----
 #### Postgresql:
 - psql -U postgres 
 - passwords is "**postgres**"
 - CREATE DATABASE postgres
 - exit
+
 ----
 #### Django:
 - cd TeamBINFO301
@@ -22,12 +24,14 @@ To run use "docker-compose -p pantrypal up" with docker desktop running
 - python manage.py makemigrations main
 - python manage.py migrate --database=local_host
 - python manage.py runserver
+
 ----
 #### React:
 - cd TeamBINFO301/Frontend
 - npm install
 - npm run build
 - npm run dev
+
 ----
 Django will need **npm run build** to display stuff
 
