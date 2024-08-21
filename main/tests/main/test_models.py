@@ -4,7 +4,7 @@ import pytest
 
 pytestPantryPal = pytest.mark.django_db
 
-
+@pytestPantryPal
 class TestIngredientModel:
     def test_str_return(self, ingredient_factory):
         ingredient = ingredient_factory(ingredientName ="Cheese", username = "test")
