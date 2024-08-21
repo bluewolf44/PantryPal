@@ -2,7 +2,7 @@ from pickle import FALSE
 
 import factory
 from django.contrib.auth.models import User
-from ..models import Ingredient
+from main.models import Ingredient
 
 # Not sure if we have a User setup or whether this is done separately in django
 class UserFactory(factory.django.DjangoModelFactory):
