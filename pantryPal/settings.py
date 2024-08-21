@@ -11,10 +11,11 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+import os
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -26,7 +27,7 @@ SECRET_KEY = 'django-insecure-8&!!0_tr%#bo(hflc(72yk9$p7uluts%qdv0t*y_2+n^2a9fb6
 DEBUG = True
 
 #ALLOWED_HOSTS = []
-ALLOWED_HOSTS = ['*'] # For development purpose only
+ALLOWED_HOSTS = ['*']  # For development purpose only
 
 # Application definition
 
@@ -70,38 +71,39 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'pantryPal.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
-    # added test database here.
+
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'test_pantrypal',  # This will be the test database
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    },
-    'docker': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'pantryPal',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
-        'HOST': 'db',
-        'PORT': '5432'
-    },
-    'local_host': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'pantrypal',
         'USER': 'postgres',
         'PASSWORD': 'postgres',
         'HOST': 'localhost',
         'PORT': '5432'
+    },
+    # added test database here.
+    'test': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'test_pantrypal',  # This will be the test database
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
+if os.environ.get('AM_I_IN_A_DOCKER_CONTAINER', False):
+    DATABASES['default'] = {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'pantryPal',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': 'db',
+        'PORT': '5432'
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -121,7 +123,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
@@ -132,7 +133,6 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/

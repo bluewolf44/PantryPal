@@ -2,28 +2,58 @@ import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import './loginUI.css'
 
-function Login({}) {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
+function Login({app,cookies}) {
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        console.log('Logging in with:', username, password);
-        // Here you would typically handle the login via API call
-        // For now, we're just logging to the console
+    const isResponseOk = (response) => {
+        if (response.status >= 200 && response.status <= 299) {
+            return response.json();
+        } else {
+            throw Error(response.statusText);
+        }
+    };
+
+    const handlePasswordChange = (event) => {
+        app.setState({password: event.target.value})
+    }
+    const handleUserNameChange = (event) => {
+        app.setState({username: event.target.value})
+    }
+
+    //Login Method
+    const login = (event) => {
+        event.preventDefault(); // Prevent the default form submission behavior
+        // Make a POST request to the "/api/login/" URL with the form data
+        fetch("/api/login/", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRFToken": cookies.get("csrftoken"),
+            },
+            credentials: "same-origin",
+            body: JSON.stringify({username: app.state.username, password: app.state.password}),
+        })
+        .then(isResponseOk)
+        .then((data) => {
+            console.log(data);
+            app.setState({isAuthenticated: true, username: "", password: "", error: ""});
+        })
+        .catch((err) => {
+            console.log(err);
+            app.setState({error: "Wrong username or password."});
+        });
     };
 
     return (
         <div>
             <h1>Login</h1>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={login}>
                 <div>
                     <label htmlFor="username">Username:</label>
                     <input
                         type="text"
                         id="username"
-                        value={username}
-                        onChange={e => setUsername(e.target.value)}
+                        value={app.state.username}
+                        onChange = {handleUserNameChange}
                     />
                 </div>
                 <div>
@@ -31,8 +61,8 @@ function Login({}) {
                     <input
                         type="password"
                         id="password"
-                        value={password}
-                        onChange={e => setPassword(e.target.value)}
+                        value={app.state.password}
+                        onChange={handlePasswordChange}
                     />
                 </div>
                 <button type="submit">Log In</button>

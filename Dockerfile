@@ -1,10 +1,7 @@
 # Use the official Python image from the DockerHub
 FROM python:3.10-slim
 
-# Set the environment variables
-RUN touch /env.txt
-RUN printenv > /env.txt
-
+ENV AM_I_IN_A_DOCKER_CONTAINER Yes
 
 # Set the working directory in docker
 WORKDIR /app

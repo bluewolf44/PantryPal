@@ -26,25 +26,25 @@ def api_login(request):
     password = body.get("password")
 
     if username is None or password is None:
-        return HttpResponse("invalid request").status_code(400)
+        return HttpResponse("invalid request",status=400)
 
     user = authenticate(username=username, password=password)
 
     if user is None:
-        return HttpResponse("invalid login").status_code(401)
+        return HttpResponse("invalid login",status=409)
 
     login(request, user)
-    return HttpResponse("login worked")
+    return JsonResponse({"details": "Succesfully logged in!"})
 
 
 @ensure_csrf_cookie
 def session_view(request):
     if not request.user.is_authenticated:
-        return JsonResponse({"isauthenticated": False})
-    return JsonResponse({"isauthenticated": True})
+        return JsonResponse({"isAuthenticated": False})
+    return JsonResponse({"isAuthenticated": True})
 
 
 def whoami_view(request):
     if not request.user.is_authenticated:
-        return JsonResponse({"isauthenticated": False})
+        return JsonResponse({"isAuthenticated": False})
     return JsonResponse({"username": request.user.username})

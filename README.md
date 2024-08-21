@@ -22,7 +22,7 @@ To run use "docker-compose -p pantrypal up" with docker desktop running
 - cd TeamBINFO301
 - pip install -r requirements.txt
 - python manage.py makemigrations main
-- python manage.py migrate --database=local_host
+- python manage.py migrate
 - python manage.py runserver
 
 ----
