@@ -1,0 +1,59 @@
+/* Basic styles for the body and container */
+body {
+    font-family: 'Gotham', Arial, sans-serif; /* Replace 'Gotham' with a web-safe alternative if not available */
+    background-color: #ffffff; /* White background */
+    color: #0a02a1; /* Dark blue text color from the palette */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.account-form-container {
+    background: #ffffff; /* White background */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 340px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-bottom: 5px;
+    color: #0a02a1; /* Using dark blue for text */
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #0a02a1; /* Dark blue borders */
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+button {
+    background-color: #ff4b92; /* Bright pink for buttons */
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #fe7676; /* Coral red on hover */
+}
+
+p {
+    text-align: center;
+    color: #ffcb4c; /* Yellow for paragraph text */
+}

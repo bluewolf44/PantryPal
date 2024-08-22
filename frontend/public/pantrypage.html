@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/pantrypage.css">
+    <title>Pantry Page</title>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="menu-button" onclick="toggleMenu()">☰</div>
+            <a href="index.html"><img src="images/pantrypal-logo.png" alt="PantryPal Logo" class="logo"></a>
+            
+        </nav>
+    </header>
+    <main>
+        <h2>What's in your pantry?</h2>
+        <div class="search-container">
+            <input type="text" placeholder="Search your pantry..." id="pantry-search">
+        </div>
+        <div class="pantry-grid">
+            <!-- Pantry items here -->
+        </div>
+        <div class="button-container">
+            <button onclick="window.location.href='addIngredients.html';">Add Ingredients</button>
+            <button onclick="window.location.href='newRecipe.html';">Let's Get Baking!</button>
+        </div>
+    </main>
+    <div id="side-menu" class="side-nav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeMenu()">&times;</a>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+    </div>
+    <script>
+        function toggleMenu() {
+            document.getElementById("side-menu").style.width = "250px";
+        }
+        function closeMenu() {
+            document.getElementById("side-menu").style.width = "0";
+        }
+    </script>
+</body>
+</html>

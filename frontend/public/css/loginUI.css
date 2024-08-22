@@ -1,0 +1,60 @@
+/* Basic Reset */
+body {
+    font-family: 'Gotham', Arial, sans-serif; /* Use a similar font if Gotham is unavailable */
+    background-color: #ffffff; /* White background for consistency */
+    color: #0a02a1; /* Dark blue text for general text */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+.login-container {
+    background: #ffffff; /* White background */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 340px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-bottom: 5px;
+    color: #0a02a1; /* Dark blue for label text */
+}
+
+input[type="text"],
+input[type="password"] {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #0a02a1; /* Dark blue borders for input fields */
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+button {
+    background-color: #ff4b92; /* Bright pink from the prototype for button background */
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #fe7676; /* Coral red for button hover effect */
+}
+
+p {
+    text-align: center;
+    margin-top: 20px;
+    color: #ffcb4c; /* Yellow for additional text, such as prompts or links */
+}
