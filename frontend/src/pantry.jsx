@@ -28,7 +28,7 @@ function PantryGrid() {
                     {/* You can map through an array of items instead of hardcoding them */}
                     {/* Example of one item */}
                     <div className="item">
-                        <img src="images/milk.jpg" alt="Milk" />
+                        <img src="/images/milk.jpg" alt="Milk" />
                         <span>Milk</span>
                         <span>500ml</span>
                         <div className="item-buttons">

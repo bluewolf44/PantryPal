@@ -1,42 +1,46 @@
-/* pantryPageStyle.css */
+/* General Styles */
 body, html {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
+    color: #0a02a1; /* Primary text color */
 }
 
+/* Navigation Bar */
 .navbar {
     background-color: #ffffff;
     padding: 10px 20px;
     display: flex;
     align-items: center;
-    justify-content: space-between; /* Adjusted for alignment */
+    justify-content: space-between;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .menu-button {
-    font-size: 24px; /* Increased size */
+    font-size: 30px;
     cursor: pointer;
-    padding: 10px 0;
-    text-align: left; /* Align text to the left */
-    flex-grow: 0; /* Prevents it from taking too much horizontal space */
+    margin-right: 20px; /* Ensure space around menu button */
 }
 
 .logo-container {
     flex-grow: 1;
     display: flex;
-    justify-content: center;
-}
-.logo {
-    height: 50px; /* Reduces and controls the size of the logo */
-    width: auto; /* Maintains the aspect ratio of the logo */
+    justify-content: center; /* Center logo */
 }
 
+.logo {
+    height: 50px;
+    width: auto;
+}
+
+/* Pantry Grid Layout */
 .pantry-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* Adjust the number of columns as necessary */
-    gap: 10px;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+    padding: 20px;
+    margin-top: 20px;
 }
 
 .item {
@@ -46,120 +50,80 @@ body, html {
     border-radius: 4px;
     text-align: center;
     background-color: #f9f9f9;
-    overflow: hidden;
+    transition: background-color 0.2s;
 }
 
 .item img {
-    width: 100%;
+    max-width: 100%;
     height: auto;
+    margin-bottom: 5px;
     border-radius: 4px;
 }
 
 .item span {
     display: block;
-    margin-top: 5px;
 }
 
 .item-buttons {
+    display: flex;
+    flex-direction: column;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    display: none;
-    flex-direction: column;
+    opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
 .item:hover .item-buttons {
-    display: flex;
+    opacity: 1;
 }
 
-.item button {
-    margin-top: 5px;
-    padding: 5px 10px;
-    background-color: #007BFF;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 4px;
-}
-
-.item button:hover {
-    background-color: #0056b3;
-}
-
-
-h2 {
-    text-align: center;
-    margin: 20px 0;
-    color: #ff4b92;
-}
-
-.button-container {
-    display: flex;
-    justify-content: space-around;
-    margin: 20px 0;
-}
-
+/* Button Styling */
 button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
+    padding: 8px 16px;
     background-color: #007BFF;
     color: white;
+    border: none;
+    border-radius: 4px;
     cursor: pointer;
-    font-size: 16px;
+    transition: background-color 0.3s;
 }
 
 button:hover {
     background-color: #0056b3;
 }
 
+/* Fixed Button Container at the Bottom */
+.button-container {
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
+    z-index: 1000;
+}
+
+/* Sidebar Navigation */
 .side-nav {
     height: 100%;
-    width: 0;
+    width: 0; /* Initial state, hidden */
     position: fixed;
     z-index: 1;
     top: 0;
     left: 0;
     background-color: #ffffff;
     overflow-x: hidden;
-    transition: 0.5s;
+    transition: width 0.5s;
     padding-top: 60px;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
 }
 
-.side-nav a, .side-nav p {
+.side-nav a {
     padding: 10px;
     text-decoration: none;
-    color: #0a02a1;
     display: block;
 }
 
-h4 {
-    text-align: center;
-    margin: 20px 0;
-    color: #ff4b92;
+/* Apply a hover effect for links for better user feedback */
+.side-nav a:hover {
+    background-color: #e0e0e0;
 }
-
-.button-container {
-    position: fixed; /* Fix the position relative to the viewport */
-    right: 10px; /* Distance from the right of the viewport */
-    bottom: 10px; /* Distance from the bottom of the viewport */
-    z-index: 1000; /* Ensures it stays on top of other content */
-}
-
-.button-container button {
-    padding: 10px 20px;
-    background-color: #007BFF; /* Primary button color */
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s;
-}
-
-.button-container button:hover {
-    background-color: #0056b3; /* Darker shade on hover */
-}
-
