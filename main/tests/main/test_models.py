@@ -1,4 +1,10 @@
 # Creating tests for database models.
+# Author: Hamish Phillips
+# Date: 20/08/2024
+#''' Description: Test the models in the main application
+# If you want to create more tests, you can fine more strings to return
+# i.e test_str_return 1 and test_str_return 2
+# '''
 
 import pytest
 
@@ -10,5 +16,3 @@ class TestIngredientModel:
         ingredient = ingredient_factory(ingredientName ="Cheese")
         expected_string = "Cheese by postgres"
         assert ingredient.__str__() == expected_string
-
-# tests are for changes in our application i.e max length on strings.

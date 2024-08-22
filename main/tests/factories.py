@@ -1,4 +1,7 @@
 from pickle import FALSE
+# Author Hamish Phillips
+# Date: 20/08/2024
+# Description: This file is used to create factories for the tests to use
 
 import factory
 from django.contrib.auth.models import User
@@ -22,3 +25,10 @@ class IngredientFactory(factory.django.DjangoModelFactory):
     describe = "I have two slices of cheese"
     liquid = False
 
+class RecipeFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = Recipe
+    recipeName = 'Cheese Scones'
+    user = factory.SubFactory(UserFactory)
+    recipe = 'Two Cups of Flour, One Cup of Cheese, 3 x Eggs'
+    picture = False;
