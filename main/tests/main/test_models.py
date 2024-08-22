@@ -16,3 +16,11 @@ class TestIngredientModel:
         ingredient = ingredient_factory(ingredientName ="Cheese")
         expected_string = "Cheese by postgres"
         assert ingredient.__str__() == expected_string
+
+
+@pytestPantryPal
+class TestRecipeModel:
+    def test_str_return(self, recipe_factory):
+        recipe = recipe_factory(recipeName="Cheese Scones")
+        expected_string = "Cheese Scones by postgres"
+        assert recipe.__str__() == expected_string
