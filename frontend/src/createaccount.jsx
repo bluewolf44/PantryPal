@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import ReactDOM from 'react-dom';
+import 'css/createaccount.css'; 
 
 function CreateAccount() {
     const [username, setUsername] = useState('');
@@ -8,46 +8,46 @@ function CreateAccount() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        console.log('Creating account with:', username, email, password);
-        // Here you would typically handle the account creation via API call
-        // For now, we're just logging to the console
+        // Implement your account creation logic here
+        console.log("Creating account for:", username, email, password);
+        // Redirect or handle account creation response
     };
 
     return (
-        <div>
+        <div className="account-form-container">
             <h1>Create Account</h1>
             <form onSubmit={handleSubmit}>
-                <div>
-                    <label htmlFor="username">Username:</label>
-                    <input
-                        type="text"
-                        id="username"
-                        value={username}
-                        onChange={e => setUsername(e.target.value)}
-                    />
-                </div>
-                <div>
-                    <label htmlFor="email">Email:</label>
-                    <input
-                        type="email"
-                        id="email"
-                        value={email}
-                        onChange={e => setEmail(e.target.value)}
-                    />
-                </div>
-                <div>
-                    <label htmlFor="password">Password:</label>
-                    <input
-                        type="password"
-                        id="password"
-                        value={password}
-                        onChange={e => setPassword(e.target.value)}
-                    />
-                </div>
+                <label htmlFor="username">Username:</label>
+                <input
+                    type="text"
+                    id="username"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    required
+                />
+
+                <label htmlFor="email">Email:</label>
+                <input
+                    type="email"
+                    id="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                />
+
+                <label htmlFor="password">Password:</label>
+                <input
+                    type="password"
+                    id="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                />
+
                 <button type="submit">Create Account</button>
             </form>
         </div>
     );
 }
 
-ReactDOM.render(<CreateAccount />, document.getElementById('create-account-root'));
+export default CreateAccount;
