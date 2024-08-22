@@ -6,17 +6,12 @@ from django.contrib.auth import authenticate, login, logout
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.decorators.http import require_POST
 
+from main.models import Ingredient
+
 
 def index_page(request):
     return render(request, "dist/index.html")
 
-
-def login_page(request):
-    return render(request, "dist/login.html")
-
-
-def create_account_page(request):
-    return render(request, "dist/createaccount.html")
 
 
 @require_POST
@@ -26,19 +21,21 @@ def api_login(request):
     password = body.get("password")
 
     if username is None or password is None:
-        return HttpResponse("invalid request",status=400)
+        return HttpResponse("invalid request", status=400)
 
     user = authenticate(username=username, password=password)
 
     if user is None:
-        return HttpResponse("invalid login",status=409)
+        return HttpResponse("invalid login", status=409)
 
     login(request, user)
     return JsonResponse({"details": "Succesfully logged in!"})
 
+
 def logout_user(request):
     logout(request)
     return redirect("index")
+
 
 @ensure_csrf_cookie
 def session_view(request):
@@ -51,3 +48,22 @@ def whoami_view(request):
     if not request.user.is_authenticated:
         return JsonResponse({"isAuthenticated": False})
     return JsonResponse({"username": request.user.username})
+
+
+@require_POST
+def create_ingredient(request):
+    if not request.user.is_authenticated:
+        return JsonResponse({"detail": "You aren't log in"}, status=401)
+    body = json.loads(request.body)
+
+    ingredinet = Ingredient.object.create(
+        ingredientName=body.get("ingredientName"),
+        user=request.user,
+        amount=body.get("amount"),
+        describe=body.get("describe"),
+        # picture=body.get("picture"), TODO
+        liquid=body.get("liquid")
+    )
+    ingredinet.save()
+
+    return  HttpResponse(status=201)
