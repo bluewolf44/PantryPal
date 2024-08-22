@@ -8,8 +8,8 @@ from main.models import Ingredient
 class UserFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = User
-    password = "test"
-    username = "test"
+    password = "postgres"
+    username = "postgres"
     is_superuser = True
     is_staff = True
 

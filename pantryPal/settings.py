@@ -82,17 +82,12 @@ DATABASES = {
         'USER': 'postgres',
         'PASSWORD': 'postgres',
         'HOST': 'localhost',
-        'PORT': '5432'
-    },
-    # added test database here.
-    'test': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'test_pantrypal',  # This will be the test database
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
-        'HOST': 'localhost',
         'PORT': '5432',
-    }
+        'TEST': {
+            'NAME': 'test_pantrypal',  # Name of the test database to use
+        },
+
+    },
 }
 
 if os.environ.get('AM_I_IN_A_DOCKER_CONTAINER', False):
