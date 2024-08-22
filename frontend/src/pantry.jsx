@@ -36,6 +36,15 @@ function PantryGrid() {
                             <button onClick={() => window.location.href = 'deleteIngredient.html'}>Delete</button>
                         </div>
                     </div>
+                    <div className="item">
+                        <img src="/images/flour.jpg" alt="Flour" />
+                        <span>Flour</span>
+                        <span>1kg</span>
+                        <div className="item-buttons">
+                            <button onClick={() => window.location.href = 'editIngredient.html'}>Edit</button>
+                            <button onClick={() => window.location.href = 'deleteIngredient.html'}>Delete</button>
+                        </div>
+                    </div>
                     {/* Repeat for other items */}
                     <div className="item" onClick={() => window.location.href = 'addingredients.html'} style={{ cursor: 'pointer' }}>
                         <h4>Add Ingredient</h4>
