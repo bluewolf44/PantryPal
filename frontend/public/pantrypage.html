@@ -10,28 +10,81 @@
     <header>
         <nav class="navbar">
             <div class="menu-button" onclick="toggleMenu()">☰</div>
-            <a href="index.html"><img src="images/pantrypal-logo.png" alt="PantryPal Logo" class="logo"></a>
-            
+            <div class="logo-container">
+                <a href="index.html"><img src="images/pantrypal-logo.png" alt="PantryPal Logo" class="logo"></a>
+            </div>
         </nav>
     </header>
     <main>
         <h2>What's in your pantry?</h2>
-        <div class="search-container">
-            <input type="text" placeholder="Search your pantry..." id="pantry-search">
-        </div>
         <div class="pantry-grid">
-            <!-- Pantry items here -->
+            <div class="item">
+                <img src="images/milk.jpg" alt="Milk">
+                <span>Milk</span>
+                <span>500ml</span>
+                <div class="item-buttons">
+                    <button onclick="window.location.href='editIngredient.html';">Edit</button>
+                    <button onclick="window.location.href='deleteIngredient.html';">Delete</button>
+                </div>
+            </div>
+            
+            <div class="item">
+                <img src="images/flour.jpg" alt="Flour">
+                <span>Flour</span>
+                <span>2kg</span>
+                <div class="item-buttons">
+                    <button onclick="window.location.href='editIngredient.html';">Edit</button>
+                    <button onclick="window.location.href='deleteIngredient.html';">Delete</button>
+                </div>
+            </div>
+
+            <div class="item">
+                <img src="images/flour.jpg" alt="Flour">
+                <span>Flour</span>
+                <span>2kg</span>
+                <div class="item-buttons">
+                    <button onclick="window.location.href='editIngredient.html';">Edit</button>
+                    <button onclick="window.location.href='deleteIngredient.html';">Delete</button>
+                </div>
+            </div>
+
+            <div class="item">
+                <img src="images/flour.jpg" alt="Flour">
+                <span>Flour</span>
+                <span>2kg</span>
+                <div class="item-buttons">
+                    <button onclick="window.location.href='editIngredient.html';">Edit</button>
+                    <button onclick="window.location.href='deleteIngredient.html';">Delete</button>
+                </div>
+            </div>
+            <div class="item">
+                <img src="images/flour.jpg" alt="Flour">
+                <span>Flour</span>
+                <span>2kg</span>
+                <div class="item-buttons">
+                    <button onclick="window.location.href='editIngredient.html';">Edit</button>
+                    <button onclick="window.location.href='deleteIngredient.html';">Delete</button>
+                </div>
+            </div>
+
+            <div class="item" onclick="window.location.href='addingredient.html';" style="cursor: pointer;">
+                <h4>Add Ingredient</h4>
+            </div>
+            
         </div>
         <div class="button-container">
-            <button onclick="window.location.href='addIngredients.html';">Add Ingredients</button>
-            <button onclick="window.location.href='newRecipe.html';">Let's Get Baking!</button>
+            <button onclick="window.location.href='newrecipe.html';">Let's Get Baking!</button>
         </div>
     </main>
     <div id="side-menu" class="side-nav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeMenu()">&times;</a>
-        <a href="index.html">Home</a>
-        <a href="about.html">About</a>
-        <a href="contact.html">Contact</a>
+        <a href="pantrypage.html" class="active">Pantry</a>
+        <a href="newrecipe.html">New Recipes</a>
+        <a href="myrecipes.html">My Recipes</a>
+        <div class="nav-bottom">
+            <a href="login.html">Log Out</a>
+            <a href="login.html">Delete Account</a>
+        </div>
     </div>
     <script>
         function toggleMenu() {

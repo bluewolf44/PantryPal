@@ -8,9 +8,9 @@
     <title>Login Page</title>
 </head>
 <body>
-   
-     <!-- Login Form -->
-     <div class="login-container">
+    <div class="login-container">
+        <img src="images/pantrypal-logo.png" alt="PantryPal Logo" style="width: 300px; margin-bottom: 20px;"> <!-- Logo above the form -->
+       <!--  <h1>Login to PantryPal</h1> Title above the form -->
         <form action="/submit-login" method="POST">
             <label for="username">Username:</label>
             <input type="text" id="username" name="username" required>
@@ -20,16 +20,8 @@
 
             <button type="submit">Log In</button>
         </form>
-        <p> Dont have an account?</p>
-
-        <button onclick="window.location.href='createaccount.html';">Create Account Here</button>
+        <p>Don't have an account? <a href="createaccount.html" style="color: #ff4b92; text-decoration: none;">Create Account Here</a></p>
     </div>
-
-
-   <!--  <div id="login-root"></div>  --> <!-- React will attach the login form here -->
-
-
-
     <script type="module" src="/src/login.jsx"></script>
 </body>
 </html>

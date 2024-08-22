@@ -1,0 +1,69 @@
+/* Basic Reset */
+body {
+    font-family: 'Gotham', Arial, sans-serif;
+    background-color: #ffffff;
+    color: #0a02a1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+.add-ingredients-container {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 340px;
+    text-align: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-bottom: 5px;
+    color: #0a02a1;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="file"] {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #0a02a1;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+input[type="file"] {
+    padding: 5px; /* Reduced padding for file input for aesthetic reasons */
+}
+
+button {
+    background-color: #ff4b92;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+    margin-top: 10px; /* Adds space between the buttons and form fields */
+}
+
+button:hover {
+    background-color: #fe7676;
+}
+
+button[type='button'] {
+    background-color: #0a02a1; /* Differentiates the 'Back' button */
+}
+
+button[type='button']:hover {
+    background-color: #ffcb4c;;
+}

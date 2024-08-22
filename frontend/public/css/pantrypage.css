@@ -4,7 +4,6 @@ body, html {
     padding: 0;
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
-    position: relative;
 }
 
 .navbar {
@@ -12,20 +11,107 @@ body, html {
     padding: 10px 20px;
     display: flex;
     align-items: center;
+    justify-content: space-between; /* Adjusted for alignment */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    justify-content: space-between;
 }
 
 .menu-button {
-    font-size: 30px;
+    font-size: 24px; /* Increased size */
     cursor: pointer;
+    padding: 10px 0;
+    text-align: left; /* Align text to the left */
+    flex-grow: 0; /* Prevents it from taking too much horizontal space */
 }
 
-.nav-links a, .side-nav a {
-    text-decoration: none;
-    color: #0a02a1;
-    display: block;
+.logo-container {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+}
+.logo {
+    height: 50px; /* Reduces and controls the size of the logo */
+    width: auto; /* Maintains the aspect ratio of the logo */
+}
+
+.pantry-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Adjust the number of columns as necessary */
+    gap: 10px;
+}
+
+.item {
+    position: relative;
     padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    text-align: center;
+    background-color: #f9f9f9;
+    overflow: hidden;
+}
+
+.item img {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+}
+
+.item span {
+    display: block;
+    margin-top: 5px;
+}
+
+.item-buttons {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+    flex-direction: column;
+}
+
+.item:hover .item-buttons {
+    display: flex;
+}
+
+.item button {
+    margin-top: 5px;
+    padding: 5px 10px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.item button:hover {
+    background-color: #0056b3;
+}
+
+
+h2 {
+    text-align: center;
+    margin: 20px 0;
+    color: #ff4b92;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px 0;
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007BFF;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #0056b3;
 }
 
 .side-nav {
@@ -42,33 +128,38 @@ body, html {
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
 }
 
-.side-nav a.closebtn {
-    position: absolute;
-    top: 0;
-    right: 25px;
-    font-size: 36px;
-    margin-left: 50px;
-    cursor: pointer;
+.side-nav a, .side-nav p {
+    padding: 10px;
+    text-decoration: none;
+    color: #0a02a1;
+    display: block;
 }
 
-h2 {
+h4 {
     text-align: center;
     margin: 20px 0;
-    color: #ff4b92; /* Theme color */
+    color: #ff4b92;
 }
 
-.search-container {
-    display: flex;
-    justify-content: center;
-    padding: 20px;
+.button-container {
+    position: fixed; /* Fix the position relative to the viewport */
+    right: 10px; /* Distance from the right of the viewport */
+    bottom: 10px; /* Distance from the bottom of the viewport */
+    z-index: 1000; /* Ensures it stays on top of other content */
 }
 
-.search-container input {
-    width: 50%;
-    padding: 10px;
+.button-container button {
+    padding: 10px 20px;
+    background-color: #007BFF; /* Primary button color */
+    color: white;
+    border: none;
     border-radius: 5px;
-    border: 1px solid #ccc;
+    cursor: pointer;
     font-size: 16px;
+    transition: background-color 0.3s;
 }
 
+.button-container button:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+}
 

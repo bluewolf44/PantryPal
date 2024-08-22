@@ -17,6 +17,16 @@ body {
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     width: 340px;
+    text-align: center; /* Center the content */
+}
+
+.login-container p a {
+    color: #ff4b92; /* Adjust color to fit your site's theme */
+    text-decoration: none; /* Removes underline from links */
+}
+
+.login-container p a:hover {
+    text-decoration: underline; /* Adds underline on hover for better user interaction feedback */
 }
 
 form {

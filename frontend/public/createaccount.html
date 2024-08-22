@@ -1,17 +1,15 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <link rel="stylesheet" href="css/createaccount.css" /> 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="/vite.svg">
+    <link rel="stylesheet" href="css/createaccount.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Account Page</title>
 </head>
 <body>
-    
-
-    <!-- Create Account Form -->
     <div class="account-form-container">
+        <img src="images/pantrypal-logo.png" alt="PantryPal Logo" style="width: 300px; margin-bottom: 20px;"> <!-- Logo above the form -->
         <form action="/submit-create-account" method="POST">
             <label for="username">Username:</label>
             <input type="text" id="username" name="username" required>
@@ -30,13 +28,8 @@
 
             <button type="submit">Create Account</button>
         </form>
-        <p> Already have an account? </p>
-        <button onclick="window.location.href='login.html';">Login Here</button>
+        <p>Already have an account? <a href="login.html" style="color: #ff4b92; text-decoration: none;">Login Here</a></p>
     </div>
-
-
-   <!-- <div id="create-account-root"></div>   React will render the form here -->
-    
     <script type="module" src="/src/createaccount.jsx"></script>
 </body>
 </html>
