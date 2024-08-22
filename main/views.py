@@ -1,8 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 
 import json
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.decorators.http import require_POST
 
@@ -36,6 +36,9 @@ def api_login(request):
     login(request, user)
     return JsonResponse({"details": "Succesfully logged in!"})
 
+def logout_user(request):
+    logout(request)
+    return redirect("index")
 
 @ensure_csrf_cookie
 def session_view(request):
