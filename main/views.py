@@ -3,8 +3,10 @@ from django.http import HttpResponse, JsonResponse
 
 import json
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.decorators.http import require_POST
+from django.db import IntegrityError
 
 from main.models import Ingredient
 
@@ -12,6 +14,31 @@ from main.models import Ingredient
 def index_page(request):
     return render(request, "dist/index.html")
 
+@require_POST
+def create_account(request):
+    try:
+        body = json.loads(request.body)
+        username = body.get("username")
+        password = body.get("password")
+        email = body.get("email")
+
+        if not username or not password or not email:
+            return JsonResponse({"detail": "Missing required fields"}, status=400)
+
+        if User.objects.filter(username=username).exists():
+            return JsonResponse({"detail": "Username already taken"}, status=409)
+
+        user = User.objects.create_user(username=username, password=password, email=email)
+        user.save()
+
+        login(request, user)
+        return JsonResponse({"detail": "Account created and logged in successfully!"}, status=201)
+
+    except IntegrityError:
+        return JsonResponse({"detail": "Failed to create account. Please try again later."}, status=500)
+
+    except json.JSONDecodeError:
+        return JsonResponse({"detail": "Invalid JSON format"}, status=400)    
 
 
 @require_POST
