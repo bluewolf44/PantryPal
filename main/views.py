@@ -59,10 +59,12 @@ def api_login(request):
     return JsonResponse({"details": "Succesfully logged in!"})
 
 
-def logout_user(request):
+def api_logout(request):
+    if not request.user.is_authenticated:
+        return JsonResponse({"detail": "You aren't logged in"}, status=400)
+    
     logout(request)
-    return redirect("index")
-
+    return JsonResponse({"detail: Successfully logged out"})
 
 @ensure_csrf_cookie
 def session_view(request):
