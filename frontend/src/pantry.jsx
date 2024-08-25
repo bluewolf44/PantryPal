@@ -1,12 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect  } from 'react';
 import './css/pantrypage.css';  // Assuming your CSS is adapted for React
 import milk from "./images/milk.jpg";
-import flour from "./images/flour.jpg"
-import logo from "./images/pantrypal-logo.png"
+import flour from "./images/flour.jpg";
+import logo from "./images/pantrypal-logo.png";
 
 
 function PantryGrid({ logoutProp, deleteAccountProp }) {
     const [menuVisible, setMenuVisible] = useState(false);
+
+    useEffect(() => {
+        get_ingredients()
+    },[]);
+
+    const get_ingredients = () => {
+        fetch("/api/getIngredients/", {
+           headers: {
+             "Content-Type": "application/json",
+           },
+           credentials: "same-origin",
+        })
+        .then((res) => res.json()) //// Parse the response as JSON
+        .then((data) => {
+            let objects = JSON.parse(data)
+            for (let i = 0; i < data.length; i++) {
+              console.log(objects[i].fields);
+            }
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+    };
 
     const toggleMenu = () => {
         setMenuVisible(!menuVisible);  // Toggle visibility state

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import './css/loginUI.css'
+import logo from "./images/pantrypal-logo.png";
 
 function Login({app,cookies}) {
 
@@ -45,7 +46,7 @@ function Login({app,cookies}) {
 
     return (
         <div>
-            <img src="/images/pantrypal-logo.png" alt="PantryPal Logo" style={{ width: '300px', marginBottom: '20px' }} />
+            <img src={logo} alt="PantryPal Logo" style={{ width: '300px', marginBottom: '20px' }} />
 
             <h1>Login</h1>
             <form onSubmit={login}>

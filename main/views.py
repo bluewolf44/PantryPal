@@ -1,3 +1,4 @@
+from django.core.serializers import serialize
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 
@@ -13,6 +14,7 @@ from main.models import Ingredient
 
 def index_page(request):
     return render(request, "dist/index.html")
+
 
 @require_POST
 def create_account(request):
@@ -38,7 +40,7 @@ def create_account(request):
         return JsonResponse({"detail": "Failed to create account. Please try again later."}, status=500)
 
     except json.JSONDecodeError:
-        return JsonResponse({"detail": "Invalid JSON format"}, status=400)    
+        return JsonResponse({"detail": "Invalid JSON format"}, status=400)
 
 
 @require_POST
@@ -58,12 +60,14 @@ def api_login(request):
     login(request, user)
     return JsonResponse({"details": "Succesfully logged in!"})
 
+
 def logout_view(request):
     if not request.user.is_authenticated:
         return JsonResponse({"detail": "You aren't logged in"}, status=400)
-    
+
     logout(request)
     return JsonResponse({"details": "Successfully logged out"})
+
 
 def delete_account_view(request):
     if not request.user.is_authenticated:
@@ -72,7 +76,7 @@ def delete_account_view(request):
     logout(request)
     user.delete()
     return JsonResponse({"detail": "User deleted successfully"})
-    
+
 
 @ensure_csrf_cookie
 def session_view(request):
@@ -93,7 +97,7 @@ def create_ingredient(request):
         return JsonResponse({"detail": "You aren't log in"}, status=401)
     body = json.loads(request.body)
 
-    ingredinet = Ingredient.object.create(
+    ingredient = Ingredient.objects.create(
         ingredientName=body.get("ingredientName"),
         user=request.user,
         amount=body.get("amount"),
@@ -101,6 +105,15 @@ def create_ingredient(request):
         # picture=body.get("picture"), TODO
         liquid=body.get("liquid")
     )
-    ingredinet.save()
+    ingredient.save()
 
-    return  HttpResponse(status=201)
+    return HttpResponse(status=201)
+
+
+def get_user_ingredients(request):
+    if not request.user.is_authenticated:
+        return JsonResponse({"detail": "You aren't log in"}, status=401)
+    user = request.user
+
+    return JsonResponse(serialize("json", Ingredient.objects.filter(user=user)), safe=False)
+
