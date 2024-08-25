@@ -11,6 +11,7 @@ build/
 /pantryPal/__pycache__
 .coverage
 !/Storage/*
+/Storage/**/*
 
 ### STS ###
 .apt_generated
