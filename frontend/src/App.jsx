@@ -88,9 +88,11 @@ class App extends React.Component {
 
   //Delete Account Method
   deleteAccount = () => {
-    fetch("/api/deleteAccount", {
-      credentials: "same-origin",
-    })
+    if(window.confirm("Are you sure you want to delete your account?")) {
+      fetch("/api/deleteAccount", {
+        credentials: "same-origin",
+      })
+    
     .then(this.isResponseOk)
     .then((data) => {
       console.log(data);
@@ -99,6 +101,7 @@ class App extends React.Component {
     .catch((err) => {
       console.log(err);
     });
+    }
   };
 
 
