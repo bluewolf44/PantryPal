@@ -10,6 +10,8 @@ build/
 /main/__pycache__
 /pantryPal/__pycache__
 .coverage
+/Storage/**/*
+!/Storage/*
 
 ### STS ###
 .apt_generated
@@ -41,4 +43,3 @@ out/
 
 ### VS Code ###
 .vscode/
-/Storage
