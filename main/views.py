@@ -58,8 +58,7 @@ def api_login(request):
     login(request, user)
     return JsonResponse({"details": "Succesfully logged in!"})
 
-
-def api_logout(request):
+def logout_view(request):
     if not request.user.is_authenticated:
         return JsonResponse({"detail": "You aren't logged in"}, status=400)
     

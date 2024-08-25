@@ -71,20 +71,20 @@ class App extends React.Component {
 //     }
 //   }
 //
-//   //Logout Method
-//   logout = () => {
-//     fetch("/api/logout", {
-//       credentials: "same-origin",
-//     })
-//     .then(this.isResponseOk)
-//     .then((data) => {
-//       console.log(data);
-//       this.setState({isAuthenticated: false});
-//     })
-//     .catch((err) => {
-//       console.log(err);
-//     });
-//   };
+  //Logout Method
+  logout = () => {
+    fetch("/api/logout", {
+      credentials: "same-origin",
+    })
+    .then(this.isResponseOk)
+    .then((data) => {
+      console.log(data);
+      this.setState({isAuthenticated: false});
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  };
 
 
   // UI Rendering using bootstrap
@@ -95,7 +95,7 @@ class App extends React.Component {
             )
         }
         return(
-            <PantryGrid/>
+            <PantryGrid logoutProp = {this.logout}/>
         )
     }
 }

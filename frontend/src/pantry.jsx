@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './css/pantrypage.css';  // Assuming your CSS is adapted for React
 
-function PantryGrid() {
+function PantryGrid({ logoutProp }) {
     const [menuVisible, setMenuVisible] = useState(false);
 
     const toggleMenu = () => {
@@ -12,6 +12,10 @@ function PantryGrid() {
         setMenuVisible(false);  // Set menu to not visible
     };
 
+    const logout = (event) => {
+        event.preventDefault(); // Prevent the default form submission behavior
+        logoutProp();
+    };
     return (
         <>
             <header>
@@ -60,7 +64,7 @@ function PantryGrid() {
                 <a href="/newrecipe">New Recipes</a>
                 <a href="/myrecipes">My Recipes</a>
                 <div className="nav-bottom">
-                    <a href="/login">Log Out</a>
+                <a href="#" onClick={logout}>Log Out</a>
                     <a href="/login">Delete Account</a>
                 </div>
             </div>
