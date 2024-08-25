@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
 import './css/pantrypage.css';  // Assuming your CSS is adapted for React
+import milk from "./images/milk.jpg";
+import flour from "./images/flour.jpg"
+import logo from "./images/pantrypal-logo.png"
+
 
 function PantryGrid({ logoutProp, deleteAccountProp }) {
     const [menuVisible, setMenuVisible] = useState(false);
@@ -28,7 +32,7 @@ function PantryGrid({ logoutProp, deleteAccountProp }) {
                 <nav className="navbar">
                     <div className="menu-button" onClick={toggleMenu}>☰</div>
                     <div className="logo-container">
-                        <a href="/"><img src="/images/pantrypal-logo.png" alt="PantryPal Logo" className="logo" /></a>
+                        <a href="/"><img src={logo} alt="PantryPal Logo" className="logo" /></a>
                     </div>
                 </nav>
             </header>
@@ -38,7 +42,7 @@ function PantryGrid({ logoutProp, deleteAccountProp }) {
                     {/* You can map through an array of items instead of hardcoding them */}
                     {/* Example of one item */}
                     <div className="item">
-                        <img src="/images/milk.jpg" alt="Milk" />
+                        <img src={milk} alt="Milk" />
                         <span>Milk</span>
                         <span>500ml</span>
                         <div className="item-buttons">
@@ -47,7 +51,7 @@ function PantryGrid({ logoutProp, deleteAccountProp }) {
                         </div>
                     </div>
                     <div className="item">
-                        <img src="/images/flour.jpg" alt="Flour" />
+                        <img src={flour} alt="Flour" />
                         <span>Flour</span>
                         <span>1kg</span>
                         <div className="item-buttons">
