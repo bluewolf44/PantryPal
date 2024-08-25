@@ -10,8 +10,9 @@ build/
 /main/__pycache__
 /pantryPal/__pycache__
 .coverage
-!/Storage/*
 /Storage/**/*
+!/Storage/*
+!/Storage/**/.gitkeep
 
 ### STS ###
 .apt_generated
