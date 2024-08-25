@@ -65,6 +65,15 @@ def logout_view(request):
     logout(request)
     return JsonResponse({"detail: Successfully logged out"})
 
+def delete_account_view(request):
+    if not request.user.is_authenticated:
+        return JsonResponse({"detail": "You aren't logged in"}, status=400)
+    user = request.user
+    logout(request)
+    user.delete()
+    return JsonResponse({"detail": "User deleted successfully"})
+    
+
 @ensure_csrf_cookie
 def session_view(request):
     if not request.user.is_authenticated:

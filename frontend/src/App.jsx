@@ -86,6 +86,21 @@ class App extends React.Component {
     });
   };
 
+  //Delete Account Method
+  deleteAccount = () => {
+    fetch("/api/deleteAccount", {
+      credentials: "same-origin",
+    })
+    .then(this.isResponseOk)
+    .then((data) => {
+      console.log(data);
+      this.setState({isAuthenticated: false});
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  };
+
 
   // UI Rendering using bootstrap
     render() {
@@ -95,7 +110,10 @@ class App extends React.Component {
             )
         }
         return(
-            <PantryGrid logoutProp = {this.logout}/>
+            <PantryGrid 
+              logoutProp = {this.logout}
+              deleteAccountProp = {this.deleteAccount}
+            />
         )
     }
 }
