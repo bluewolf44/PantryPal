@@ -53,7 +53,7 @@ def api_login(request):
     user = authenticate(username=username, password=password)
 
     if user is None:
-        return HttpResponse("invalid login", status=409)
+        return HttpResponse("invalid login", status=401)
 
     login(request, user)
     return JsonResponse({"details": "Succesfully logged in!"})
@@ -63,7 +63,7 @@ def logout_view(request):
         return JsonResponse({"detail": "You aren't logged in"}, status=400)
     
     logout(request)
-    return JsonResponse({"detail: Successfully logged out"})
+    return JsonResponse({"details": "Successfully logged out"})
 
 def delete_account_view(request):
     if not request.user.is_authenticated:
