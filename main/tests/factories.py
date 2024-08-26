@@ -7,6 +7,7 @@ import factory
 from django.contrib.auth.models import User
 from main.models import Ingredient
 from main.models import Recipe
+from main.models import Required
 
 # Not sure if we have a User setup or whether this is done separately in django
 class UserFactory(factory.django.DjangoModelFactory):
@@ -33,4 +34,11 @@ class RecipeFactory(factory.django.DjangoModelFactory):
     user = factory.SubFactory(UserFactory)
     recipe = 'Two Cups of Flour, One Cup of Cheese, 3 x Eggs'
     picture = False
+
+class RequiredFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = Required
+    recipe = factory.SubFactory(RecipeFactory)
+    ingredient = factory.SubFactory(IngredientFactory)
+    amount = 2
 

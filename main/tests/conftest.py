@@ -6,7 +6,9 @@ from pytest_factoryboy import register
 
 from .factories import IngredientFactory
 from .factories import RecipeFactory
+from .factories import RequiredFactory
 
 register(IngredientFactory)
 register(RecipeFactory)
+register(RequiredFactory)
 

@@ -24,3 +24,10 @@ class TestRecipeModel:
         recipe = recipe_factory(recipeName="Cheese Scones")
         expected_string = "Cheese Scones by postgres"
         assert recipe.__str__() == expected_string
+
+@pytestPantryPal
+class TestRequiredModel:
+    def test_str_return(self, required_factory):
+        required = required_factory()
+        expected_string = "Cheese in Cheese Scones by postgres"
+        assert required.__str__() == expected_string

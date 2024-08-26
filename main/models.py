@@ -5,7 +5,6 @@ from django.db import models
 
 #From BTeamERD.puml
 
-
 class Ingredient(models.Model):
     ingredientName = models.CharField(max_length=50)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
