@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-route
 import Cookies from "universal-cookie";
 import PantryGrid from './pantry';
 import CreateAccount from './createaccount';
+import AddIngredients from './addIngredients';
 
 
 const cookies = new Cookies();
@@ -113,10 +114,12 @@ class App extends React.Component {
             )
         }
         return(
-            <PantryGrid 
-              logoutProp = {this.logout}
-              deleteAccountProp = {this.deleteAccount}
-            />
+            <Router>
+                <Routes>
+                      <Route path="/" element={ <PantryGrid logoutProp = {this.logout} deleteAccountProp = {this.deleteAccount} />} />
+                      <Route path="/addIngredient" element={ <AddIngredients cookies = {cookies}/> } />
+                </Routes>
+            </Router>
         )
     }
 }

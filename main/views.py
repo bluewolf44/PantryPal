@@ -97,10 +97,12 @@ def create_ingredient(request):
         return JsonResponse({"detail": "You aren't log in"}, status=401)
     body = json.loads(request.body)
 
+    print(body)
+
     ingredient = Ingredient.objects.create(
         ingredientName=body.get("ingredientName"),
         user=request.user,
-        amount=body.get("amount"),
+        amount=int(body.get("amount")),
         describe=body.get("describe"),
         # picture=body.get("picture"), TODO
         liquid=body.get("liquid")
@@ -116,4 +118,3 @@ def get_user_ingredients(request):
     user = request.user
 
     return JsonResponse(serialize("json", Ingredient.objects.filter(user=user)), safe=False)
-
