@@ -2,10 +2,11 @@
 body, html {
     margin: 0;
     padding: 0;
-    font-family: 'Gotham', Arial, sans-serif;
+    font-family: Arial, sans-serif;
     background-color: #f4f4f4;
     color: #0a02a1; /* Primary text color */
     overflow-x: hidden; /* Prevents horizontal scrolling */
+    overflow-y: auto; /* Ensures vertical scrolling is enabled */
 }
 
 h2 {
@@ -47,7 +48,8 @@ h2 {
 
 /* Main Content Area */
 main {
-    padding-top: 60px; /* Adds space for the fixed navbar */
+    padding-top: 70px; /* Adds more space for the fixed navbar */
+    padding-bottom: 50px; /* Adds space at the bottom for better visibility */
 }
 
 /* Pantry Grid Layout */
@@ -57,6 +59,7 @@ main {
     gap: 15px;
     padding: 20px;
     margin-top: 20px;
+    margin-bottom: 20px; /* Adds bottom margin */
 }
 
 .item {
@@ -118,7 +121,7 @@ button:hover {
 /* Fixed Button Container at the Bottom */
 .button-container {
     position: fixed;
-    left: 10px; /* Fixed to the left bottom corner */
+    right: 10px; /* Fixed to the left bottom corner */
     bottom: 10px;
     z-index: 1000;
 }
