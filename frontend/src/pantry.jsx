@@ -117,7 +117,7 @@ function PantryGrid({ logoutProp, deleteAccountProp }) {
                         </div>
                     </div>
                     {/* Repeat for other items */}
-                    <div className="item" onClick={() => window.location.href = 'addIngredients'} style={{ cursor: 'pointer' }}>
+                    <div className="item" onClick={() => window.location.href = 'addIngredient'} style={{ cursor: 'pointer' }}>
                         <h4>Add Ingredient</h4>
                     </div>
                 </div>
