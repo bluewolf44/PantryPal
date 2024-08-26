@@ -1,29 +1,35 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
-import './css/loginUI.css'
+import './css/loginUI.css';
 import logo from "./images/pantrypal-logo.png";
 
-function Login({app,cookies}) {
+function Login({ app, cookies }) {
 
     const isResponseOk = (response) => {
         if (response.status >= 200 && response.status <= 299) {
             return response.json();
+        } else if (response.status === 400) {
+            throw new Error("Invalid credentials. Please try again.");
+        } else if (response.status === 500) {
+            throw new Error("Server error. Please try again later.");
         } else {
-            throw Error(response.statusText);
+            throw new Error("Unexpected error. Please try again.");
         }
     };
 
     const handlePasswordChange = (event) => {
-        app.setState({password: event.target.value})
-    }
+        app.setState({ password: event.target.value });
+    };
+
     const handleUserNameChange = (event) => {
-        app.setState({username: event.target.value})
-    }
+        app.setState({ username: event.target.value });
+    };
 
     //Login Method
     const login = (event) => {
         event.preventDefault(); // Prevent the default form submission behavior
-        // Make a POST request to the "/api/login/" URL with the form data
+        app.setState({ error: "" }); // Clear any previous error messages
+
         fetch("/api/login/", {
             method: "POST",
             headers: {
@@ -31,17 +37,17 @@ function Login({app,cookies}) {
                 "X-CSRFToken": cookies.get("csrftoken"),
             },
             credentials: "same-origin",
-            body: JSON.stringify({username: app.state.username, password: app.state.password}),
+            body: JSON.stringify({ username: app.state.username, password: app.state.password }),
         })
-        .then(isResponseOk)
-        .then((data) => {
-            console.log(data);
-            app.setState({isAuthenticated: true, username: "", password: "", error: ""});
-        })
-        .catch((err) => {
-            console.log(err);
-            app.setState({error: "Wrong username or password."});
-        });
+            .then(isResponseOk)
+            .then((data) => {
+                console.log(data);
+                app.setState({ isAuthenticated: true, username: "", password: "", error: "" });
+            })
+            .catch((err) => {
+                console.log(err);
+                app.setState({ error: err.message });
+            });
     };
 
     return (
@@ -56,7 +62,8 @@ function Login({app,cookies}) {
                         type="text"
                         id="username"
                         value={app.state.username}
-                        onChange = {handleUserNameChange}
+                        onChange={handleUserNameChange}
+                        required
                     />
                 </div>
                 <div>
@@ -66,11 +73,11 @@ function Login({app,cookies}) {
                         id="password"
                         value={app.state.password}
                         onChange={handlePasswordChange}
+                        required
                     />
                 </div>
+                {app.state.error && <div className="error-message">{app.state.error}</div>}
                 <button type="submit">Log In</button>
-                
-                
             </form>
         </div>
     );
