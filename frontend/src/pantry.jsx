@@ -7,6 +7,8 @@ import logo from "./images/pantrypal-logo.png";
 
 function PantryGrid({ logoutProp, deleteAccountProp }) {
     const [menuVisible, setMenuVisible] = useState(false);
+    const [ingredients, setIngredients] = useState([]);
+
 
     useEffect(() => {
         get_ingredients()
@@ -21,10 +23,23 @@ function PantryGrid({ logoutProp, deleteAccountProp }) {
         })
         .then((res) => res.json()) //// Parse the response as JSON
         .then((data) => {
-            let objects = JSON.parse(data)
-            for (let i = 0; i < data.length; i++) {
-              console.log(objects[i].fields);
+            let objects = JSON.parse(data);
+            let temp = [];
+            for (let i = 0; i < objects.length; i++) {
+                console.log(objects[i].fields)
+                temp.push(
+                    <div className="item">
+                        <img src= {'Storage/'+objects[i].fields.picture} alt="Milk" />
+                        <span>{objects[i].fields.ingredientName}</span>
+                        <span>{objects[i].fields.amount}{(objects[i].fields.liquid)?'ml' : 'g'}</span>
+                        <div className="item-buttons">
+                            <button onClick={() => window.location.href = 'editIngredient.html'}>Edit</button>
+                            <button onClick={() => window.location.href = 'deleteIngredient.html'}>Delete</button>
+                        </div>
+                    </div>
+                );
             }
+            setIngredients(temp);
         })
         .catch((err) => {
             console.log(err);
@@ -64,6 +79,7 @@ function PantryGrid({ logoutProp, deleteAccountProp }) {
                 <div className="pantry-grid">
                     {/* You can map through an array of items instead of hardcoding them */}
                     {/* Example of one item */}
+                    {ingredients}
                     <div className="item">
                         <img src={milk} alt="Milk" />
                         <span>Milk</span>
