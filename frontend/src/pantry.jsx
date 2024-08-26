@@ -90,6 +90,24 @@ function PantryGrid({ logoutProp, deleteAccountProp }) {
                         </div>
                     </div>
                     <div className="item">
+                        <img src={milk} alt="Milk" />
+                        <span>Milk</span>
+                        <span>500ml</span>
+                        <div className="item-buttons">
+                            <button onClick={() => window.location.href = 'editIngredient.html'}>Edit</button>
+                            <button onClick={() => window.location.href = 'deleteIngredient.html'}>Delete</button>
+                        </div>
+                    </div>
+                    <div className="item">
+                        <img src={milk} alt="Milk" />
+                        <span>Milk</span>
+                        <span>500ml</span>
+                        <div className="item-buttons">
+                            <button onClick={() => window.location.href = 'editIngredient.html'}>Edit</button>
+                            <button onClick={() => window.location.href = 'deleteIngredient.html'}>Delete</button>
+                        </div>
+                    </div>
+                    <div className="item">
                         <img src={flour} alt="Flour" />
                         <span>Flour</span>
                         <span>1kg</span>

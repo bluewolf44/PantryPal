@@ -1,8 +1,8 @@
 /* Basic Reset */
 body {
-    font-family: 'Gotham', Arial, sans-serif; /* Use a similar font if Gotham is unavailable */
-    background-color: #ffffff; /* White background for consistency */
-    color: #0a02a1; /* Dark blue text for general text */
+    font-family: 'Gotham', Arial, sans-serif;
+    background-color: #ffffff;
+    color: #0a02a1;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -12,21 +12,12 @@ body {
 }
 
 .login-container {
-    background: #ffffff; /* White background */
+    background: #ffffff;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     width: 340px;
-    text-align: center; /* Center the content */
-}
-
-.login-container p a {
-    color: #ff4b92; /* Adjust color to fit your site's theme */
-    text-decoration: none; /* Removes underline from links */
-}
-
-.login-container p a:hover {
-    text-decoration: underline; /* Adds underline on hover for better user interaction feedback */
+    text-align: center;
 }
 
 form {
@@ -36,35 +27,40 @@ form {
 
 label {
     margin-bottom: 5px;
-    color: #0a02a1; /* Dark blue for label text */
+    color: #0a02a1;
 }
 
-input[type="text"],
-input[type="password"] {
+input[type="text"], input[type="password"] {
     padding: 10px;
     margin-bottom: 10px;
-    border: 1px solid #0a02a1; /* Dark blue borders for input fields */
+    border: 1px solid #625af7;
     border-radius: 4px;
     font-size: 16px;
 }
 
-button {
-    background-color: #ff4b92; /* Bright pink from the prototype for button background */
+.login-container button {
+    background-color: #0a02a1; /* Change the initial color to your theme blue */
     color: white;
     border: none;
-    padding: 10px;
+    padding: 10px 20px; /* Adjust padding to reduce width */
     border-radius: 4px;
     cursor: pointer;
     font-size: 16px;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s; /* Smooth transition for hover effect */
+    width: 80%; /* Example to make it shorter lengthwise */
+    margin: 0 auto; /* Center the button in the container */
 }
 
-button:hover {
-    background-color: #fe7676; /* Coral red for button hover effect */
+.login-container button:hover {
+    background-color: #ff4b92; /* Bright pink on hover */
 }
 
-p {
-    text-align: center;
-    margin-top: 20px;
-    color: #ffcb4c; /* Yellow for additional text, such as prompts or links */
+.create-account-link {
+    color: #0a02a1;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.create-account-link:hover {
+    color: #ff4b92;
 }

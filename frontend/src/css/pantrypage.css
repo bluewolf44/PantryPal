@@ -5,6 +5,13 @@ body, html {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
     color: #0a02a1; /* Primary text color */
+    overflow-x: hidden; /* Prevents horizontal scrolling */
+    overflow-y: auto; /* Ensures vertical scrolling is enabled */
+}
+
+h2 {
+    text-align: center; /* Centers the text horizontally */
+    margin: 20px 0; /* Adds top and bottom margins for spacing */
 }
 
 /* Navigation Bar */
@@ -15,6 +22,11 @@ body, html {
     align-items: center;
     justify-content: space-between;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: fixed; /* Keeps navbar at the top */
+    width: 100%; /* Ensures it spans across the page */
+    top: 0;
+    left: 0;
+    z-index: 1000; /* Ensures navbar is above other content */
 }
 
 .menu-button {
@@ -34,6 +46,12 @@ body, html {
     width: auto;
 }
 
+/* Main Content Area */
+main {
+    padding-top: 70px; /* Adds more space for the fixed navbar */
+    padding-bottom: 50px; /* Adds space at the bottom for better visibility */
+}
+
 /* Pantry Grid Layout */
 .pantry-grid {
     display: grid;
@@ -41,6 +59,7 @@ body, html {
     gap: 15px;
     padding: 20px;
     margin-top: 20px;
+    margin-bottom: 20px; /* Adds bottom margin */
 }
 
 .item {
@@ -50,7 +69,7 @@ body, html {
     border-radius: 4px;
     text-align: center;
     background-color: #f9f9f9;
-    transition: background-color 0.2s;
+    transition: all 0.2s ease;
 }
 
 .item img {
@@ -65,39 +84,44 @@ body, html {
 }
 
 .item-buttons {
-    display: flex;
+    display: none; /* Hide buttons by default */
     flex-direction: column;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    opacity: 0;
     transition: opacity 0.3s ease;
+    /*padding: 5px; /* Padding around buttons */
+   /* background-color: rgba(255, 255, 255, 0.9); /* Slight background to enhance visibility */
+   /* border-radius: 8px; /* Rounded corners for button container */
+    /*box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
 }
 
 .item:hover .item-buttons {
-    opacity: 1;
+    display: flex; /* Show on hover */
 }
 
 /* Button Styling */
 button {
-    padding: 8px 16px;
-    background-color: #007BFF;
+    padding: 10px 20px; /* More padding for a better touch area */
+    margin-top: 5px;
+    background-color: #0a02a1 !important;
     color: white;
     border: none;
-    border-radius: 4px;
+    border-radius: 8px; /* Rounded corners for buttons */
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, transform 0.2s; /* Smooth color transition and a slight transform */
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #ff4b92 !important; /* Pink color on hover */
+    transform: scale(1.05); /* Slight increase in size on hover for effect */
 }
 
 /* Fixed Button Container at the Bottom */
 .button-container {
     position: fixed;
-    right: 10px;
+    right: 10px; /* Fixed to the left bottom corner */
     bottom: 10px;
     z-index: 1000;
 }
@@ -105,15 +129,15 @@ button:hover {
 /* Sidebar Navigation */
 .side-nav {
     height: 100%;
-    width: 0; /* Initial state, hidden */
+    width: 250px; /* Ensure width is enough to show all text */
     position: fixed;
-    z-index: 1;
+    z-index: 1050; /* Higher z-index to prevent hiding behind other elements */
     top: 0;
     left: 0;
     background-color: #ffffff;
     overflow-x: hidden;
     transition: width 0.5s;
-    padding-top: 60px;
+    padding-top: 60px; /* Ensure padding starts below the navbar */
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
 }
 
@@ -121,9 +145,9 @@ button:hover {
     padding: 10px;
     text-decoration: none;
     display: block;
+    color: #0a02a1; /* Ensure text is visible */
 }
 
-/* Apply a hover effect for links for better user feedback */
 .side-nav a:hover {
-    background-color: #e0e0e0;
+    background-color: #e0e0e0; /* Hover effect for better user feedback */
 }
