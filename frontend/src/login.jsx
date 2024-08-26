@@ -51,34 +51,22 @@ function Login({ app, cookies }) {
     };
 
     return (
-        <div>
+        <div className="login-container">
             <img src={logo} alt="PantryPal Logo" style={{ width: '300px', marginBottom: '20px' }} />
-
-            <h1>Login</h1>
+            
             <form onSubmit={login}>
                 <div>
                     <label htmlFor="username">Username:</label>
-                    <input
-                        type="text"
-                        id="username"
-                        value={app.state.username}
-                        onChange={handleUserNameChange}
-                        required
-                    />
+                    <input type="text" id="username" value={app.state.username} onChange={handleUserNameChange} required />
                 </div>
                 <div>
                     <label htmlFor="password">Password:</label>
-                    <input
-                        type="password"
-                        id="password"
-                        value={app.state.password}
-                        onChange={handlePasswordChange}
-                        required
-                    />
+                    <input type="password" id="password" value={app.state.password} onChange={handlePasswordChange} required />
                 </div>
                 {app.state.error && <div className="error-message">{app.state.error}</div>}
                 <button type="submit">Log In</button>
-            </form>
+                <p>Don't have an account? <span className="create-account-link" onClick={() => navigateTo("createAccount")}>Create one.</span></p>
+                </form>
         </div>
     );
 }
