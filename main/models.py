@@ -33,7 +33,7 @@ class Required(models.Model):
     amount = models.IntegerField()
 
     def __str__(self):
-        return self.ingredient.ingredientName + " in " + self.recipe.recipeName + " by " + self.user.username
+        return self.ingredient.ingredientName + " in " + self.recipe.recipeName + " by " + self.recipe.user.username
 
 
 class Shared(models.Model):
