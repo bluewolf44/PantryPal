@@ -110,7 +110,12 @@ class App extends React.Component {
     render() {
         if (!this.state.isAuthenticated) {
             return(
-                <Login app = {this} cookies = {cookies} />
+                <Router>
+                    <Routes>
+                        <Route path="/" element= {<Login app = {this} cookies = {cookies} /> } />
+                        <Route path="/createAccount" element={<CreateAccount cookies={cookies}/>} />
+                    </Routes>
+                </Router>
             )
         }
         return(
@@ -118,6 +123,7 @@ class App extends React.Component {
                 <Routes>
                       <Route path="/" element={ <PantryGrid logoutProp = {this.logout} deleteAccountProp = {this.deleteAccount} />} />
                       <Route path="/addIngredient" element={ <AddIngredients cookies = {cookies}/> } />
+                      <Route path ="*" element={<span onClick={() => window.location.href = '/'}>404 Go back</span>} />
                 </Routes>
             </Router>
         )

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './css/createaccount.css';
 
-function CreateAccount() {
+function CreateAccount({cookies}) {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -14,11 +14,11 @@ function CreateAccount() {
         setSuccess('');
 
         try {
-            const response = await fetch('/create_account/', {
+            const response = await fetch('api/createAccount/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-CSRFToken': getCookie('csrftoken'),
+                    "X-CSRFToken": cookies.get("csrftoken"),
                 },
                 body: JSON.stringify({
                     username,
@@ -37,22 +37,6 @@ function CreateAccount() {
             setError('An error occurred. Please try again later.');
         }
     };
-
-    // Took a cookie template from web. Probs dont need it because of Django so you can remove it.
-    function getCookie(name) {
-        let cookieValue = null;
-        if (document.cookie && document.cookie !== '') {
-            const cookies = document.cookie.split(';');
-            for (let i = 0; i < cookies.length; i++) {
-                const cookie = cookies[i].trim();
-                if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-                }
-            }
-        }
-        return cookieValue;
-    }
 
     return (
         <div className="account-form-container">

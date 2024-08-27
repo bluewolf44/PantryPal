@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import './css/loginUI.css';
 import logo from "./images/pantrypal-logo.png";
+import { useNavigate } from 'react-router-dom';
 
 function Login({ app, cookies }) {
 
@@ -65,7 +66,7 @@ function Login({ app, cookies }) {
                 </div>
                 {app.state.error && <div className="error-message">{app.state.error}</div>}
                 <button type="submit">Log In</button>
-                <p>Don't have an account? <span className="create-account-link" onClick={() => navigateTo("createAccount")}>Create one.</span></p>
+                <p>Don't have an account? <span className="create-account-link" onClick={() => window.location.href = 'createAccount'}>Create one.</span></p>
                 </form>
         </div>
     );
