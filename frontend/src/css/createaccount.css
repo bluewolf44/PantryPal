@@ -16,6 +16,7 @@ body {
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     width: 340px;
+    text-align: center;
 }
 
 form {
@@ -38,7 +39,7 @@ input[type="password"] {
     font-size: 16px;
 }
 
-button {
+.account-form-container button {
     background-color: #ff4b92; /* Bright pink for buttons */
     color: white;
     border: none;
@@ -49,11 +50,17 @@ button {
     transition: background-color 0.3s;
 }
 
-button:hover {
+.account-form-container button:hover {
     background-color: #fe7676; /* Coral red on hover */
 }
 
-p {
-    text-align: center;
-    color: #ffcb4c; /* Yellow for paragraph text */
+
+.create-account-link {
+    color: #0a02a1;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.create-account-link:hover {
+    color: #ff4b92;
 }

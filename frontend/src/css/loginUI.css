@@ -33,7 +33,7 @@ label {
 input[type="text"], input[type="password"] {
     padding: 10px;
     margin-bottom: 10px;
-    border: 1px solid #625af7;
+    border: 1px solid #0a02a1;
     border-radius: 4px;
     font-size: 16px;
 }
@@ -55,12 +55,12 @@ input[type="text"], input[type="password"] {
     background-color: #ff4b92; /* Bright pink on hover */
 }
 
-.create-account-link {
+.login-link {
     color: #0a02a1;
     cursor: pointer;
     text-decoration: underline;
 }
 
-.create-account-link:hover {
+.login-link:hover {
     color: #ff4b92;
 }

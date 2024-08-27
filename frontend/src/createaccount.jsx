@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './css/createaccount.css';
+import logo from "./images/pantrypal-logo.png";
 
 function CreateAccount({cookies}) {
     const [username, setUsername] = useState('');
@@ -40,7 +41,7 @@ function CreateAccount({cookies}) {
 
     return (
         <div className="account-form-container">
-            <h1>Create Account</h1>
+            <img src={logo} alt="PantryPal Logo" style={{ width: '300px', marginBottom: '20px' }} />
             <form onSubmit={handleSubmit}>
                 <label htmlFor="username">Username:</label>
                 <input
@@ -74,6 +75,7 @@ function CreateAccount({cookies}) {
 
                 <button type="submit">Create Account</button>
             </form>
+            <p>Already have an account? <span className="create-account-link" onClick={() => window.location.href = 'login'}>Login.</span></p>
         </div>
     );
 }
