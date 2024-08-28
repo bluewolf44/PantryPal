@@ -75,7 +75,7 @@ function CreateAccount({cookies}) {
 
                 <button type="submit">Create Account</button>
             </form>
-            <p>Already have an account? <span className="create-account-link" onClick={() => window.location.href = 'login'}>Login.</span></p>
+            <p>Already have an account? <span className="create-account-link" onClick={() => window.location.href = '/'}>Login.</span></p>
         </div>
     );
 }
