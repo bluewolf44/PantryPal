@@ -58,7 +58,7 @@ def api_login(request):
         return JsonResponse({"details": "invalid login"}, status=401)
 
     login(request, user)
-    return JsonResponse({"details": "Succesfully logged in!"})
+    return JsonResponse({"details": "Successfully logged in!"})
 
 
 def logout_view(request):
