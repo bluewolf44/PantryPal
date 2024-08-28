@@ -50,12 +50,12 @@ def api_login(request):
     password = body.get("password")
 
     if username is None or password is None:
-        return HttpResponse("invalid request", status=400)
+        return JsonResponse({"details": "invalid request"}, status=400)
 
     user = authenticate(username=username, password=password)
 
     if user is None:
-        return HttpResponse("invalid login", status=401)
+        return JsonResponse({"details": "invalid login"}, status=401)
 
     login(request, user)
     return JsonResponse({"details": "Succesfully logged in!"})

@@ -4,6 +4,7 @@ from pickle import FALSE
 # Description: This file is used to create factories for the tests to use
 
 import factory
+from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import User
 from main.models import Ingredient
 from main.models import Recipe
@@ -16,10 +17,11 @@ class UserFactory(factory.django.DjangoModelFactory):
         model = User
         django_get_or_create = ('username', 'password',)
 
-    password = "postgres"
+    password = make_password("password")
     username = "postgres"
-    is_superuser = True
-    is_staff = True
+    # I think we should test normal clients without access
+    # is_superuser = True
+    # is_staff = True
 
 
 class IngredientFactory(factory.django.DjangoModelFactory):
