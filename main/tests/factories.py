@@ -9,6 +9,7 @@ from django.contrib.auth.models import User
 from main.models import Ingredient
 from main.models import Recipe
 from main.models import Required
+from main.models import Shared
 
 
 # Not sure if we have a User setup or whether this is done separately in django
@@ -52,3 +53,11 @@ class RequiredFactory(factory.django.DjangoModelFactory):
     recipe = factory.SubFactory(RecipeFactory)
     ingredient = factory.SubFactory(IngredientFactory)
     amount = 2
+
+class SharedFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = Shared
+    recipeOwner = factory.SubFactory(UserFactory)
+    recipeName = factory.SubFactory(RecipeFactory)
+    userShared = factory.SubFactory(UserFactory)
+    feedback = "This is a great recipe"

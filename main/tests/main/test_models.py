@@ -31,3 +31,10 @@ class TestRequiredModel:
         required = required_factory()
         expected_string = "Cheese in Cheese Scones by postgres"
         assert required.__str__() == expected_string
+
+@pytestPantryPal
+class TestSharedModel:
+    def test_str_return(self, shared_factory):
+        shared = shared_factory()
+        expected_string = "Cheese Scones made by postgres shared with postgres"
+        assert shared.__str__() == expected_string
