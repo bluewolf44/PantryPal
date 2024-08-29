@@ -6,6 +6,8 @@ import pytest
 from django.urls import reverse
 from django.test import Client
 
+from main.models import Ingredient
+
 pytestPantryPal = pytest.mark.django_db
 
 
@@ -34,6 +36,17 @@ def test_logout_api(user_factory):
     user = user_factory(username="dave", password=make_password("password123"))
     c.force_login(user)
     assert c.get(url).status_code == 200
+@pytestPantryPal
+def test_create_ingredient_api(user_factory):
+    c = Client()
+    url = reverse("api_create_ingredient")
+    assert c.post(url).status_code == 401
+    user = user_factory(username="dave", password=make_password("password123"))
+    c.force_login(user)
+    assert c.post(url,{}, content_type="application/json").status_code == 400
+    assert c.post(url,{"ingredientName":"cheese","amount":"500","describe":"yellow","picture":"cheese.jpg","liquid":False},content_type="application/json").status_code == 201
+    assert len(Ingredient.objects.filter(ingredientName="cheese",amount=500,describe="yellow",liquid=False)) == 1 #add picture when addded
+
 
 
 

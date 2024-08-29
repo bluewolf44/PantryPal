@@ -97,7 +97,8 @@ def create_ingredient(request):
         return JsonResponse({"detail": "You aren't log in"}, status=401)
     body = json.loads(request.body)
 
-    print(body)
+    if body.get("ingredientName") is None or body.get("amount") is None or body.get("describe") is None or body.get("picture") is None or body.get("liquid") is None:
+        return  JsonResponse({"detail": "Json missing values"},status=400)
 
     ingredient = Ingredient.objects.create(
         ingredientName=body.get("ingredientName"),
