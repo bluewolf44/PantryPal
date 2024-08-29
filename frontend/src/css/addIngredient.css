@@ -1,69 +1,69 @@
-/* Basic Reset */
 body {
-    font-family: 'Gotham', Arial, sans-serif;
-    background-color: #ffffff;
-    color: #0a02a1;
+    font-family: 'Gotham', Arial, sans-serif; /* Retain the custom font */
+    background-color: #ffffff; /* Set background to white */
+    color: #0a02a1; /* Retain the blue color for text */
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 100vh; /* Full view height to center vertically */
     margin: 0;
     padding: 0;
 }
 
 .add-ingredients-container {
-    background: #ffffff;
+    background: #ffffff; /* White background */
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    width: 340px;
-    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important; /* Shadow for a slight 3D effect */
+    width: 340px; /* Fixed width */
+    text-align: center; /* Center text inside the container */
 }
 
 form {
     display: flex;
-    flex-direction: column;
+    flex-direction: column; /* Stack form elements vertically */
 }
 
 label {
-    margin-bottom: 5px;
-    color: #0a02a1;
+    margin-bottom: 5px; /* Space between label and input */
+    color: #0a02a1; /* Dark blue for text */
 }
 
 input[type="text"],
 input[type="number"],
-input[type="file"] {
+input[type="file"],
+textarea {
     padding: 10px;
     margin-bottom: 10px;
-    border: 1px solid #0a02a1;
-    border-radius: 4px;
+    border: 1px solid #0a02a1; /* Blue border */
+    border-radius: 4px; /* Rounded corners */
     font-size: 16px;
 }
 
 input[type="file"] {
-    padding: 5px; /* Reduced padding for file input for aesthetic reasons */
+    padding: 5px; /* Adjust padding for file input */
 }
 
 button {
-    background-color: #ff4b92;
+    background-color: #0a02a1; /* Blue background */
     color: white;
     border: none;
     padding: 10px;
     border-radius: 4px;
     cursor: pointer;
     font-size: 16px;
-    transition: background-color 0.3s;
-    margin-top: 10px; /* Adds space between the buttons and form fields */
+    transition: background-color 0.3s; /* Smooth transition for hover effect */
+    margin-top: 10px; /* Space above the button */
 }
 
 button:hover {
-    background-color: #fe7676;
+    background-color: #ff4b92; /* Pink color on hover */
 }
 
 button[type='button'] {
-    background-color: #0a02a1; /* Differentiates the 'Back' button */
+    background-color: #ffcb4c; /* Yellow for the 'Back' button */
 }
 
 button[type='button']:hover {
-    background-color: #ffcb4c;;
+    background-color: #ff4b92; /* Pink on hover for consistency */
 }

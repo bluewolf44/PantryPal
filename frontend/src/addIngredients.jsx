@@ -43,7 +43,7 @@ function AddIngredients({cookies}) {
 
     return(
         <div class="add-ingredients-container">
-            <h1>Add Ingredients</h1>
+            <h1>Add Ingredient</h1>
             <form onSubmit={createIngredients}>
                 <label for="ingredientName">Name:</label>
                 <input type="text" id="ingredientName" name="ingredientName" required value={ingredientName} onChange={e => setIngredientName(e.target.value)}/>
@@ -61,8 +61,9 @@ function AddIngredients({cookies}) {
                 <input type="checkbox" id="liquid" name="liquid" value={liquid} onChange={checkHandler}/>
 
                 <button type="submit">Add Ingredient</button>
+                <button type="button" onClick={handleBack}>Back</button>
             </form>
-            <button type="button" onClick={handleBack}>Back</button>
+            
         </div>
     );
 }

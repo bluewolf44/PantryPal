@@ -48,7 +48,7 @@ h2 {
 
 /* Main Content Area */
 main {
-    padding-top: 70px; /* Adds more space for the fixed navbar */
+    padding-top: 300px; /* Adds more space for the fixed navbar */
     padding-bottom: 50px; /* Adds space at the bottom for better visibility */
 }
 
