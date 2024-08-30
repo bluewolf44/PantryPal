@@ -13,5 +13,5 @@ urlpatterns = [
     path("api/deleteAccount/", views.delete_account_view, name="api_delete_account"),
     path("api/createIngredient/", views.create_ingredient, name="api_create_ingredient"),
     path("api/createAccount/", views.create_account, name="create_account"),
-    path("api/getIngredients/", views.get_user_ingredients, name="get_ingredients")
+    path("api/getIngredients/", views.get_user_ingredients, name="api_get_ingredients")
 ]
