@@ -3,6 +3,7 @@ import './css/pantrypage.css';  // Assuming your CSS is adapted for React
 import milk from "./images/milk.jpg";
 import flour from "./images/flour.jpg";
 import logo from "./images/pantrypal-logo.png";
+import axios from "axios";
 
 
 function PantryGrid({ logoutProp, deleteAccountProp }) {
@@ -26,7 +27,7 @@ function PantryGrid({ logoutProp, deleteAccountProp }) {
             let objects = JSON.parse(data);
             let temp = [];
             for (let i = 0; i < objects.length; i++) {
-                console.log(objects[i].fields)
+                console.log(objects[i])
                 temp.push(
                     <div className="item">
                         <img src= {'Storage/'+objects[i].fields.picture} alt="Milk" />
@@ -34,7 +35,7 @@ function PantryGrid({ logoutProp, deleteAccountProp }) {
                         <span>{objects[i].fields.amount}{(objects[i].fields.liquid)?'ml' : 'g'}</span>
                         <div className="item-buttons">
                             <button onClick={() => window.location.href = 'editIngredient.html'}>Edit</button>
-                            <button onClick={() => window.location.href = 'deleteIngredient.html'}>Delete</button>
+                            <button onClick={() => deleteIngredient(objects[i].pk)}>Delete</button> <!-- this gives the unique id of ingredient -->
                         </div>
                     </div>
                 );
@@ -61,9 +62,17 @@ function PantryGrid({ logoutProp, deleteAccountProp }) {
 
     const deleteAccount = (event) => {
         event.preventDefault(); // Prevent the default form submission behavior
-        
+
         deleteAccountProp();
     };
+
+    const deleteIngredient = async (ingredientId) => {
+      try {
+        const response = await axios.delete(`/api/deleteIngredient/${ingredientId}`)
+      } catch (error) {
+        console.log("Error in deleting ingredient: ", error);
+      }
+    }
     return (
         <>
             <header>

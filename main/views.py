@@ -112,6 +112,14 @@ def create_ingredient(request):
 
     return HttpResponse(status=201)
 
+def delete_ingredient(request):
+    if not request.user.is_authenticated:
+        return JsonResponse({"detail": "You aren't log in"}, status=401)
+    user = request.user
+
+    return JsonResponse(serialize("json", Ingredient.objects.filter(user=user)), safe=False)
+
+
 
 def get_user_ingredients(request):
     if not request.user.is_authenticated:
