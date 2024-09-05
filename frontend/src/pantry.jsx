@@ -35,7 +35,7 @@ function PantryGrid({ logoutProp, deleteAccountProp }) {
                         <span>{objects[i].fields.amount}{(objects[i].fields.liquid)?'ml' : 'g'}</span>
                         <div className="item-buttons">
                             <button onClick={() => window.location.href = 'editIngredient.html'}>Edit</button>
-                            <button onClick={() => deleteIngredient(objects[i].pk)}>Delete</button> <!-- this gives the unique id of ingredient -->
+                            <button onClick={() => deleteIngredient(objects[i].pk)}>Delete</button>
                         </div>
                     </div>
                 );

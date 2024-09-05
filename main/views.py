@@ -112,7 +112,7 @@ def create_ingredient(request):
 
     return HttpResponse(status=201)
 
-def delete_ingredient(request):
+def delete_ingredient_view(request):
     if not request.user.is_authenticated:
         return JsonResponse({"detail": "You aren't log in"}, status=401)
     user = request.user
