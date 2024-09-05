@@ -5,6 +5,10 @@ import flour from "./images/flour.jpg";
 import logo from "./images/pantrypal-logo.png";
 import axios from "axios";
 
+axios.defaults.xsrfCookieName = 'csrftoken';
+axios.defaults.xsrfHeaderName = 'X-CSRFToken';
+axios.defaults.withCredentials = true;
+
 
 function PantryGrid({ logoutProp, deleteAccountProp }) {
     const [menuVisible, setMenuVisible] = useState(false);
@@ -69,6 +73,8 @@ function PantryGrid({ logoutProp, deleteAccountProp }) {
     const deleteIngredient = async (ingredientId) => {
       try {
         const response = await axios.delete(`/api/deleteIngredient/${ingredientId}`)
+        get_ingredients()
+        console.log(`Deleted ingredient with id: ${ingredientId} successfully`)
       } catch (error) {
         console.log("Error in deleting ingredient: ", error);
       }
