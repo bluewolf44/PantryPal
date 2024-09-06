@@ -100,30 +100,31 @@ function PantryGrid({ logoutProp, deleteAccountProp }) {
     };
 
 // Function to create ingredients
-const createIngredients = async (event) => {
-    event.preventDefault();
-    try {
-        const response = await axios.post("/api/createIngredient/", {
-            ingredientName,
-            picture,
-            describe,
-            amount,
-            liquid
-        });
-        setIngredientName("");
-        setPicture("");
-        setDescribe("");
-        setAmount("");
-        setLiquid(false);
-        closeModal();
-        get_ingredients();  // Refresh ingredients after adding
-    } catch (error) {
-        console.error("Error creating ingredient:", error);
+    const createIngredients = async (event) => {
+        event.preventDefault();
+        try {
+            const response = await axios.post("/api/createIngredient/", {
+                ingredientName,
+                picture,
+                describe,
+                amount,
+                liquid
+            });
+            setIngredientName("");
+            setPicture("");
+            setDescribe("");
+            setAmount("");
+            setLiquid(false);
+            closeModal();
+            get_ingredients();  // Refresh ingredients after adding
+        } catch (error) {
+            console.error("Error creating ingredient:", error);
+        }
+    };
+
+    const checkHandler = () => {
+        setLiquid(!liquid)
     }
-};
-const checkHandler = () => {
-    setLiquid(!liquid)
-}
 
 
 
@@ -214,13 +215,13 @@ const checkHandler = () => {
                     </form>
                 </Modal>
                 <div className="button-container">
-                    { <button onClick={() => window.location.href = 'newrecipe.html'} >Let's Get Baking!</button>}
+                    { <button onClick={() => window.location.href = 'createrecipe.html'} >Let's Get Baking!</button>}
                 </div>
             </main>
             <div id="side-menu" className="side-nav" style={{ width: menuVisible ? '250px' : '0' }}>
                 <a href="javascript:void(0)" className="closebtn" onClick={closeMenu}>&times;</a>
                 <a href="/pantrypage" className="active">Pantry</a>
-                <a href="/newrecipe">New Recipes</a>
+                <a href="/createrecipe">Create Recipe</a>
                 <a href="/myrecipes">My Recipes</a>
                 <div className="nav-bottom">
                 <a href="#" onClick={logout}>Log Out</a>
