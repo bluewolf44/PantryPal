@@ -43,7 +43,7 @@ function AddIngredients({cookies}) {
 
     return(
         <div class="add-ingredients-container">
-            <h1>Add Ingredient</h1>
+            <h1>Add Ingredient page (not modal)</h1>
             <form onSubmit={createIngredients}>
                 <label for="ingredientName">Name:</label>
                 <input type="text" id="ingredientName" name="ingredientName" required value={ingredientName} onChange={e => setIngredientName(e.target.value)}/>
