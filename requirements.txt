@@ -22,3 +22,4 @@ sqlparse==0.5.1
 tomli==2.0.1
 typing_extensions==4.12.2
 tzdata==2024.1
+google-generativeai==0.7.2
