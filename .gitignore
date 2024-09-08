@@ -13,6 +13,7 @@ build/
 /Storage/**/*
 !/Storage/*
 !/Storage/**/.gitkeep
+.env
 
 ### STS ###
 .apt_generated
