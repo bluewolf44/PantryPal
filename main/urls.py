@@ -7,6 +7,7 @@ urlpatterns = [
     path("addIngredient", views.index_page, name="add_ingredient"),
     path("createAccount", views.index_page, name="create_account"),
     path("api/login/", views.api_login, name="api_login"),
+    path("api/aiRecipe/", views.ai_recipe, name="ai_recipe"),
     path("api/session/", views.session_view, name="api_session"),
     path("api/whoami/", views.whoami_view, name="api_whoami"),
     path("api/logout/", views.logout_view, name="api_logout"),

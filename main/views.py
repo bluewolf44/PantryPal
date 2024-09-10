@@ -1,8 +1,6 @@
 from django.core.serializers import serialize
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
-
-import json
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.views.decorators.csrf import ensure_csrf_cookie
@@ -10,6 +8,9 @@ from django.views.decorators.http import require_POST
 from django.db import IntegrityError
 
 from main.models import Ingredient
+import google.generativeai as genai
+import os
+import json
 
 
 def index_page(request):
@@ -97,8 +98,9 @@ def create_ingredient(request):
         return JsonResponse({"detail": "You aren't log in"}, status=401)
     body = json.loads(request.body)
 
-    if body.get("ingredientName") is None or body.get("amount") is None or body.get("describe") is None or body.get("picture") is None or body.get("liquid") is None:
-        return  JsonResponse({"detail": "Json missing values"},status=400)
+    if body.get("ingredientName") is None or body.get("amount") is None or body.get("describe") is None or body.get(
+            "picture") is None or body.get("liquid") is None:
+        return JsonResponse({"detail": "Json missing values"}, status=400)
 
     ingredient = Ingredient.objects.create(
         ingredientName=body.get("ingredientName"),
@@ -112,6 +114,7 @@ def create_ingredient(request):
 
     return HttpResponse(status=201)
 
+
 # ingredient_id is obtained from urls.py matching ingredient_id.
 def delete_ingredient_view(request, ingredient_id):
     if not request.user.is_authenticated:
@@ -124,10 +127,19 @@ def delete_ingredient_view(request, ingredient_id):
     return JsonResponse({"detail": "Ingredient deleted successfully"}, status=200)
 
 
-
 def get_user_ingredients(request):
     if not request.user.is_authenticated:
         return JsonResponse({"detail": "You aren't log in"}, status=401)
     user = request.user
 
     return JsonResponse(serialize("json", Ingredient.objects.filter(user=user)), safe=False)
+
+
+def ai_recipe(request):
+    api_key = os.environ.get("GEMINI_API_KEY", False)
+    if not api_key:
+        JsonResponse({"error": "api_key not correctly place in .env"}, status=501)
+    genai.configure(api_key=api_key)
+    model = genai.GenerativeModel("gemini-1.5-flash")
+    response = model.generate_content("give me a cake recipe")
+    return JsonResponse(response.candidates)

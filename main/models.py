@@ -43,4 +43,4 @@ class Shared(models.Model):
     feedback = models.CharField(max_length=200)
 
     def __str__(self):
-        return self.recipeName + " made by " + self.recipeName + " shared  with " + self.userShared
+        return self.recipeName.recipeName + " made by " + self.recipeOwner.username + " shared with " + self.userShared.username
