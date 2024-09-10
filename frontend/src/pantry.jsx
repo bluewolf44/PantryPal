@@ -5,6 +5,7 @@ import milk from "./images/milk.jpg";
 import flour from "./images/flour.jpg";
 import logo from "./images/pantrypal-logo.png";
 import axios from "axios";
+import AddModal from "./AddModal";
 
 axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFToken';
@@ -16,7 +17,7 @@ Modal.setAppElement('#root');  // Assuming your root div has an ID of 'root'
 function PantryGrid({ logoutProp, deleteAccountProp }) {
     const [menuVisible, setMenuVisible] = useState(false);
     const [ingredients, setIngredients] = useState([]);
-    const [modalIsOpen, setModalIsOpen] = useState(false);
+    const [isAddModalOpen, setIsAddModalOpen] = useState(false);
     const [ingredientName, setIngredientName] = useState("");
     const [picture, setPicture] = useState("");
     const [describe, setDescribe] = useState("");
@@ -100,22 +101,9 @@ function PantryGrid({ logoutProp, deleteAccountProp }) {
     };
 
 // Function to create ingredients
-    const createIngredients = async (event) => {
-        event.preventDefault();
+    const createIngredients = async (data) => {
         try {
-            const response = await axios.post("/api/createIngredient/", {
-                ingredientName,
-                picture,
-                describe,
-                amount,
-                liquid
-            });
-            setIngredientName("");
-            setPicture("");
-            setDescribe("");
-            setAmount("");
-            setLiquid(false);
-            closeModal();
+            const response = await axios.post("/api/createIngredient/", data);
             get_ingredients();  // Refresh ingredients after adding
         } catch (error) {
             console.error("Error creating ingredient:", error);
@@ -187,33 +175,14 @@ function PantryGrid({ logoutProp, deleteAccountProp }) {
                         <h4>Add Ingredient</h4>
                     </div>
                 </div>
-                <Modal
-                    isOpen={modalIsOpen}
-                    onRequestClose={closeModal}
+                <AddModal
+                    isOpen={isAddModalOpen}
+                    onRequestClose={() => setIsAddModalOpen(false)}
+                    onSubmit={createIngredients}
                     contentLabel="Add Ingredient Modal"
                     className="modal"
                     overlayClassName="overlay"
-                >
-                    <h2>Add Ingredient</h2>
-                    <form onSubmit={createIngredients}>
-                        <label for="ingredientName">Name:</label>
-                        <input type="text" id="ingredientName" name="ingredientName" required value={ingredientName} onChange={e => setIngredientName(e.target.value)}/>
-                        <label for="picture">Picture:</label>
-                        <input type="file" id="picture" name="picture" accept="image/*" value={picture} onChange={e => setPicture(e.target.value)}/>
-
-                        <label for="describe">Describe:</label>
-                        <input type="text" id="describe" name="describe" value={describe} onChange={e => setDescribe(e.target.value)}/>
-
-                        <label for="amount">Amount (g/mL):</label>
-                        <input type="number" id="amount" name="amount" required min="0" value={amount} onChange={e => setAmount(e.target.value)}/>
-
-                        <label for="liquid">Liquid:</label>
-                        <input type="checkbox" id="liquid" name="liquid" value={liquid} onChange={checkHandler}/>
-
-                        <button type="submit">Add Ingredient</button>
-                        <button onClick={closeModal}>Close</button>
-                    </form>
-                </Modal>
+                />
                 <div className="button-container">
                     { <button onClick={() => window.location.href = 'createrecipe.html'} >Let's Get Baking!</button>}
                 </div>
