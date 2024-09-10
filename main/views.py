@@ -126,6 +126,23 @@ def delete_ingredient_view(request, ingredient_id):
 
     return JsonResponse({"detail": "Ingredient deleted successfully"}, status=200)
 
+def edit_ingredient_view(request, ingredient_id):
+    if not request.user.is_authenticated:
+        return JsonResponse({"detail": "You aren't logged in"}, status=401)
+    user = request.user
+
+    ingredient = Ingredient.objects.get(id=ingredient_id, user=user)
+    print("request.body: ", request.body)
+    updatedData = json.loads(request.body)
+    ingredient.ingredientName = updatedData.get("ingredientName")
+    # ingredient.picture = updatedData.get("picture") // we need to handle the picture file a different way in order for it to update properly.
+    ingredient.describe = updatedData.get("describe")
+    ingredient.amount = updatedData.get("amount")
+    ingredient.liquid = updatedData.get("liquid")
+    ingredient.save();
+
+    return JsonResponse({"detail": "Ingredient updated successfully"}, status =200)
+
 
 def get_user_ingredients(request):
     if not request.user.is_authenticated:
@@ -143,7 +160,3 @@ def ai_recipe(request):
     model = genai.GenerativeModel("gemini-1.5-flash")
     response = model.generate_content("give me a cake recipe")
     return JsonResponse({"detail": response.text})
-
-
-def edit_ingredient_view(request):
-    pass
