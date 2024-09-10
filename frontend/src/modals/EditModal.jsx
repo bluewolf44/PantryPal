@@ -1,7 +1,7 @@
 import React from 'react';
 import './modal.css';
 
-const AddModal = ({isOpen, onClose, onSubmit}) => {
+const EditModal = ({isOpen, onClose, onSubmit, ingredient}) => {
   if (!isOpen) return null;
 
   const handleSubmit = (e) => {
@@ -16,24 +16,24 @@ const AddModal = ({isOpen, onClose, onSubmit}) => {
   return (
       <div className="overlay">
         <div className="modal">
-          <h2>Add Ingredient</h2>
+          <h2>Edit Ingredient</h2>
           <form onSubmit={handleSubmit}>
             <label htmlFor="ingredientName">Name:</label>
-            <input type="text" id="ingredientName" name="ingredientName" required/>
+            <input type="text" id="ingredientName" name="ingredientName" defaultValue={ingredient.ingredientName} required/>
 
             <label htmlFor="picture">Picture:</label>
-            <input type="file" id="picture" name="picture" accept="image/*" />
+            <input type="file" id="picture" name="picture" accept="image/*" defaultValue={ingredient.picture} />
 
             <label htmlFor="describe">Describe:</label>
-            <input type="text" id="describe" name="describe"/>
+            <input type="text" id="describe" name="describe" defaultValue={ingredient.describe} />
 
             <label htmlFor="amount">Amount (g/mL):</label>
-            <input type="number" id="amount" name="amount" required min="0"/>
+            <input type="number" id="amount" name="amount" required min="0" defaultValue={ingredient.amount} />
 
             <label htmlFor="liquid">Liquid:</label>
-            <input type="checkbox" id="liquid" name="liquid"/>
+            <input type="checkbox" id="liquid" name="liquid" defaultChecked={ingredient.liquid} />
 
-            <button type="submit">Add Ingredient</button>
+            <button type="submit">Confirm Edits</button>
             <button type="button" onClick={onClose}>Close</button>
           </form>
         </div>
@@ -41,4 +41,4 @@ const AddModal = ({isOpen, onClose, onSubmit}) => {
   );
 }
 
-export default AddModal;
+export default EditModal;
