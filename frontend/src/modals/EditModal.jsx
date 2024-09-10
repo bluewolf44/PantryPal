@@ -19,19 +19,19 @@ const EditModal = ({isOpen, onClose, onSubmit, ingredient}) => {
           <h2>Edit Ingredient</h2>
           <form onSubmit={handleSubmit}>
             <label htmlFor="ingredientName">Name:</label>
-            <input type="text" id="ingredientName" name="ingredientName" defaultValue={ingredient.ingredientName} required/>
+            <input type="text" id="ingredientName" name="ingredientName" defaultValue={ingredient.fields.ingredientName} required/>
 
             <label htmlFor="picture">Picture:</label>
-            <input type="file" id="picture" name="picture" accept="image/*" defaultValue={ingredient.picture} />
+            <input type="file" id="picture" name="picture" accept="image/*" defaultValue={ingredient.fields.picture} />
 
             <label htmlFor="describe">Describe:</label>
-            <input type="text" id="describe" name="describe" defaultValue={ingredient.describe} />
+            <input type="text" id="describe" name="describe" defaultValue={ingredient.fields.describe} />
 
             <label htmlFor="amount">Amount (g/mL):</label>
-            <input type="number" id="amount" name="amount" required min="0" defaultValue={ingredient.amount} />
+            <input type="number" id="amount" name="amount" required min="0" defaultValue={ingredient.fields.amount} />
 
             <label htmlFor="liquid">Liquid:</label>
-            <input type="checkbox" id="liquid" name="liquid" defaultChecked={ingredient.liquid} />
+            <input type="checkbox" id="liquid" name="liquid" defaultChecked={ingredient.fields.liquid} />
 
             <button type="submit">Confirm Edits</button>
             <button type="button" onClick={onClose}>Close</button>
