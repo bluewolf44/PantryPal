@@ -1,6 +1,7 @@
-import React from 'react'
+import React from 'react';
+import './modal.css';
 
-const EditModal = ({isOpen, onClose, onSubmit, ingredientToEdit}) => {
+const EditModal = ({isOpen, onClose, onSubmit, ingredient}) => {
   if (!isOpen) return null;
 
   const handleSubmit = (e) => {
@@ -16,7 +17,7 @@ const EditModal = ({isOpen, onClose, onSubmit, ingredientToEdit}) => {
     <h2>Add Ingredient</h2>
     <form onSubmit={handleSubmit}>
         <label for="ingredientName">Name:</label>
-        <input type="text" id="ingredientName" name="ingredientName" required/>
+        <input type="text" id="ingredientName" name="ingredientName" default={ ingredient} required/>
         <label for="picture">Picture:</label>
         <input type="file" id="picture" name="picture" accept="image/*" />
 
@@ -35,3 +36,5 @@ const EditModal = ({isOpen, onClose, onSubmit, ingredientToEdit}) => {
     </>
   );
 }
+
+export default EditModal;

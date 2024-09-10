@@ -5,7 +5,8 @@ import milk from "./images/milk.jpg";
 import flour from "./images/flour.jpg";
 import logo from "./images/pantrypal-logo.png";
 import axios from "axios";
-import AddModal from "./AddModal";
+import AddModal from "./modals/AddModal";
+import EditModal from "./modals/EditModal";
 
 axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFToken';
@@ -18,11 +19,8 @@ function PantryGrid({ logoutProp, deleteAccountProp }) {
     const [menuVisible, setMenuVisible] = useState(false);
     const [ingredients, setIngredients] = useState([]);
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
-    const [ingredientName, setIngredientName] = useState("");
-    const [picture, setPicture] = useState("");
-    const [describe, setDescribe] = useState("");
-    const [amount, setAmount] = useState("");
-    const [liquid, setLiquid] = useState(false);
+    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [ingredientToEdit, setIngredientToEdit] = useState(null);
 
 // Get Ingredients
     useEffect(() => {
@@ -49,7 +47,7 @@ function PantryGrid({ logoutProp, deleteAccountProp }) {
                         <span>{objects[i].fields.ingredientName}</span>
                         <span>{objects[i].fields.amount}{(objects[i].fields.liquid)?'ml' : 'g'}</span>
                         <div className="item-buttons">
-                            <button onClick={() => window.location.href = 'editIngredient.html'}>Edit</button>
+                            <button onClick={() => handleOpenEditModal(objects[i])}>Edit</button>
                             <button onClick={() => deleteIngredient(objects[i].pk)}>Delete</button>
                         </div>
                     </div>
@@ -81,6 +79,10 @@ function PantryGrid({ logoutProp, deleteAccountProp }) {
         deleteAccountProp();
     };
 
+    const editIngredient = async (ingredient) => {
+
+    }
+
     const deleteIngredient = async (ingredientId) => {
       try {
         const response = await axios.delete(`/api/deleteIngredient/${ingredientId}`)
@@ -91,20 +93,17 @@ function PantryGrid({ logoutProp, deleteAccountProp }) {
       }
     }
 
- // Function to toggle the modal
-    const openModal = () => {
-        setModalIsOpen(true);
-    };
-
-    const closeModal = () => {
-        setModalIsOpen(false);
-    };
+    const handleOpenEditModal = (ingredient) => {
+      setIngredientToEdit(ingredient)
+      setIsEditModalOpen(true)
+    }
 
 // Function to create ingredients
     const createIngredients = async (data) => {
         try {
-            const response = await axios.post("/api/createIngredient/", data);
-            get_ingredients();  // Refresh ingredients after adding
+          console.log(data);
+          const response = await axios.post("/api/createIngredient/", data);
+          get_ingredients();  // Refresh ingredients after adding
         } catch (error) {
             console.error("Error creating ingredient:", error);
         }
@@ -113,10 +112,6 @@ function PantryGrid({ logoutProp, deleteAccountProp }) {
     const checkHandler = () => {
         setLiquid(!liquid)
     }
-
-
-
-
 
     return (
         <>
@@ -171,17 +166,25 @@ function PantryGrid({ logoutProp, deleteAccountProp }) {
                         </div>
                     </div>
                     {/* Repeat for other items */}
-                    <div className="item" onClick={openModal} /*onClick={() => window.location.href = 'addIngredient'}*/ style={{ cursor: 'pointer' }}>
-                        <h4>Add Ingredient</h4>
-                    </div>
+                      <div className="item" onClick={() => setIsAddModalOpen(true)} style={{ cursor: 'pointer' }}>
+                          <h4>Add Ingredient</h4>
+                      </div>
                 </div>
                 <AddModal
                     isOpen={isAddModalOpen}
-                    onRequestClose={() => setIsAddModalOpen(false)}
+                    onClose={() => setIsAddModalOpen(false)}
                     onSubmit={createIngredients}
                     contentLabel="Add Ingredient Modal"
-                    className="modal"
-                    overlayClassName="overlay"
+                />
+                <EditModal
+                  isOpen={isEditModalOpen}
+                  onClose={() => setIsEditModalOpen(false)}
+                  onSubmit={createIngredients}
+                  ingredient={ingredientToEdit}
+                  contentLabel="Add Ingredient Modal"
+                  className="modal"
+                  overlayClassName="overlay"
+
                 />
                 <div className="button-container">
                     { <button onClick={() => window.location.href = 'createrecipe.html'} >Let's Get Baking!</button>}
