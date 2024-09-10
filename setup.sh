@@ -11,4 +11,4 @@ python manage.py makemigrations main
 python manage.py migrate
 python manage.py migrate main
 #Start the server
-python manage.py runserver 0.0.0.0:8000
+python -u manage.py runserver 0.0.0.0:8000

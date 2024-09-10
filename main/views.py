@@ -7,6 +7,7 @@ from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.decorators.http import require_POST
 from django.db import IntegrityError
 
+from main.forms import *
 from main.models import Ingredient
 import google.generativeai as genai
 import os
@@ -96,19 +97,19 @@ def whoami_view(request):
 def create_ingredient(request):
     if not request.user.is_authenticated:
         return JsonResponse({"detail": "You aren't log in"}, status=401)
-    body = json.loads(request.body)
 
-    if body.get("ingredientName") is None or body.get("amount") is None or body.get("describe") is None or body.get(
-            "picture") is None or body.get("liquid") is None:
-        return JsonResponse({"detail": "Json missing values"}, status=400)
+    body = IngredientsForm(request.POST,request.FILES)
+
+    if not body.is_valid():
+        return JsonResponse({"detail": "form missing values"}, status=400)
 
     ingredient = Ingredient.objects.create(
-        ingredientName=body.get("ingredientName"),
+        ingredientName=body.cleaned_data["ingredientName"],
         user=request.user,
-        amount=int(body.get("amount")),
-        describe=body.get("describe"),
-        # picture=body.get("picture"), TODO
-        liquid=body.get("liquid")
+        amount=int(body.cleaned_data["amount"]),
+        describe=body.cleaned_data["describe"],
+        picture=body.cleaned_data["picture"],
+        liquid=body.cleaned_data["liquid"]
     )
     ingredient.save()
 

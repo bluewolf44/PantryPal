@@ -7,9 +7,7 @@ const AddModal = ({isOpen, onClose, onSubmit}) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
-    const data = Object.fromEntries(formData.entries());
-    data.liquid = data.liquid === 'on';  // Convert 'on' to true, undefined to false
-    onSubmit(data);
+    onSubmit(formData);
     onClose();
   }
 
