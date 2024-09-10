@@ -179,11 +179,8 @@ function PantryGrid({ logoutProp, deleteAccountProp }) {
                 <EditModal
                   isOpen={isEditModalOpen}
                   onClose={() => setIsEditModalOpen(false)}
-                  onSubmit={createIngredients}
+                  onSubmit={editIngredient}
                   ingredient={ingredientToEdit}
-                  contentLabel="Add Ingredient Modal"
-                  className="modal"
-                  overlayClassName="overlay"
 
                 />
                 <div className="button-container">
