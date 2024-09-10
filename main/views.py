@@ -160,3 +160,7 @@ def ai_recipe(request):
     model = genai.GenerativeModel("gemini-1.5-flash")
     response = model.generate_content("give me a cake recipe")
     return JsonResponse({"detail": response.text})
+
+
+def edit_ingredient_view(request):
+    pass
