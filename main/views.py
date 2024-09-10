@@ -142,4 +142,4 @@ def ai_recipe(request):
     genai.configure(api_key=api_key)
     model = genai.GenerativeModel("gemini-1.5-flash")
     response = model.generate_content("give me a cake recipe")
-    return JsonResponse(response.text)
+    return JsonResponse({"detail": response.text})
