@@ -22,7 +22,7 @@ const EditModal = ({isOpen, onClose, onSubmit, ingredient}) => {
             <input type="text" id="ingredientName" name="ingredientName" defaultValue={ingredient.fields.ingredientName} required/>
 
             <label htmlFor="picture">Picture:</label>
-            <input type="file" id="picture" name="picture" accept="image/*" defaultValue={ingredient.fields.picture} />
+            <input type="file" id="picture" name="picture" accept="image/*" />
 
             <label htmlFor="describe">Describe:</label>
             <input type="text" id="describe" name="describe" defaultValue={ingredient.fields.describe} />
