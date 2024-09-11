@@ -92,7 +92,6 @@ def whoami_view(request):
         return JsonResponse({"isAuthenticated": False})
     return JsonResponse({"username": request.user.username})
 
-
 @require_POST
 def create_ingredient(request):
     if not request.user.is_authenticated:

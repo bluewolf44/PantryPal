@@ -145,7 +145,7 @@ function PantryGrid({ logoutProp, deleteAccountProp }) {
             </main>
             <div id="side-menu" className="side-nav" style={{ width: menuVisible ? '250px' : '0' }}>
                 <a href="javascript:void(0)" className="closebtn" onClick={closeMenu}>&times;</a>
-                <a href="/pantrypage" className="active">Pantry</a>
+                <a href="" className="active">Pantry</a>
                 <a href="/createrecipe">Create Recipe</a>
                 <a href="/myrecipes">My Recipes</a>
                 <div className="nav-bottom">
