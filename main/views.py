@@ -158,12 +158,23 @@ def get_user_ingredients(request):
 
     return JsonResponse(serialize("json", Ingredient.objects.filter(user=user)), safe=False)
 
-
-def ai_recipe(request):
+#the baking_type is the baking your doing e.g cake,cup cakes
+def ai_recipe(request,baking_type):
+    if not request.user.is_authenticated:
+        return JsonResponse({"detail": "You aren't log in"}, status=401)
+    #Uses the api in .env
     api_key = os.environ.get("GEMINI_API_KEY", False)
     if not api_key:
         JsonResponse({"error": "api_key not correctly place in .env"}, status=501)
     genai.configure(api_key=api_key)
     model = genai.GenerativeModel("gemini-1.5-flash")
-    response = model.generate_content("give me a cake recipe")
+
+    #adds all ingredients into a string to be added into the ai
+    ingredients = ""
+    user = request.user
+    for i in Ingredient.objects.filter(user=user):
+        ingredients += str(i.amount) + {False:"g ",True:"ml "}[i.liquid] +i.ingredientName+" which is "+ i.describe + "\n"
+
+    #The main request
+    response = model.generate_content("give me a "+baking_type+" recipe only using the following ingredients:"+ingredients)
     return JsonResponse({"detail": response.text})

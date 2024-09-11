@@ -25,7 +25,7 @@ const EditModal = ({isOpen, onClose, onSubmit, ingredient}) => {
             <input type="file" id="picture" name="picture" accept="image/*" />
 
             <label htmlFor="describe">Describe:</label>
-            <input type="text" id="describe" name="describe" defaultValue={ingredient.fields.describe} />
+            <input type="text" id="describe" name="describe" required defaultValue={ingredient.fields.describe}  />
 
             <label htmlFor="amount">Amount (g/mL):</label>
             <input type="number" id="amount" name="amount" required min="0" defaultValue={ingredient.fields.amount}/>
