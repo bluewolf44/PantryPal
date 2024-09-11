@@ -17,5 +17,6 @@ urlpatterns = [
     path("api/getIngredients/", views.get_user_ingredients, name="api_get_ingredients"),
     path("api/deleteIngredient/<int:ingredient_id>", views.delete_ingredient_view, name="api_delete_ingredients"),
     path("api/editIngredient/<int:ingredient_id>", views.edit_ingredient_view, name="api_edit_ingredient"),
-    path("api/createRecipe/", views.create_recipe, name="api_create_recipe")
+    path("api/createRecipe/", views.create_recipe, name="api_create_recipe"),
+    path("api/getRecipes/", views.get_user_recipes, name="api_get_recipes")
 ]

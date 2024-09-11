@@ -180,3 +180,11 @@ def create_recipe(request):
     recipe.save()
 
     return HttpResponse(status=201)
+
+# Add view for getting a recipe
+def get_user_recipes(request):
+    if not request.user.is_authenticated:
+        return JsonResponse({"detail": "You aren't log in"}, status=401)
+    user = request.user
+
+    return JsonResponse(serialize("json", Recipe.objects.filter(user=user)), safe=False)
