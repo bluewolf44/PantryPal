@@ -8,7 +8,7 @@ from django.views.decorators.http import require_POST
 from django.db import IntegrityError
 
 from main.forms import *
-from main.models import Ingredient
+from main.models import Ingredient, Recipe
 import google.generativeai as genai
 import os
 import json
@@ -160,3 +160,23 @@ def ai_recipe(request):
     model = genai.GenerativeModel("gemini-1.5-flash")
     response = model.generate_content("give me a cake recipe")
     return JsonResponse({"detail": response.text})
+
+# Add View for creating a recipe
+def create_recipe(request):
+    if not request.user.is_authenticated:
+        return JsonResponse({"detail": "You aren't log in"}, status=401)
+
+    body = RecipeForm(request.POST,request.FILES)
+
+    if not body.is_valid():
+        return JsonResponse({"detail": "form missing values"}, status=400)
+
+    recipe = Recipe.objects.create(
+        recipeName=body.cleaned_data["recipeName"],
+        user=request.user,
+        recipe=body.cleaned_data["recipe"],
+        picture=body.cleaned_data["picture"]
+    )
+    recipe.save()
+
+    return HttpResponse(status=201)
