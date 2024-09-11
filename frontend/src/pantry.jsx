@@ -75,8 +75,7 @@ function PantryGrid({ logoutProp, deleteAccountProp }) {
 
     const editIngredient = async (newIngredient) => {
         try {
-            console.log("INGREDIENT TO EDIT: ", ingredientToEdit);
-            await axios.put(`/api/editIngredient/${ingredientToEdit.pk}`, newIngredient);
+            await axios.post(`/api/editIngredient/${ingredientToEdit.pk}`, newIngredient);
             get_ingredients();
         } catch (error) {
             console.log("Error editing ingredient: ", error);

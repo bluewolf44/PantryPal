@@ -7,9 +7,9 @@ const EditModal = ({isOpen, onClose, onSubmit, ingredient}) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
-    const data = Object.fromEntries(formData.entries());
-    data.liquid = data.liquid === 'on';  // Convert 'on' to true, undefined to false
-    onSubmit(data);
+    //const data = Object.fromEntries(formData.entries());
+    //data.liquid = data.liquid === 'on';  // Convert 'on' to true, undefined to false
+    onSubmit(formData);
     onClose();
   }
 
@@ -28,7 +28,7 @@ const EditModal = ({isOpen, onClose, onSubmit, ingredient}) => {
             <input type="text" id="describe" name="describe" defaultValue={ingredient.fields.describe} />
 
             <label htmlFor="amount">Amount (g/mL):</label>
-            <input type="number" id="amount" name="amount" required min="0" defaultValue={ingredient.fields.amount} />
+            <input type="number" id="amount" name="amount" required min="0" defaultValue={ingredient.fields.amount}/>
 
             <label htmlFor="liquid">Liquid:</label>
             <input type="checkbox" id="liquid" name="liquid" defaultChecked={ingredient.fields.liquid} />

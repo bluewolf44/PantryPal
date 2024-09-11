@@ -20,7 +20,7 @@ const AddModal = ({isOpen, onClose, onSubmit}) => {
             <input type="text" id="ingredientName" name="ingredientName" required/>
 
             <label htmlFor="picture">Picture:</label>
-            <input type="file" id="picture" name="picture" accept="image/*" />
+            <input type="file" id="picture" name="picture" accept="image/*" required/>
 
             <label htmlFor="describe">Describe:</label>
             <input type="text" id="describe" name="describe"/>

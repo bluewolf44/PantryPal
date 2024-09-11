@@ -1,5 +1,5 @@
 from django.core.serializers import serialize
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
@@ -92,12 +92,13 @@ def whoami_view(request):
         return JsonResponse({"isAuthenticated": False})
     return JsonResponse({"username": request.user.username})
 
+
 @require_POST
 def create_ingredient(request):
     if not request.user.is_authenticated:
         return JsonResponse({"detail": "You aren't log in"}, status=401)
 
-    body = IngredientsForm(request.POST,request.FILES)
+    body = IngredientsForm(request.POST, request.FILES)
 
     if not body.is_valid():
         return JsonResponse({"detail": "form missing values"}, status=400)
@@ -126,22 +127,28 @@ def delete_ingredient_view(request, ingredient_id):
 
     return JsonResponse({"detail": "Ingredient deleted successfully"}, status=200)
 
+
 def edit_ingredient_view(request, ingredient_id):
     if not request.user.is_authenticated:
         return JsonResponse({"detail": "You aren't logged in"}, status=401)
     user = request.user
 
-    ingredient = Ingredient.objects.get(id=ingredient_id, user=user)
-    print("request.body: ", request.body)
-    updatedData = json.loads(request.body)
-    ingredient.ingredientName = updatedData.get("ingredientName")
-    # ingredient.picture = updatedData.get("picture") // we need to handle the picture file a different way in order for it to update properly.
-    ingredient.describe = updatedData.get("describe")
-    ingredient.amount = updatedData.get("amount")
-    ingredient.liquid = updatedData.get("liquid")
+    body = IngredientsForm(request.POST, request.FILES)
+    ingredient = get_object_or_404(Ingredient, id=ingredient_id, user=user)
+
+    if not body.is_valid():
+        return JsonResponse({"detail": "form missing values"}, status=400)
+
+    ingredient.ingredientName = body.cleaned_data["ingredientName"]
+
+    if body.cleaned_data["picture"]:
+        ingredient.picture = body.cleaned_data["picture"]
+    ingredient.describe = body.cleaned_data["describe"]
+    ingredient.amount = int(body.cleaned_data["amount"])
+    ingredient.liquid = body.cleaned_data["liquid"]
     ingredient.save();
 
-    return JsonResponse({"detail": "Ingredient updated successfully"}, status =200)
+    return JsonResponse({"detail": "Ingredient updated successfully"}, status=202)
 
 
 def get_user_ingredients(request):
