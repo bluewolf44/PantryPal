@@ -121,11 +121,11 @@ function PantryGrid({ logoutProp, deleteAccountProp }) {
             </header>
             <main>
                 <h2>What's in your pantry?</h2>
+                <div className="item" onClick={() => setIsAddModalOpen(true)} style={{ cursor: 'pointer' }}>
+                        <h4>Add Ingredient</h4>
+                </div>
                 <div className="pantry-grid">
                     {ingredients}
-                    <div className="item" onClick={() => setIsAddModalOpen(true)} style={{ cursor: 'pointer' }}>
-                        <h4>Add Ingredient</h4>
-                    </div>
                 </div>
                 <AddModal
                     isOpen={isAddModalOpen}
