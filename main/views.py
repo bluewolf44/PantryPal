@@ -1,5 +1,5 @@
 from django.core.serializers import serialize
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
@@ -7,6 +7,7 @@ from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.decorators.http import require_POST
 from django.db import IntegrityError
 
+from main.forms import *
 from main.models import Ingredient
 import google.generativeai as genai
 import os
@@ -96,19 +97,19 @@ def whoami_view(request):
 def create_ingredient(request):
     if not request.user.is_authenticated:
         return JsonResponse({"detail": "You aren't log in"}, status=401)
-    body = json.loads(request.body)
 
-    if body.get("ingredientName") is None or body.get("amount") is None or body.get("describe") is None or body.get(
-            "picture") is None or body.get("liquid") is None:
-        return JsonResponse({"detail": "Json missing values"}, status=400)
+    body = IngredientsForm(request.POST, request.FILES)
+
+    if not body.is_valid():
+        return JsonResponse({"detail": "form missing values"}, status=400)
 
     ingredient = Ingredient.objects.create(
-        ingredientName=body.get("ingredientName"),
+        ingredientName=body.cleaned_data["ingredientName"],
         user=request.user,
-        amount=int(body.get("amount")),
-        describe=body.get("describe"),
-        # picture=body.get("picture"), TODO
-        liquid=body.get("liquid")
+        amount=int(body.cleaned_data["amount"]),
+        describe=body.cleaned_data["describe"],
+        picture=body.cleaned_data["picture"],
+        liquid=body.cleaned_data["liquid"]
     )
     ingredient.save()
 
@@ -127,6 +128,29 @@ def delete_ingredient_view(request, ingredient_id):
     return JsonResponse({"detail": "Ingredient deleted successfully"}, status=200)
 
 
+def edit_ingredient_view(request, ingredient_id):
+    if not request.user.is_authenticated:
+        return JsonResponse({"detail": "You aren't logged in"}, status=401)
+    user = request.user
+
+    body = IngredientsForm(request.POST, request.FILES)
+    ingredient = get_object_or_404(Ingredient, id=ingredient_id, user=user)
+
+    if not body.is_valid():
+        return JsonResponse({"detail": "form missing values"}, status=400)
+
+    ingredient.ingredientName = body.cleaned_data["ingredientName"]
+
+    if body.cleaned_data["picture"]:
+        ingredient.picture = body.cleaned_data["picture"]
+    ingredient.describe = body.cleaned_data["describe"]
+    ingredient.amount = int(body.cleaned_data["amount"])
+    ingredient.liquid = body.cleaned_data["liquid"]
+    ingredient.save();
+
+    return JsonResponse({"detail": "Ingredient updated successfully"}, status=202)
+
+
 def get_user_ingredients(request):
     if not request.user.is_authenticated:
         return JsonResponse({"detail": "You aren't log in"}, status=401)
@@ -134,12 +158,23 @@ def get_user_ingredients(request):
 
     return JsonResponse(serialize("json", Ingredient.objects.filter(user=user)), safe=False)
 
-
-def ai_recipe(request):
+#the baking_type is the baking your doing e.g cake,cup cakes
+def ai_recipe(request,baking_type):
+    if not request.user.is_authenticated:
+        return JsonResponse({"detail": "You aren't log in"}, status=401)
+    #Uses the api in .env
     api_key = os.environ.get("GEMINI_API_KEY", False)
     if not api_key:
         JsonResponse({"error": "api_key not correctly place in .env"}, status=501)
     genai.configure(api_key=api_key)
     model = genai.GenerativeModel("gemini-1.5-flash")
-    response = model.generate_content("give me a cake recipe")
-    return JsonResponse(response.candidates)
+
+    #adds all ingredients into a string to be added into the ai
+    ingredients = ""
+    user = request.user
+    for i in Ingredient.objects.filter(user=user):
+        ingredients += str(i.amount) + {False:"g ",True:"ml "}[i.liquid] +i.ingredientName+" which is "+ i.describe + "\n"
+
+    #The main request
+    response = model.generate_content("give me a "+baking_type+" recipe only using the following ingredients:"+ingredients)
+    return JsonResponse({"detail": response.text})
