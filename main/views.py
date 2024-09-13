@@ -134,14 +134,14 @@ def delete_ingredient_view(request, ingredient_id):
 
 def edit_ingredient_view(request, ingredient_id):
     if not request.user.is_authenticated:
-        return JsonResponse({"detail": "You aren't logged in"}, status=401)
+        return JsonResponse({"error": "You aren't logged in"}, status=401)
     user = request.user
 
     body = IngredientsForm(request.POST, request.FILES)
     ingredient = get_object_or_404(Ingredient, id=ingredient_id, user=user)
 
     if not body.is_valid():
-        return JsonResponse({"detail": "form missing values"}, status=400)
+        return JsonResponse({"error": "form missing values"}, status=400)
 
     ingredient.ingredientName = body.cleaned_data["ingredientName"]
 
