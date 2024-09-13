@@ -4,8 +4,8 @@ from . import views
 
 urlpatterns = [
     path("", views.index_page, name="index"),
-    path("addIngredient", views.index_page, name="add_ingredient"),
     path("createAccount", views.index_page, name="create_account"),
+    path("createRecipe", views.index_page, name="create_account"),
     path("api/login/", views.api_login, name="api_login"),
     path("api/aiRecipe/<str:baking_type>", views.ai_recipe, name="ai_recipe"),
     path("api/session/", views.session_view, name="api_session"),

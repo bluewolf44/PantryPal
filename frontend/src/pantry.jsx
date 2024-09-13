@@ -15,7 +15,6 @@ axios.defaults.withCredentials = true;
 Modal.setAppElement('#root');  // Assuming your root div has an ID of 'root'
 
 function PantryGrid({ logoutProp, deleteAccountProp }) {
-    const [menuVisible, setMenuVisible] = useState(false);
     const [ingredients, setIngredients] = useState([]);
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -53,14 +52,6 @@ function PantryGrid({ logoutProp, deleteAccountProp }) {
             .catch((err) => {
                 console.log(err);
             });
-    };
-
-    const toggleMenu = () => {
-        setMenuVisible(!menuVisible);  // Toggle visibility state
-    };
-
-    const closeMenu = () => {
-        setMenuVisible(false);  // Set menu to not visible
     };
 
     const logout = (event) => {
@@ -110,14 +101,6 @@ function PantryGrid({ logoutProp, deleteAccountProp }) {
 
     return (
         <>
-            <header>
-                <nav className="navbar">
-                    <div className="menu-button" onClick={toggleMenu}>☰</div>
-                    <div className="logo-container">
-                        <a href="/"><img src={logo} alt="PantryPal Logo" className="logo" /></a>
-                    </div>
-                </nav>
-            </header>
             <main>
                 <h2>What's in your pantry?</h2>
                 <div className="item" onClick={() => setIsAddModalOpen(true)} style={{ cursor: 'pointer' }}>
@@ -142,16 +125,6 @@ function PantryGrid({ logoutProp, deleteAccountProp }) {
                     <button onClick={() => window.location.href = 'createrecipe.html'}>Let's Get Baking!</button>
                 </div>
             </main>
-            <div id="side-menu" className="side-nav" style={{ width: menuVisible ? '250px' : '0' }}>
-                <a href="javascript:void(0)" className="closebtn" onClick={closeMenu}>&times;</a>
-                <a href="" className="active">Pantry</a>
-                <a href="/createrecipe">Create Recipe</a>
-                <a href="/myrecipes">My Recipes</a>
-                <div className="nav-bottom">
-                    <a href="#" onClick={logout}>Log Out</a>
-                    <a href="#" onClick={deleteAccount}>Delete Account</a>
-                </div>
-            </div>
         </>
     );
 }
