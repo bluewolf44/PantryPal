@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Modal from 'react-modal';
 import './css/pantrypage.css';  // Assuming your CSS is adapted for React
-import milk from "./images/milk.jpg";
-import flour from "./images/flour.jpg";
 import logo from "./images/pantrypal-logo.png";
 import axios from "axios";
 import AddModal from "./modals/AddModal";
@@ -14,7 +12,7 @@ axios.defaults.withCredentials = true;
 
 Modal.setAppElement('#root');  // Assuming your root div has an ID of 'root'
 
-function PantryGrid({ logoutProp, deleteAccountProp }) {
+function PantryGrid() {
     const [ingredients, setIngredients] = useState([]);
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -52,16 +50,6 @@ function PantryGrid({ logoutProp, deleteAccountProp }) {
             .catch((err) => {
                 console.log(err);
             });
-    };
-
-    const logout = (event) => {
-        event.preventDefault();
-        logoutProp();
-    };
-
-    const deleteAccount = (event) => {
-        event.preventDefault();
-        deleteAccountProp();
     };
 
     const editIngredient = async (newIngredient) => {
@@ -122,7 +110,7 @@ function PantryGrid({ logoutProp, deleteAccountProp }) {
                     ingredient={ingredientToEdit}
                 />
                 <div className="button-container">
-                    <button onClick={() => window.location.href = 'createrecipe.html'}>Let's Get Baking!</button>
+                    <button onClick={() => window.location.href = 'createRecipe'}>Let's Get Baking!</button>
                 </div>
             </main>
         </>

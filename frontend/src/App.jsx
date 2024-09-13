@@ -5,6 +5,7 @@ import Cookies from "universal-cookie";
 import PantryGrid from './pantry';
 import CreateAccount from './createaccount';
 import logo from "./images/pantrypal-logo.png";
+import CreateRecipe from "./createrecipe"
 
 
 const cookies = new Cookies();
@@ -141,14 +142,15 @@ class App extends React.Component {
                 </header>
                 <Router>
                     <Routes>
-                          <Route path="/" element={ <PantryGrid logoutProp = {this.logout} deleteAccountProp = {this.deleteAccount} />} />
+                          <Route path="/" element={ <PantryGrid />} />
+                          <Route path="/createRecipe" element={ <CreateRecipe />} />
                           <Route path ="*" element={<span onClick={() => window.location.href = '/'}>404 Go back</span>} />
                     </Routes>
                 </Router>
                 <div id="side-menu" className="side-nav" style={{ width: this.state.menuVisible ? '250px' : '0' }}>
                     <a href="javascript:void(0)" className="closebtn" onClick={this.closeMenu}>&times;</a>
                     <a href="" className="active">Pantry</a>
-                    <a href="/createrecipe">Create Recipe</a>
+                    <a href="/createRecipe">Create Recipe</a>
                     <a href="/myrecipes">My Recipes</a>
                     <div className="nav-bottom">
                         <a href="#" onClick={this.logout}>Log Out</a>
