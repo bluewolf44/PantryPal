@@ -118,11 +118,15 @@ def create_ingredient(request):
 
 # ingredient_id is obtained from urls.py matching ingredient_id.
 def delete_ingredient_view(request, ingredient_id):
+    if not request.method == "DELETE":
+        return HttpResponse(status=404)
+
     if not request.user.is_authenticated:
         return JsonResponse({"detail": "You aren't log in"}, status=401)
     user = request.user
 
-    ingredient = Ingredient.objects.get(id=ingredient_id, user=user)
+    ingredient = get_object_or_404(Ingredient,id=ingredient_id, user=user)
+
     ingredient.delete()
 
     return JsonResponse({"detail": "Ingredient deleted successfully"}, status=200)

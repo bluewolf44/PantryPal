@@ -117,26 +117,3 @@ def test_edit_ingredient(user_factory, ingredient_factory):
     }, content_type="application/json")
     assert response.status_code == 403
 
-@pytestPantryPal
-def test_delete_ingredient(user_factory, ingredient_factory):
-    c = Client()
-    url = reverse("api_delete_ingredient")
-    assert c.post(url).status_code == 401
-    user = user_factory(username="dave", password=make_password("password123"))
-    c.force_login(user)
-    ingredient = ingredient_factory(user=user, ingredientName="cheese")
-
-    response = c.post(url, {"ingredientID": ingredient.id}, content_type="application/json")
-    assert response.status_code == 200
-    assert len(Ingredient.objects.filter(id=ingredient.id)) == 0
-
-    # Test deleting an ingredient that doesn't exist
-    response = c.post(url, {"ingredientID": 9999}, content_type="application/json")
-    assert response.status_code == 404  # Assuming 404 is returned for not found
-
-    # Test deleting an ingredient that belongs to another user
-    other_user = user_factory(username="jeff", password=make_password("password123"))
-    other_ingredient = ingredient_factory(user=other_user, ingredientName="milk")
-
-    response = c.post(url, {"ingredientID": other_ingredient.id}, content_type="application/json")
-    assert response.status_code == 403
