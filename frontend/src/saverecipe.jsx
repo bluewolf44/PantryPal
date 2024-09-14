@@ -1,6 +1,6 @@
 import React, { useState,useEffect  } from 'react';
 import Modal from 'react-modal';
-import './css/pantrypage.css';  // Assuming your CSS is adapted for React
+import './css/saverecipe.css';  // Assuming your CSS is adapted for React
 
 Modal.setAppElement('#root');  // Assuming your root div has an ID of 'root'
 

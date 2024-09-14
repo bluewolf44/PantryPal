@@ -1,6 +1,6 @@
 import React, { useState,useEffect  } from 'react';
 import Modal from 'react-modal';
-import './css/pantrypage.css';
+import './css/createrecipe.css';
 
 Modal.setAppElement('#root');
 
