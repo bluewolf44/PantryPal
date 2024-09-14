@@ -40,3 +40,32 @@
 .read-the-docs {
   color: #888;
 }
+
+
+/* Side Navigation */
+.side-nav {
+  width: 250px; /* Fixed width for the sidebar */
+  position: fixed;
+  z-index: 1050;
+  top: 0;
+  left: -250px; /* Start hidden to the left */
+  height: 100%;
+  background-color: #ffffff;
+  overflow-x: hidden;
+  transition: left 0.5s; /* Smooth transition for sliding in and out */
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Main Content Shifting */
+.main-content {
+  transition: margin-left 0.5s; /* Smooth transition for content shifting */
+}
+
+/* Additional styles for opened state */
+.nav-open .side-nav {
+  left: 0; /* Slide in */
+}
+
+.nav-open .main-content {
+  margin-left: 250px; /* Push content to the right */
+}
