@@ -109,7 +109,8 @@ class App extends React.Component {
   };
 
    toggleMenu = () => {
-      this.setState({menuVisible:!this.state.menuVisible});  // Toggle visibility state
+      this.setState({menuVisible: !this.state.menuVisible});
+      document.body.classList.toggle('nav-open', this.state.menuVisible); // Toggle class on body
    };
 
    closeMenu = () => {
@@ -140,13 +141,15 @@ class App extends React.Component {
                         </div>
                     </nav>
                 </header>
-                <Router>
-                    <Routes>
-                          <Route path="/" element={ <PantryGrid />} />
-                          <Route path="/createRecipe" element={ <CreateRecipe />} />
-                          <Route path ="*" element={<span onClick={() => window.location.href = '/'}>404 Go back</span>} />
-                    </Routes>
-                </Router>
+                <div className="main-content">
+                  <Router>
+                      <Routes>
+                            <Route path="/" element={ <PantryGrid />} />
+                            <Route path="/createRecipe" element={ <CreateRecipe />} />
+                            <Route path ="*" element={<span onClick={() => window.location.href = '/'}>404 Go back</span>} />
+                      </Routes>
+                  </Router>
+                </div>
                 <div id="side-menu" className="side-nav" style={{ width: this.state.menuVisible ? '250px' : '0' }}>
                     <a href="javascript:void(0)" className="closebtn" onClick={this.closeMenu}>&times;</a>
                     <a href="/" className="active">Pantry</a>
