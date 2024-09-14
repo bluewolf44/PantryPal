@@ -177,8 +177,9 @@ def ai_recipe(request,baking_type):
     ingredients = ""
     user = request.user
     for i in Ingredient.objects.filter(user=user):
-        ingredients += str(i.amount) + {False:"g ",True:"ml "}[i.liquid] +i.ingredientName+" which is "+ i.describe + "\n"
+        ingredients += i.ingredientName+", "
 
-    #The main request
+    # The main request
     response = model.generate_content("give me a "+baking_type+" recipe only using the following ingredients:"+ingredients)
+    print(response.candidates[0].safety_ratings)
     return JsonResponse({"detail": response.text})

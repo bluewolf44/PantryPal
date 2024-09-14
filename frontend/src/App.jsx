@@ -6,6 +6,7 @@ import PantryGrid from './pantry';
 import CreateAccount from './createaccount';
 import logo from "./images/pantrypal-logo.png";
 import CreateRecipe from "./createrecipe"
+import ShowRecipe from "./showrecipe"
 
 
 const cookies = new Cookies();
@@ -67,14 +68,6 @@ class App extends React.Component {
     });
   }
 
-//   isResponseOk(response) {
-//     if (response.status >= 200 && response.status <= 299) {
-//       return response.json();
-//     } else {
-//       throw Error(response.statusText);
-//     }
-//   }
-//
   //Logout Method
   logout = () => {
     fetch("/api/logout", {
@@ -116,7 +109,6 @@ class App extends React.Component {
       this.setState({menuVisible:false});  // Set menu to not visible
    };
 
-
   // UI Rendering using bootstrap
     render() {
         if (!this.state.isAuthenticated) {
@@ -140,10 +132,12 @@ class App extends React.Component {
                         </div>
                     </nav>
                 </header>
+                <h2></h2>
                 <Router>
                     <Routes>
                           <Route path="/" element={ <PantryGrid />} />
-                          <Route path="/createRecipe" element={ <CreateRecipe />} />
+                          <Route path="/createRecipe" element={ <CreateRecipe/>} />
+                          <Route path="/ShowRecipe" element={ <ShowRecipe />} />
                           <Route path ="*" element={<span onClick={() => window.location.href = '/'}>404 Go back</span>} />
                     </Routes>
                 </Router>

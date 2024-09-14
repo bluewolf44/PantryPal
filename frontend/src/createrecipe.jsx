@@ -1,8 +1,8 @@
 import React, { useState,useEffect  } from 'react';
 import Modal from 'react-modal';
-import './css/pantrypage.css';  // Assuming your CSS is adapted for React
+import './css/pantrypage.css';
 
-Modal.setAppElement('#root');  // Assuming your root div has an ID of 'root'
+Modal.setAppElement('#root');
 
 // The foods that will display:
 const foods = [
@@ -15,12 +15,22 @@ const foods = [
         name:"Pizza",
         picture:"pizza.jpg",
         queryName:"pizza",
-      },];
+    },];
 
 function CreateRecipe() {
 
-    const handleCreate = (queryName) => {
-        console.log(queryName);
+    const handleRecipeCreation = (queryName) => {
+        fetch("/api/aiRecipe/"+queryName, {
+            credentials: "same-origin",
+        })
+        .then((res) => res.json())
+        .then((data) => {
+            sessionStorage.setItem('currentQuery',data.detail);
+            window.location.href = 'showRecipe'
+        })
+        .catch((err) => {
+            console.log(err);
+        });
     }
 
     const temp = foods.map((item,index) => (
@@ -28,7 +38,7 @@ function CreateRecipe() {
             <img src={'Storage/RecipeImages/'+item.picture} alt={item.picture} />
             <span>{item.name}</span>
             <div className="item-buttons">
-                <button onClick={() => handleCreate(item.queryName)}>Create</button>
+                <button onClick={() => handleRecipeCreation(item.queryName)}>Create</button>
             </div>
         </div>
     ));
