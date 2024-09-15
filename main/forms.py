@@ -11,7 +11,7 @@ class IngredientsForm(forms.Form):
 class RecipeForm(forms.Form):
     recipeName = forms.CharField(label="recipeName", max_length=50)
     # user - i guess this is not needed here
-    recipe = forms.TextField(label="recipe")
+    # recipe = forms.TextField(label="recipe")
     picture = forms.ImageField(label="picture")
 
 
