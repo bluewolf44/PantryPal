@@ -185,6 +185,7 @@ def ai_recipe(request,baking_type):
     return JsonResponse({"detail": response.text})
 
 # Add View for creating a recipe
+@require_POST
 def create_recipe(request):
     if not request.user.is_authenticated:
         return JsonResponse({"detail": "You aren't log in"}, status=401)
