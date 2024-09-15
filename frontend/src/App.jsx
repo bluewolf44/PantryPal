@@ -4,6 +4,9 @@ import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-route
 import Cookies from "universal-cookie";
 import PantryGrid from './pantry';
 import CreateAccount from './createaccount';
+import logo from "./images/pantrypal-logo.png";
+import CreateRecipe from "./createrecipe"
+import ShowRecipe from "./showrecipe"
 
 
 const cookies = new Cookies();
@@ -17,12 +20,14 @@ class App extends React.Component {
       password: "",
       error: "",
       isAuthenticated: false,
+      menuVisible: false,
     };
   }
 
   componentDidMount = () => {
     this.getSession();
   }
+
 
 // Get Session Method
   getSession = () => {
@@ -63,14 +68,6 @@ class App extends React.Component {
     });
   }
 
-//   isResponseOk(response) {
-//     if (response.status >= 200 && response.status <= 299) {
-//       return response.json();
-//     } else {
-//       throw Error(response.statusText);
-//     }
-//   }
-//
   //Logout Method
   logout = () => {
     fetch("/api/logout", {
@@ -104,6 +101,14 @@ class App extends React.Component {
     }
   };
 
+   toggleMenu = () => {
+      this.setState({menuVisible: !this.state.menuVisible});
+      document.body.classList.toggle('nav-open', this.state.menuVisible); // Toggle class on body
+   };
+
+   closeMenu = () => {
+      this.setState({menuVisible:false});  // Set menu to not visible
+   };
 
   // UI Rendering using bootstrap
     render() {
@@ -113,17 +118,42 @@ class App extends React.Component {
                     <Routes>
                         <Route path="/" element= {<Login app = {this} cookies = {cookies} /> } />
                         <Route path="/createAccount" element={<CreateAccount cookies={cookies}/>} />
+                        <Route path ="*" element={<span onClick={() => window.location.href = '/'}>404 Go back</span>} />
                     </Routes>
                 </Router>
             )
         }
         return(
-            <Router>
-                <Routes>
-                      <Route path="/" element={ <PantryGrid logoutProp = {this.logout} deleteAccountProp = {this.deleteAccount} />} />
-                      <Route path ="*" element={<span onClick={() => window.location.href = '/'}>404 Go back</span>} />
-                </Routes>
-            </Router>
+            <>
+                <header>
+                    <nav className="navbar">
+                        <div className="menu-button" onClick={this.toggleMenu}>☰</div>
+                        <div className="logo-container">
+                            <a href="/"><img src={logo} alt="PantryPal Logo" className="logo" /></a>
+                        </div>
+                    </nav>
+                </header>
+                <div className="main-content">
+                  <Router>
+                      <Routes>
+                            <Route path="/" element={ <PantryGrid />} />
+                            <Route path="/createRecipe" element={ <CreateRecipe />} />
+                            <Route path="/ShowRecipe" element={ <ShowRecipe />} />
+                            <Route path ="*" element={<span onClick={() => window.location.href = '/'}>404 Go back</span>} />
+                      </Routes>
+                  </Router>
+                </div>
+                <div id="side-menu" className="side-nav" style={{ width: this.state.menuVisible ? '250px' : '0' }}>
+                    <a href="javascript:void(0)" className="closebtn" onClick={this.closeMenu}>&times;</a>
+                    <a href="/" className="active">Pantry</a>
+                    <a href="/createRecipe">Create Recipe</a>
+                    <a href="/saveRecipe">My Recipes</a>
+                    <div className="nav-bottom">
+                        <a href="#" onClick={this.logout}>Log Out</a>
+                        <a href="#" onClick={this.deleteAccount}>Delete Account</a>
+                    </div>
+                </div>
+            </>
         )
     }
 }

@@ -1,17 +1,17 @@
 /* General Styles */
-body, html {
+/* Reset CSS to ensure consistent styling */
+html, body {
     margin: 0;
     padding: 0;
+    height: 100%; /* Ensure full height */
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+    overflow-y: auto; /* Ensure vertical scrolling is enabled */
+}
+
+body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
     color: #0a02a1; /* Primary text color */
-    overflow-x: hidden; /* Prevents horizontal scrolling */
-    overflow-y: auto; /* Ensures vertical scrolling is enabled */
-}
-
-h2 {
-    text-align: center; /* Centers the text horizontally */
-    margin: 20px 0; /* Adds top and bottom margins for spacing */
 }
 
 /* Navigation Bar */
@@ -22,12 +22,34 @@ h2 {
     align-items: center;
     justify-content: space-between;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    position: fixed; /* Keeps navbar at the top */
-    width: 100%; /* Ensures it spans across the page */
+    position: fixed;
+    width: 100%;
     top: 0;
     left: 0;
-    z-index: 1000; /* Ensures navbar is above other content */
+    z-index: 1000;
+    height: 60px; /* Adjust based on actual navbar height */
 }
+
+/* Main Content Area */
+main {
+    padding-top: 70px; /* Should be at least the height of the navbar */
+    padding-bottom: 50px;
+    margin-top: 60px; /* Give margin-top equal to navbar height if needed */
+}
+
+/* Pantry Grid Layout */
+.pantry-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+    padding: 20px;
+}
+
+h2 {
+    text-align: center; /* Centers the text horizontally */
+    margin: 20px 0; /* Adds top and bottom margins for spacing */
+}
+
 
 .menu-button {
     font-size: 30px;
@@ -46,21 +68,17 @@ h2 {
     width: auto;
 }
 
-/* Main Content Area */
-main {
-    padding-top: 300px; /* Adds more space for the fixed navbar */
-    padding-bottom: 50px; /* Adds space at the bottom for better visibility */
+
+
+/* Ensure the overall container matches the size restrictions and centering from App.css */
+#root {
+    max-width: 1280px;
+    margin: 0 auto; /* This centers the container */
+    padding: 0; /* Remove the padding if it's causing alignment issues */
+    text-align: center; /* Center align text */
 }
 
-/* Pantry Grid Layout */
-.pantry-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 15px;
-    padding: 20px;
-    margin-top: 20px;
-    margin-bottom: 20px; /* Adds bottom margin */
-}
+
 
 .item {
     position: relative;
@@ -126,6 +144,29 @@ button:hover {
     z-index: 1000;
 }
 
+
+
+.modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    border-radius: 4px;
+    width: 300px; 
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
 /* Sidebar Navigation */
 .side-nav {
     height: 100%;
@@ -150,25 +191,4 @@ button:hover {
 
 .side-nav a:hover {
     background-color: #e0e0e0; /* Hover effect for better user feedback */
-}
-
-.modal {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: white;
-    padding: 20px;
-    border-radius: 4px;
-    width: 300px; 
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
 }

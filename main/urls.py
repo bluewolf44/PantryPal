@@ -4,10 +4,13 @@ from . import views
 
 urlpatterns = [
     path("", views.index_page, name="index"),
-    path("addIngredient", views.index_page, name="add_ingredient"),
     path("createAccount", views.index_page, name="create_account"),
+    path("createRecipe", views.index_page, name="create_account"),
+    path("savedRecipe", views.index_page, name="saved_recipe"),
+    path("showRecipe", views.index_page, name="show_recipe"),
+    path("saveRecipe", views.index_page, name="save_recipe"),
     path("api/login/", views.api_login, name="api_login"),
-    path("api/aiRecipe/", views.ai_recipe, name="ai_recipe"),
+    path("api/aiRecipe/<str:baking_type>", views.ai_recipe, name="ai_recipe"),
     path("api/session/", views.session_view, name="api_session"),
     path("api/whoami/", views.whoami_view, name="api_whoami"),
     path("api/logout/", views.logout_view, name="api_logout"),

@@ -1,0 +1,44 @@
+/* showrecipe.css */
+body {
+    font-family: 'Arial', sans-serif; /* Consistent font */
+    background-color: #f4f4f4; /* Light background for reading comfort */
+    color: #333; /* Dark grey for text to reduce strain */
+    padding: 20px; /* Padding around the content for spacing from window edges */
+    line-height: 1.6; /* Improve line spacing for readability */
+}
+
+pre {
+    background-color: #fff; /* Light background for the text block */
+    border: 1px solid #ddd; /* Subtle border around the text */
+    border-radius: 8px; /* Rounded corners */
+    padding: 20px; /* Padding for spacing inside the text block */
+    margin: 20px 0; /* Top and bottom margin */
+    font-family: 'Courier New', Courier, monospace; /* Monospaced font for better alignment of text */
+    font-size: 16px; /* Slightly larger font size for readability */
+    line-height: 1.5; /* Increased line height for better readability */
+    overflow-wrap: break-word; /* Ensures long strings do not overflow their container */
+    white-space: pre-wrap; /* Maintains whitespace formatting from API but wraps text */
+    word-wrap: break-word; /* Wraps long words */
+    color: #333; /* Dark grey color for text for readability */
+    overflow-x: auto; /* Allows horizontal scrolling if necessary */
+}
+
+button {
+    background-color: #0a02a1; /* Primary button color */
+    color: white; /* Text color */
+    border: none; /* No border */
+    border-radius: 8px; /* Rounded corners for the button */
+    padding: 10px 20px; /* Padding inside the button */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s, transform 0.2s; /* Smooth transition for hover effects */
+    margin-right: 10px; /* Space between buttons */
+}
+
+button:hover {
+    background-color: #ff4b92; /* Color change on hover */
+    transform: scale(1.05); /* Slightly enlarge button on hover */
+}
+
+button:focus {
+    outline: none; /* Remove the outline to enhance the focus state visually */
+}
