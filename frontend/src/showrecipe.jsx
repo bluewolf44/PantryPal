@@ -19,13 +19,16 @@ function ShowRecipe() {
         // Implementation to go back, possibly using history or redirect
     };
 
-    // Enhance text formatting by converting lists into HTML lists
+    // Assuming lines meant to be list items start with an asterisk (*)
     const formatRecipeText = (text) => {
         const boldTextRegex = /\*\*(.*?)\*\*/g;
+        const listItemRegex = /^\* (.*?)(?=\n|$)/gm; // Matches lines starting with '* '
+
         const formattedText = text
-            .replace(boldTextRegex, '<strong>$1</strong>') // Bold formatting
-            .replace(/(?:\r\n|\r|\n)\*/g, '</li><li>'); // Convert * to list items
-        return { __html: '<ul><li>' + formattedText.substring(4) + '</li></ul>' }; // Assuming the text starts with a *
+            .replace(boldTextRegex, '<strong>$1</strong>') // Apply bold formatting
+            .replace(listItemRegex, '<li>$1</li>'); // Convert lines starting with '* ' to list items
+
+        return { __html: '<ul>' + formattedText + '</ul>' }; // Wrap with <ul> if not every line is a list item
     };
 
     return (
@@ -33,7 +36,7 @@ function ShowRecipe() {
             <h2>Recipe Details</h2>
             <div className="recipe-content" dangerouslySetInnerHTML={formatRecipeText(query)}></div>
             <button onClick={handleSave}>Save</button>
-            <button onClick={handleBack}>Back</button>
+            <button onClick={() => window.location.href = '/createRecipe'}>Back</button>
         </>
     );
 }

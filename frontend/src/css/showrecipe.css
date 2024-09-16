@@ -5,28 +5,33 @@ body {
     color: #333;
     padding: 20px;
     line-height: 1.6;
+    text-align: left;
 }
 
 .recipe-content {
+    position: relative; /* Needed if you decide to make it fixed on the screen */
     background-color: #fff;
     border: 1px solid #ddd;
     border-radius: 8px;
     padding: 20px;
-    margin: 20px 0;
+    margin: 20px auto;
     font-family: 'Arial', sans-serif;
     font-size: 16px;
     color: #0a02a1;
     overflow-x: hidden; /* No horizontal scroll */
     overflow-y: auto; /* Enable vertical scroll */
-    white-space: pre-wrap;
-    word-wrap: break-word;
-    line-height: 1.5;
+    height: 400px; /* Fixed height to enable scrolling */
+    max-width: 800px; /* Restricting max width for better readability */
 }
 
-/* Styling for bullet points and headers within the recipe */
 ul {
-    padding-left: 20px;
-    list-style-type: disc; /* Disc type bullet points for unordered lists */
+    padding-left: 20px; /* Indent for list items */
+    list-style-type: disc; /* Bullet style */
+}
+
+li {
+    margin-bottom: 10px;
+    text-align: left;
 }
 
 h2, h3 {
@@ -35,7 +40,7 @@ h2, h3 {
 }
 
 strong {
-    color: #ff4b92; /* Emphasize key terms */
+    color: #ff4b92;
     font-weight: bold;
 }
 
