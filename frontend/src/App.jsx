@@ -7,6 +7,7 @@ import CreateAccount from './createaccount';
 import logo from "./images/pantrypal-logo.png";
 import CreateRecipe from "./createrecipe"
 import ShowRecipe from "./showrecipe"
+import './App.css'; 
 
 
 const cookies = new Cookies();
