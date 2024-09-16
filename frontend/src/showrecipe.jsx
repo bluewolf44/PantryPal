@@ -19,9 +19,19 @@ function ShowRecipe() {
         // Implementation to go back, possibly using history or redirect
     };
 
+    // Enhance text formatting by converting lists into HTML lists
+    const formatRecipeText = (text) => {
+        const boldTextRegex = /\*\*(.*?)\*\*/g;
+        const formattedText = text
+            .replace(boldTextRegex, '<strong>$1</strong>') // Bold formatting
+            .replace(/(?:\r\n|\r|\n)\*/g, '</li><li>'); // Convert * to list items
+        return { __html: '<ul><li>' + formattedText.substring(4) + '</li></ul>' }; // Assuming the text starts with a *
+    };
+
     return (
         <>
-            <pre>{query}</pre>
+            <h2>Recipe Details</h2>
+            <div className="recipe-content" dangerouslySetInnerHTML={formatRecipeText(query)}></div>
             <button onClick={handleSave}>Save</button>
             <button onClick={handleBack}>Back</button>
         </>
