@@ -1,0 +1,50 @@
+# Source: https://github.com/JamesRobionyRogers/GitHub-to-GitBucket-Action/tree/main
+name: Mirror to GitBucket
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - "*"
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+
+      - name: Fetch all branches
+        run: |
+          git fetch --all
+          git fetch --tags
+
+      - name: List branches
+        run: |
+          git branch -a
+
+      # Enables tracking of remote branches ensuring all branches are pushed to GitBucket
+      - name: Track remote branches
+        run: |
+          for branch in $(git branch -r | grep -v '\->'); do
+            local_branch=${branch#origin/}
+            git branch --track "$local_branch" "$branch" || true
+          done
+
+
+      - name: Push to GitBucket
+        env:
+          # Set the GitBucket URL, username and password as secrets in your repository settings
+          GITBUCKET_URL: "https://isgb.otago.ac.nz/info301/git/phiha428/TeamBINFO301.git"
+          GITBUCKET_USERNAME: ${{ secrets.GITBUCKET_USERNAME }}
+          GITBUCKET_PASSWORD: ${{ secrets.GITBUCKET_PASSWORD }}
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+
+          git remote add gitbucket https://$GITBUCKET_USERNAME:$GITBUCKET_PASSWORD@$GITBUCKET_URL
+          git push --mirror -v gitbucket
+          
