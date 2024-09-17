@@ -2,9 +2,9 @@ name: Django CI
 
 on:
   push:
-    branches: [ "DjangoAutoTesting" ]
+    branches: [ "master" ]
   pull_request:
-    branches: [ "DjangoAutoTesting" ]
+    branches: [ "master" ]
 
 jobs:
   build:
