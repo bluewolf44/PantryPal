@@ -190,7 +190,7 @@ def create_recipe(request):
     if not request.user.is_authenticated:
         return JsonResponse({"detail": "You aren't log in"}, status=401)
 
-    body = RecipeForm(request.POST,request.FILES)
+    body = json.load(request.body)
 
     if not body.is_valid():
         return JsonResponse({"detail": "form missing values"}, status=400)
