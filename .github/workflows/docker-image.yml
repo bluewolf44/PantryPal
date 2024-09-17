@@ -2,9 +2,9 @@ name: Docker Image CI
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "BuildDockerCI" ]
   pull_request:
-    branches: [ "master" ]
+    branches: [ "BuildDockerCI" ]
 
 jobs:
 
@@ -15,4 +15,4 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Build the Docker image
-      run: docker compose -p pantrypal up -d
+    - run: docker compose up -d
