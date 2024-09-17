@@ -1,5 +1,6 @@
 import Modal from 'react-modal';
 import React, { useState, useEffect } from 'react';
+import axios from "axios";
 import './css/showrecipe.css'; 
 
 Modal.setAppElement('#root');
@@ -9,9 +10,14 @@ function ShowRecipe() {
     const query = sessionStorage.getItem('currentQuery');
 
      
-    const handleSave = () => {
-        console.log('Recipe saved');
-        // Implementation to save the recipe
+    const handleSave = async (recipeId) => {
+        try {
+            const data = { recipe_id: recipeId }; 
+            await axios.post(`/api/saveRecipe/`, data);
+            console.log("Recipe saved successfully");
+        } catch (error) {
+            console.error("Error saving recipe:", error);
+        }
     };
 
 

@@ -115,7 +115,6 @@ def create_ingredient(request):
 
     return HttpResponse(status=201)
 
-
 # ingredient_id is obtained from urls.py matching ingredient_id.
 def delete_ingredient_view(request, ingredient_id):
     if not request.method == "DELETE":
@@ -212,3 +211,20 @@ def get_user_recipes(request):
     user = request.user
 
     return JsonResponse(serialize("json", Recipe.objects.filter(user=user)), safe=False)
+
+@require_POST
+def save_recipe(request):
+    if not request.user.is_authenticated:
+        return JsonResponse({"detail": "You aren't log in"}, status=401)
+    user = request.user
+    
+    body = json.loads(request.body)
+    
+    recipe = Recipe.objects.create(
+        recipeName=("Cake"),
+        user=user,
+        recipe=body.get("recipe"),
+    )
+    recipe.save()
+
+    return HttpResponse(status=201)
