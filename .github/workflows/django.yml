@@ -14,6 +14,13 @@ jobs:
       max-parallel: 4
       matrix:
         python-version: ['3.10']
+    services:
+      postgres:
+          image: postgres
+          ports:
+            - 5432:5432
+          env:
+            POSTGRES_PASSWORD: postgres
 
     steps:
     - uses: actions/checkout@v4
