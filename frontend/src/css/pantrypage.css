@@ -14,22 +14,6 @@ body {
     color: #0a02a1; /* Primary text color */
 }
 
-/* Navigation Bar */
-.navbar {
-    background-color: #ffffff;
-    padding: 10px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    position: fixed;
-    width: 100%;
-    top: 0;
-    left: 0;
-    z-index: 1000;
-    height: 60px; /* Adjust based on actual navbar height */
-}
-
 /* Main Content Area */
 main {
     padding-top: 70px; /* Should be at least the height of the navbar */
@@ -50,23 +34,6 @@ h2 {
     margin: 20px 0; /* Adds top and bottom margins for spacing */
 }
 
-
-.menu-button {
-    font-size: 30px;
-    cursor: pointer;
-    margin-right: 20px; /* Ensure space around menu button */
-}
-
-.logo-container {
-    flex-grow: 1;
-    display: flex;
-    justify-content: center; /* Center logo */
-}
-
-.logo {
-    height: 50px;
-    width: auto;
-}
 
 
 
@@ -165,30 +132,4 @@ button:hover {
     right: 0;
     bottom: 0;
     background-color: rgba(0, 0, 0, 0.5);
-}
-
-/* Sidebar Navigation */
-.side-nav {
-    height: 100%;
-    width: 250px; /* Ensure width is enough to show all text */
-    position: fixed;
-    z-index: 1050; /* Higher z-index to prevent hiding behind other elements */
-    top: 0;
-    left: 0;
-    background-color: #ffffff;
-    overflow-x: hidden;
-    transition: width 0.5s;
-    padding-top: 60px; /* Ensure padding starts below the navbar */
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-}
-
-.side-nav a {
-    padding: 10px;
-    text-decoration: none;
-    display: block;
-    color: #0a02a1; /* Ensure text is visible */
-}
-
-.side-nav a:hover {
-    background-color: #e0e0e0; /* Hover effect for better user feedback */
 }
