@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Modal from 'react-modal';
 import axios from "axios";
+import RecipeDetailsModal from './modals/RecipeDetailsModal';
 
 import './css/saverecipe.css';  // Assuming your CSS is adapted for React
 
@@ -13,6 +14,8 @@ Modal.setAppElement('#root');  // Assuming your root div has an ID of 'root'
 
 function RecipesGrid() {
     const [recipes, setRecipes] = useState([]);
+    const [recipe, setRecipe] = useState(null);
+    const [isRecipeDetailsModalOpen, setIsRecipeDetailsModalOpen] = useState(false)
 
     useEffect (() => {
         getRecipes();
@@ -39,6 +42,11 @@ function RecipesGrid() {
         }
     }
 
+    const handleOpenRecipeDetailsModal = (recipe) => {
+        setRecipe(recipe);
+        setIsRecipeDetailsModalOpen(true);
+    };
+
     return (
         <>
             <main>
@@ -48,9 +56,9 @@ function RecipesGrid() {
                     <div key={recipe.pk} className="recipes">
                         <img src={'Storage/' + recipe.fields.picture} alt={recipe.fields.recipeName} />
                         <span>{recipe.fields.recipeName}</span>
-                        <span>{recipe.fields.recipe}</span>
+                        {/* <span>{recipe.fields.recipe}</span> */}
                         <div className="recipes-buttons">
-                            <button onClick={() => handleOpenEditModal(recipe)}>Edit</button>
+                            <button onClick={() => handleOpenRecipeDetailsModal(recipe)}>View</button>
                             <button onClick={() => deleteRecipe(recipe.pk)}>Delete</button>
                         </div>
                     </div>
@@ -58,9 +66,15 @@ function RecipesGrid() {
             ): (
                     <p>No Recipes Found</p>
                 )
-                };
+                }
                 
             </main>
+            <RecipeDetailsModal
+                isOpen={isRecipeDetailsModalOpen}
+                onClose={() => setIsRecipeDetailsModalOpen(false)}
+                // onSubmit={editIngredient}
+                recipe={recipe}
+            />
         </>
     );
 }
