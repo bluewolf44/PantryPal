@@ -29,6 +29,16 @@ function RecipesGrid() {
         }
     };
 
+    const deleteRecipe = async (recipeId) => {
+        try {
+            await axios.delete(`/api/deleteRecipe/${recipeId}`);
+            getRecipes();
+            console.log(`Deleted ingredient id: ${recipeId} successfully`)
+        } catch (error) {
+            console.log("Error in deleting recipe: ", error)
+        }
+    }
+
     return (
         <>
             <main>
