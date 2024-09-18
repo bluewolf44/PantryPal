@@ -58,7 +58,7 @@ function RecipesGrid() {
             ): (
                     <p>No Recipes Found</p>
                 )
-                };
+                }
                 
             </main>
         </>
