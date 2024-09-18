@@ -57,6 +57,14 @@ h2 {
     transition: all 0.2s ease;
 }
 
+.item {
+    transition: transform 0.3s ease-in-out;
+}
+
+.item:hover {
+    transform: scale(1.04);
+}
+
 .item img {
     max-width: 100%;
     height: auto;
