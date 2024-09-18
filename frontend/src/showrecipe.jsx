@@ -10,10 +10,9 @@ function ShowRecipe() {
     const query = sessionStorage.getItem('currentQuery');
 
      
-    const handleSave = async (recipeId) => {
+const handleSave = async () => {
         try {
-            const data = { recipe_id: recipeId }; 
-            await axios.post(`/api/saveRecipe/`, data);
+            await axios.post("/api/saveRecipe/", { recipe: query });
             console.log("Recipe saved successfully");
         } catch (error) {
             console.error("Error saving recipe:", error);
