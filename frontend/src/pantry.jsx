@@ -15,6 +15,7 @@ Modal.setAppElement('#root');  // Assuming your root div has an ID of 'root'
 
 function PantryGrid() {
     const [ingredients, setIngredients] = useState([]);
+    const [recipes, setRecipes] = useState([]);
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
     const [isRecipeModalOpen, setIsRecipeModalOpen] = useState(false);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -23,6 +24,11 @@ function PantryGrid() {
     // Get Ingredients
     useEffect(() => {
         get_ingredients();
+    }, []);
+
+    // Get Recipes
+    useEffect(() => {
+        get_recipes();
     }, []);
 
     // Function to fetch ingredients
@@ -53,6 +59,36 @@ function PantryGrid() {
                 console.log(err);
             });
     };
+
+//Function to fetch recipes
+    const get_recipes = () => {
+        fetch("/api/getRecipes/", {
+            headers: {
+                "Content-Type": "application/json",
+            },
+            credentials: "same-origin",
+        })
+            .then((res) => res.json()) // Parse the response as JSON
+            .then((data) => {
+                let temp = data.map((item) => (
+                    <div key={item.pk} className="item">
+                        <img src={'Storage/' + item.fields.picture} alt={item.fields.recipeName} />
+                        <span>{item.fields.recipeName}</span>
+                        <span>{item.fields.recipe}</span>
+                        <div className="item-buttons">
+                            <button onClick={() => deleteRecipe(item.pk)}>Delete</button>
+                        </div>
+                    </div>
+                ));
+                setRecipes(temp);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
+
+
+
 // Function to edit ingredient
     const editIngredient = async (newIngredient) => {
         try {
