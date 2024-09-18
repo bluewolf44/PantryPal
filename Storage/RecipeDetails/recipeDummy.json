@@ -1,0 +1,47 @@
+[
+  {
+    "recipeName": "Spaghetti Carbonara",
+    "user": {
+      "username": "chef_john",
+      "id": 1
+    },
+    "recipe": "1. Boil spaghetti. 2. Cook pancetta. 3. Mix with egg, cheese, and pepper.",
+    "picture": "/media/RecipeImages/spaghetti_carbonara.jpg"
+  },
+  {
+    "recipeName": "Classic Pancakes",
+    "user": {/////////////////
+      "username": "pancake_master",
+      "id": 2
+    },
+    "recipe": "1. Mix flour, sugar, baking powder. 2. Add milk, egg, and butter. 3. Cook on a hot griddle.",
+    "picture": "/media/RecipeImages/classic_pancakes.jpg"
+  },
+  {
+    "recipeName": "Chicken Tikka Masala",
+    "user": {
+      "username": "spice_lover",
+      "id": 3
+    },
+    "recipe": "1. Marinate chicken with spices. 2. Grill chicken. 3. Make sauce with tomatoes and cream. 4. Combine chicken with sauce.",
+    "picture": "/media/RecipeImages/chicken_tikka_masala.jpg"
+  },
+  {
+    "recipeName": "Chocolate Chip Cookies",
+    "user": {
+      "username": "cookie_monster",
+      "id": 4
+    },
+    "recipe": "1. Cream butter and sugar. 2. Add eggs, vanilla, and flour. 3. Fold in chocolate chips. 4. Bake at 350°F for 10-12 minutes.",
+    "picture": "/media/RecipeImages/chocolate_chip_cookies.jpg"
+  },
+  {
+    "recipeName": "Caesar Salad",
+    "user": {
+      "username": "healthy_eater",
+      "id": 5
+    },
+    "recipe": "1. Prepare lettuce. 2. Make dressing with garlic, anchovies, and lemon. 3. Add croutons and parmesan.",
+    "picture": "/media/RecipeImages/caesar_salad.jpg"
+  }
+]
