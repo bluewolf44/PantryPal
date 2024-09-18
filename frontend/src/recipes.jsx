@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Modal from 'react-modal';
 import axios from "axios";
 import RecipeDetailsModal from './modals/RecipeDetailsModal';
+import AddRecipeModal from './modals/AddRecipeModal';
 
 import './css/saverecipe.css';  // Assuming your CSS is adapted for React
 
@@ -15,6 +16,7 @@ Modal.setAppElement('#root');  // Assuming your root div has an ID of 'root'
 function RecipesGrid() {
     const [recipes, setRecipes] = useState([]);
     const [recipe, setRecipe] = useState(null);
+    const [isAddRecipeModalOpen, setIsAddRecipeModalOpen] = useState(false);
     const [isRecipeDetailsModalOpen, setIsRecipeDetailsModalOpen] = useState(false)
 
     useEffect (() => {
@@ -42,6 +44,16 @@ function RecipesGrid() {
         }
     }
 
+    const createRecipe = async (data) => {
+        try{
+            console.log(data);
+            await axios.post("/api/createRecipe/", data);
+            getRecipes();
+            } catch (error) {
+                console.error("Error creating recipe:", error);
+            }
+        };
+
     const handleOpenRecipeDetailsModal = (recipe) => {
         setRecipe(recipe);
         setIsRecipeDetailsModalOpen(true);
@@ -51,6 +63,9 @@ function RecipesGrid() {
         <>
             <main>
                 <h2> My Saved Recipes: </h2>
+                <div className="item" onClick={() => setIsAddRecipeModalOpen(true)} style={{ cursor: 'pointer' }}>
+                    <h4>Create your own Recipe</h4>
+                </div>
                 {recipes.length != 0 ? (
                 recipes.map((recipe) => (
                     <div key={recipe.pk} className="recipes">
@@ -74,6 +89,12 @@ function RecipesGrid() {
                 onClose={() => setIsRecipeDetailsModalOpen(false)}
                 // onSubmit={editIngredient}
                 recipe={recipe}
+            />
+            <AddRecipeModal
+                isOpen={isAddRecipeModalOpen}
+                onClose={() => setIsAddRecipeModalOpen(false)}
+                onSubmit={createRecipe}
+                contentLabel="Add Recipe Modal"
             />
         </>
     );
