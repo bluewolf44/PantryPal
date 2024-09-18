@@ -8,4 +8,7 @@ class IngredientsForm(forms.Form):
     amount = forms.IntegerField(label="amount")
     liquid = forms.BooleanField(label="liquid",required=False)
 
-
+class RecipeForm(forms.Form):
+    recipeName = forms.CharField(label="recipeName", max_length=50)
+    recipe = forms.CharField(label="recipe")
+    picture = forms.ImageField(label="picture",required=False)
