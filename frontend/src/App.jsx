@@ -7,6 +7,7 @@ import CreateAccount from './createaccount';
 import logo from "./images/pantrypal-logo.png";
 import CreateRecipe from "./createrecipe"
 import ShowRecipe from "./showrecipe"
+import RecipesGrid from "./recipes";
 import './App.css'; 
 
 
@@ -140,6 +141,7 @@ class App extends React.Component {
                             <Route path="/" element={ <PantryGrid />} />
                             <Route path="/createRecipe" element={ <CreateRecipe />} />
                             <Route path="/ShowRecipe" element={ <ShowRecipe />} />
+                            <Route path="/recipes" element={ <RecipesGrid />} />
                             <Route path ="*" element={<span onClick={() => window.location.href = '/'}>404 Go back</span>} />
                       </Routes>
                   </Router>
@@ -148,7 +150,7 @@ class App extends React.Component {
                     <a href="javascript:void(0)" className="closebtn" onClick={this.closeMenu}>&times;</a>
                     <a href="/" className="active">Pantry</a>
                     <a href="/createRecipe">Create Recipe</a>
-                    <a href="/saveRecipe">My Recipes</a>
+                    <a href="/recipes">My Recipes</a>
                     <div className="nav-bottom">
                         <a href="#" onClick={this.logout}>Log Out</a>
                         <a href="#" onClick={this.deleteAccount}>Delete Account</a>
