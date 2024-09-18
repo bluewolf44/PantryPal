@@ -184,12 +184,13 @@ def ai_recipe(request,baking_type):
     return JsonResponse({"detail": response.text})
 
 # Add View for creating a recipe
+# Note: This is for the manual creation of the recipe, see Saved Recipe for the method to save the AI Generated Recipe.
 @require_POST
 def create_recipe(request):
     if not request.user.is_authenticated:
         return JsonResponse({"detail": "You aren't log in"}, status=401)
 
-    body = json.load(request.body)
+    body = RecipeForm(request.POST, request.FILES)
 
     if not body.is_valid():
         return JsonResponse({"detail": "form missing values"}, status=400)

@@ -10,15 +10,14 @@ function ShowRecipe() {
     const query = sessionStorage.getItem('currentQuery');
 
      
-    const handleSave = async (recipeId) => {
-        try {
-            const data = { recipe_id: recipeId }; 
-            await axios.post(`/api/saveRecipe/`, data);
-            console.log("Recipe saved successfully");
-        } catch (error) {
-            console.error("Error saving recipe:", error);
-        }
-    };
+    const handleSave = async () => {
+         try {
+             await axios.post(`/api/saveRecipe/`, { recipe: query });
+             console.log("Recipe saved successfully");
+         } catch (error) {
+             console.error("Error saving recipe:", error);
+         }
+     };
 
 
     // Enhanced function to format text with numbered and bullet list items and headers
