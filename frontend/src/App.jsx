@@ -79,6 +79,7 @@ class App extends React.Component {
     .then((data) => {
       console.log(data);
       this.setState({isAuthenticated: false});
+      window.location.href = "/"
     })
     .catch((err) => {
       console.log(err);
@@ -96,6 +97,7 @@ class App extends React.Component {
     .then((data) => {
       console.log(data);
       this.setState({isAuthenticated: false});
+      window.location.href = "/"
     })
     .catch((err) => {
       console.log(err);
@@ -148,12 +150,12 @@ class App extends React.Component {
                 </div>
                 <div id="side-menu" className="side-nav" style={{ width: this.state.menuVisible ? '250px' : '0' }}>
                     <a href="javascript:void(0)" className="closebtn" onClick={this.closeMenu}>&times;</a>
-                    <a href="/" className="active">Pantry</a>
+                    <a href="/" className="active">My Pantry</a>
                     <a href="/createRecipe">Create Recipe</a>
                     <a href="/recipes">My Recipes</a>
                     <div className="nav-bottom">
-                        <a href="#" onClick={this.logout}>Log Out</a>
-                        <a href="#" onClick={this.deleteAccount}>Delete Account</a>
+                        <a onClick={this.logout}>Log Out</a>
+                        <a onClick={this.deleteAccount}>Delete Account</a>
                     </div>
                 </div>
             </>
