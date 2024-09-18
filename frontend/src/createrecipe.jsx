@@ -15,6 +15,11 @@ const foods = [
         name:"Pizza",
         picture:"pizza.jpg",
         queryName:"pizza",
+    },
+    {
+        name:"Cookie",
+        picture:"cookie.jpg",
+        queryName:"cookie",
     },];
 
 function CreateRecipe() {
