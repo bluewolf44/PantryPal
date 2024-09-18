@@ -1,7 +1,7 @@
 import React from 'react';
 import './modal.css';
 
-const EditModal = ({isOpen, onClose, onSubmit, recipe}) => {
+const RecipeDetailsModal = ({isOpen, onClose, onSubmit, recipe}) => {
   if (!isOpen) return null;
 
 //   const handleSubmit = (e) => {
@@ -17,15 +17,15 @@ const EditModal = ({isOpen, onClose, onSubmit, recipe}) => {
       <div className="overlay">
         <div className="modal">
           <h2>Recipe Details</h2>
-          <form onSubmit={handleSubmit}>
+          <form>
             <label htmlFor="recipeName">Name:</label>
             <input type="text" id="recipeName" name="recipeName" defaultValue={recipe.fields.recipeName} required/>
             <img src={'Storage/' + recipe.fields.picture}></img>
             <label htmlFor="recipe">Recipe Instructions:</label>
-            <input type="text" id="recipe" name="recipe" required defaultValue={recipe.fields.recipe}  />
+            <textarea type="text" rows="10" id="recipe" name="recipe" required defaultValue={recipe.fields.recipe}/>
 
 
-            <button type="submit">Confirm Edits</button>
+            {/* <button type="submit">Confirm Edits</button> */}
             <button type="button" onClick={onClose}>Close</button>
           </form>
         </div>
@@ -33,4 +33,4 @@ const EditModal = ({isOpen, onClose, onSubmit, recipe}) => {
   );
 }
 
-export default EditModal;
+export default RecipeDetailsModal;
