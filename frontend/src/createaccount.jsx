@@ -30,6 +30,7 @@ function CreateAccount({cookies}) {
 
             if (response.status === 201) {
                 setSuccess('Account created successfully!');
+                window.location.href = "/"
             } else {
                 const data = await response.json();
                 setError(data.detail || 'Failed to create account');
