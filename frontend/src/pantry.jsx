@@ -5,6 +5,7 @@ import logo from "./images/pantrypal-logo.png";
 import axios from "axios";
 import AddModal from "./modals/AddModal";
 import EditModal from "./modals/EditModal";
+import AddRecipeModal from "./modals/AddRecipeModal";
 
 axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFToken';
@@ -15,6 +16,7 @@ Modal.setAppElement('#root');  // Assuming your root div has an ID of 'root'
 function PantryGrid() {
     const [ingredients, setIngredients] = useState([]);
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+    const [isRecipeModalOpen, setIsRecipeModalOpen] = useState(false);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [ingredientToEdit, setIngredientToEdit] = useState(null);
 
@@ -51,7 +53,7 @@ function PantryGrid() {
                 console.log(err);
             });
     };
-
+// Function to edit ingredient
     const editIngredient = async (newIngredient) => {
         try {
             await axios.post(`/api/editIngredient/${ingredientToEdit.pk}`, newIngredient);
@@ -61,6 +63,7 @@ function PantryGrid() {
         }
     };
 
+// Function to delete ingredient
     const deleteIngredient = async (ingredientId) => {
         try {
             await axios.delete(`/api/deleteIngredient/${ingredientId}`);
@@ -87,12 +90,25 @@ function PantryGrid() {
         }
     };
 
+    const createRecipe = async (data) => {
+        try{
+            console.log(data);
+            await axios.post("/api/createRecipe/", data);
+            get_recipes();
+            } catch (error) {
+                console.error("Error creating recipe:", error);
+            }
+        };
+
     return (
         <>
             <main>
                 <h2>What's in your pantry?</h2>
                 <div className="item" onClick={() => setIsAddModalOpen(true)} style={{ cursor: 'pointer' }}>
                         <h4>Add Ingredient</h4>
+                </div>
+                <div className="item" onClick={() => setIsRecipeModalOpen(true)} style={{ cursor: 'pointer' }}>
+                    <h4>Add Recipe</h4>
                 </div>
                 <div className="pantry-grid">
                     {ingredients}
@@ -108,6 +124,12 @@ function PantryGrid() {
                     onClose={() => setIsEditModalOpen(false)}
                     onSubmit={editIngredient}
                     ingredient={ingredientToEdit}
+                />
+                <AddRecipeModal
+                    isOpen={isRecipeModalOpen}
+                    onClose={() => setIsRecipeModalOpen(false)}
+                    onSubmit={createRecipe}
+                    contentLabel="Add Recipe Modal"
                 />
                 <div className="button-container">
                     <button onClick={() => window.location.href = 'createRecipe'}>Let's Get Baking!</button>
