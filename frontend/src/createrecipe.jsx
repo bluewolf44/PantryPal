@@ -43,7 +43,7 @@ function CreateRecipe() {
 
     const temp = foods.map((item,index) => (
         <div key={index} className="item">
-            <img src={'Storage/RecipeImages/'+item.picture} alt={item.picture} />
+            <img src={'Storage/RecipeDetails/'+item.picture} alt={item.picture} />
             <span>{item.name}</span>
             <div className="item-buttons">
                 <button onClick={() => handleRecipeCreation(item.queryName)}>Create</button>
