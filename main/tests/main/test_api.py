@@ -101,12 +101,8 @@ def test_get_user_ingredients(user_factory, ingredient_factory):
 
     assert response.status_code == 200
 
-    response_data = json.loads(response.json())  # Parse the JSON string into a Python object
+    response_data = json.loads(response.json())
     
-    # Debugging - print to confirm it's now a list of dictionaries
-    print(response_data)
-
-    # Now proceed with the assertions
     for item in response_data:
         fields = item.get("fields", {})
         assert fields == {"ingredientName": "cheese", "user": 5, "amount": 2, "describe": "I have two slices of cheese", "picture": "", "liquid": False} or \
