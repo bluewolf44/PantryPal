@@ -100,12 +100,20 @@ def test_get_user_ingredients(user_factory, ingredient_factory):
     response = c.get(url)
 
     assert response.status_code == 200
-    json = Json.loads(response.json())
 
-    for j in json:
-        assert j["fields"] == {"ingredientName": "cheese", "user": 5, "amount": 2, "describe": "I have two slices of cheese", "picture": "", "liquid":False} or j["fields"] == {"ingredientName": "milk", "user": 5, "amount": 2, "describe": "I have two slices of cheese", "picture": "", "liquid": False}
-    assert len(json) == 2
-    assert json[0] != json[1]
+    response_data = json.loads(response.json())  # Parse the JSON string into a Python object
+    
+    # Debugging - print to confirm it's now a list of dictionaries
+    print(response_data)
+
+    # Now proceed with the assertions
+    for item in response_data:
+        fields = item.get("fields", {})
+        assert fields == {"ingredientName": "cheese", "user": 5, "amount": 2, "describe": "I have two slices of cheese", "picture": "", "liquid": False} or \
+               fields == {"ingredientName": "milk", "user": 5, "amount": 2, "describe": "I have two slices of cheese", "picture": "", "liquid": False}
+
+    assert len(response_data) == 2
+    assert response_data[0] != response_data[1]
 
 @pytestPantryPal
 def test_create_ingredient_api(user_factory):
