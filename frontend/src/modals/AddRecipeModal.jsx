@@ -1,7 +1,7 @@
 import React from 'react';
 import './modal.css';
 
-const AddRecipeModal = ({isOpen, onClose, onSubmit}) => {
+const AddRecipeModal = ({isOpen, onClose, onSubmit,defaultRecipe}) => {
   if (!isOpen) return null;
 
   const handleSubmit = (e) => {
@@ -23,7 +23,7 @@ const AddRecipeModal = ({isOpen, onClose, onSubmit}) => {
             <input type="file" id="picture" name="picture" accept="image/*" required/>
 
             <label htmlFor="recipe">Recipe:</label>
-            <input type="text" id="recipe" name="recipe" required/>
+            <textarea type="text" rows="10" id="recipe" name="recipe" required defaultValue={defaultRecipe}/>
 
             <button type="submit">Add Recipe</button>
             <button type="button" onClick={onClose}>Close</button>

@@ -1,27 +1,38 @@
 import Modal from 'react-modal';
 import React, { useState, useEffect } from 'react';
 import axios from "axios";
-import './css/showrecipe.css'; 
+import './css/showrecipe.css';
+import AddRecipeModal from "./modals/AddRecipeModal";
 
 Modal.setAppElement('#root');
 
 function ShowRecipe() {
-
+    const [isRecipeModalOpen, setIsRecipeModalOpen] = useState(false);
     const query = sessionStorage.getItem('currentQuery');
 
-     
-    const handleSave = async () => {
-        try {
-            await axios.post(`/api/saveRecipe/`, { recipe: query });
-            console.log("Recipe saved successfully");
+
+    const saveRecipe = async (data) => {
+        try{
+            console.log(data);
+            await axios.post("/api/createRecipe/", data);
+            window.location.href = '/recipes'
+
         } catch (error) {
-            console.error("Error saving recipe:", error);
+            console.error("Error creating recipe:", error);
         }
     };
+     
+    const handleSave = async () => {
+        setIsRecipeModalOpen(true)
+    };
+
+
 
 
     // Enhanced function to format text with numbered and bullet list items and headers
     const formatRecipeText = (text) => {
+        if (text == null)
+            return null;
         // Apply strong formatting for bold text
         text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
 
@@ -53,6 +64,13 @@ function ShowRecipe() {
             <div className="recipe-content" dangerouslySetInnerHTML={formatRecipeText(query)}></div>
             <button onClick={handleSave}>Save</button>
             <button onClick={() => window.location.href = '/createRecipe'}>Back</button>
+            <AddRecipeModal
+                isOpen={isRecipeModalOpen}
+                onClose={() => setIsRecipeModalOpen(false)}
+                onSubmit={saveRecipe}
+                contentLabel="Add Recipe Modal"
+                defaultRecipe={query}
+            />
         </>
     );
 }
