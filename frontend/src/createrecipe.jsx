@@ -15,9 +15,16 @@ const foods = [
         name:"Pizza",
         picture:"pizza.jpg",
         queryName:"pizza",
+    },
+    {
+        name:"Cookie",
+        picture:"cookie.jpg",
+        queryName:"cookie",
     },];
 
 function CreateRecipe() {
+
+    
 
     const handleRecipeCreation = (queryName) => {
         fetch("/api/aiRecipe/"+queryName, {
@@ -33,6 +40,7 @@ function CreateRecipe() {
         });
     }
 
+
     const temp = foods.map((item,index) => (
         <div key={index} className="item">
             <img src={'Storage/RecipeImages/'+item.picture} alt={item.picture} />
@@ -43,10 +51,43 @@ function CreateRecipe() {
         </div>
     ));
 
+    const [query, setQuery] = useState(""); // State to hold the user input
+
+    const handleRecipeCreationSearch = () => {
+        if(query.trim() !== "") {
+            fetch("/api/aiRecipe/" + query.trim(), {
+                credentials: "same-origin",
+            })
+            .then((res) => res.json())
+            .then((data) => {
+                sessionStorage.setItem('currentQuery', data.detail);
+                window.location.href = '/showRecipe'; // Redirect to show the recipe
+            })
+            .catch((err) => {
+                console.error("Error creating recipe: ", err);
+            });
+        }
+    };
+
     return (
         <>
             <main>
                 <h2>What's would you like to make?</h2>
+
+                
+                <input
+                    type="text"
+                    placeholder="Enter recipe type (e.g., 'pizza', 'cake')"
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                    style={{ marginBottom: '20px', padding: '10px', width: 'calc(100% - 22px)' }}
+                />
+                <button onClick={handleRecipeCreationSearch} style={{ padding: '10px 20px' }}>
+                    Generate Recipe
+                </button>
+
+                <h2>Suggested Recipes</h2>
+
                 <div className="pantry-grid">
                     {temp}
                 </div>
