@@ -1,14 +1,18 @@
+import json
 from django.contrib.auth.hashers import make_password
 import pytest
 
 from django.urls import reverse
 from django.test import Client
-import json as Json
 
 from main.models import Ingredient
+from main.models import Recipe
 
 pytestPantryPal = pytest.mark.django_db
 
+
+    
+    
 @pytestPantryPal
 def test_delete_ingredient(user_factory, ingredient_factory):
     c = Client()
@@ -118,3 +122,24 @@ def test_create_ingredient_api(user_factory):
         "liquid": False
     }, files={"picture":"cheese.jpg"}).status_code == 201
     assert len(Ingredient.objects.filter(ingredientName="cheese", amount=500, describe="yellow", liquid=False)) == 1  #add picture when addded
+
+@pytestPantryPal
+def test_save_recipe(user_factory):
+    c = Client()
+    url = reverse("api_save_recipe")
+    assert c.post(url).status_code == 401 # Not logged in
+    
+    user = user_factory(username="dave", password=make_password("password123"))
+    c.force_login(user)
+    
+    response = c.post(
+        url,
+        json.dumps({
+            "recipeName": "Cheese Scones",
+            "recipe": "Two Cups of Flour, One Cup of Cheese, 3 x Eggs"
+        }),
+        content_type='application/json'
+    )
+
+    assert response.status_code == 201
+    assert len(Recipe.objects.filter(recipeName="Cheese Scones", recipe="Two Cups of Flour, One Cup of Cheese, 3 x Eggs")) == 1

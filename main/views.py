@@ -222,7 +222,7 @@ def save_recipe(request):
     body = json.loads(request.body)
     
     recipe = Recipe.objects.create(
-        recipeName=("Cake"),
+        recipeName=body.get("recipeName"),
         user=user,
         recipe=body.get("recipe"),
     )
