@@ -14,12 +14,7 @@ body {
     color: #0a02a1; /* Primary text color */
 }
 
-/* Main Content Area */
-main {
-    padding-top: 70px; /* Should be at least the height of the navbar */
-    padding-bottom: 50px;
-    margin-top: 60px; /* Give margin-top equal to navbar height if needed */
-}
+
 
 /* Pantry Grid Layout */
 .pantry-grid {

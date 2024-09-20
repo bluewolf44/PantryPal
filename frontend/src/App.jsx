@@ -137,6 +137,18 @@ class App extends React.Component {
                         </div>
                     </nav>
                 </header>
+                
+                <div id="side-menu" className="side-nav" style={{ width: this.state.menuVisible ? '250px' : '0' }}>
+                    <a href="javascript:void(0)" className="closebtn" onClick={this.closeMenu}>&times;</a>
+                    <a href="/" className="active">My Pantry</a>
+                    <a href="/createRecipe">Create Recipe</a>
+                    <a href="/recipes">My Recipes</a>
+                    <div className="nav-bottom">
+                        <a onClick={this.logout}>Log Out</a>
+                        <a onClick={this.deleteAccount}>Delete Account</a>
+                    </div>
+                </div>
+
                 <div className="main-content">
                   <Router>
                       <Routes>
@@ -148,16 +160,7 @@ class App extends React.Component {
                       </Routes>
                   </Router>
                 </div>
-                <div id="side-menu" className="side-nav" style={{ width: this.state.menuVisible ? '250px' : '0' }}>
-                    <a href="javascript:void(0)" className="closebtn" onClick={this.closeMenu}>&times;</a>
-                    <a href="/" className="active">My Pantry</a>
-                    <a href="/createRecipe">Create Recipe</a>
-                    <a href="/recipes">My Recipes</a>
-                    <div className="nav-bottom">
-                        <a onClick={this.logout}>Log Out</a>
-                        <a onClick={this.deleteAccount}>Delete Account</a>
-                    </div>
-                </div>
+                
             </>
         )
     }
