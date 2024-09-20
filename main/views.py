@@ -8,7 +8,7 @@ from django.views.decorators.http import require_POST
 from django.db import IntegrityError
 
 from main.forms import *
-from main.models import Ingredient, Recipe
+from main.models import Ingredient, Recipe, Required
 import google.generativeai as genai
 import os
 import json
@@ -201,6 +201,43 @@ def create_recipe(request):
         recipe=body.cleaned_data["recipe"],
         picture=body.cleaned_data["picture"]
     )
+
+    # Get all word from the query and remove common punctuation
+    words = body.cleaned_data["recipe"].replace("*", "").replace('"', "").replace(",","").split(" ")
+
+
+    ingredients = Ingredient.objects.filter(user=request.user)
+    # ingredients names, Single word per index
+    ingredient_names = []
+    # The objects for the ingredients names, e.g the object in index 1 is the same of ingredient_names index 1
+    ingredient_index = []
+    for ingredient in ingredients:
+        # Removing comma
+        for name in ingredient.ingredientName.replace(",", " ").split(" "):
+            #adding name and the object to each list
+            ingredient_names.append(name)
+            ingredient_index.append(ingredient)
+
+    # The ingredient that the system has found
+    ingredients_in_query = []
+    for w in words:
+        try:
+            # Find if the word in the ingredient_names if not throws ValueError
+            index = ingredient_names.index(w)
+            #Check if that object already in there
+            if not ingredient_index[index] in ingredients_in_query:
+                ingredients_in_query.append(ingredient_index[index])
+        except ValueError:
+            continue
+
+    # Created the required object
+    for ingredient in ingredients_in_query:
+        required = Required.objects.create(
+            recipe=recipe,
+            ingredient=ingredient
+        )
+        required.save()
+
     recipe.save()
 
     return HttpResponse(status=201)
