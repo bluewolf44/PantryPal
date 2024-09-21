@@ -9,6 +9,7 @@ import CreateRecipe from "./createrecipe"
 import ShowRecipe from "./showrecipe"
 import RecipesGrid from "./recipes";
 import RecipeDetails from "./recipedetails"
+import SharedRecipesGrid from "./sharedrecipes"
 import './App.css';
 
 
@@ -144,6 +145,7 @@ class App extends React.Component {
                     <a href="/" className="active">My Pantry</a>
                     <a href="/createRecipe">Create Recipe</a>
                     <a href="/recipes">My Recipes</a>
+                    <a href="/sharedRecipes">Shared Recipes</a>
                     <div className="nav-bottom">
                         <a onClick={this.logout}>Log Out</a>
                         <a onClick={this.deleteAccount}>Delete Account</a>
@@ -158,6 +160,7 @@ class App extends React.Component {
                             <Route path="/ShowRecipe" element={ <ShowRecipe />} />
                             <Route path="/recipes" element={ <RecipesGrid />} />
                             <Route path="/recipes/:id" element={ <RecipeDetails />} />
+                            <Route path="/sharedRecipes" element={ <SharedRecipesGrid /> } />
                             <Route path ="*" element={<span onClick={() => window.location.href = '/'}>404 Go back</span>} />
                       </Routes>
                   </Router>

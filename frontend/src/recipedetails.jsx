@@ -2,11 +2,13 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from "axios";
 import './css/showrecipe.css';
+import { useNavigate } from "react-router-dom";
 
 function RecipeDetails() {
   const [recipe, setRecipe] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const { id } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getRecipeById = async () => {
@@ -60,7 +62,11 @@ function RecipeDetails() {
       {isLoading ? (
         <p>Loading...</p>
       ) : recipe ? (
+        <>
           <div className="recipe-content" dangerouslySetInnerHTML={formatRecipeText(recipe.fields.recipe)}></div>
+          <button onClick={() => navigate('/recipes')}>Share</button>
+          <button onClick={() => navigate('/recipes')}>Back</button>
+        </>
       ) : (
         <p>No recipe found.</p>
       )}
