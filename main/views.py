@@ -279,3 +279,7 @@ def delete_recipe_view(request, recipe_id):
     recipe.delete()
 
     return JsonResponse({"detail": "Recipe deleted successfully"}, status=200)
+
+def share_recipe_view(request, user_id):
+
+    pass
