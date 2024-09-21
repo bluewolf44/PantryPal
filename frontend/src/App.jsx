@@ -8,7 +8,8 @@ import logo from "./images/pantrypal-logo.png";
 import CreateRecipe from "./createrecipe"
 import ShowRecipe from "./showrecipe"
 import RecipesGrid from "./recipes";
-import './App.css'; 
+import RecipeDetails from "./recipedetails"
+import './App.css';
 
 
 const cookies = new Cookies();
@@ -92,7 +93,7 @@ class App extends React.Component {
       fetch("/api/deleteAccount", {
         credentials: "same-origin",
       })
-    
+
     .then(this.isResponseOk)
     .then((data) => {
       console.log(data);
@@ -137,7 +138,7 @@ class App extends React.Component {
                         </div>
                     </nav>
                 </header>
-                
+
                 <div id="side-menu" className="side-nav" style={{ width: this.state.menuVisible ? '250px' : '0' }}>
                     <a href="javascript:void(0)" className="closebtn" onClick={this.closeMenu}>&times;</a>
                     <a href="/" className="active">My Pantry</a>
@@ -156,11 +157,12 @@ class App extends React.Component {
                             <Route path="/createRecipe" element={ <CreateRecipe />} />
                             <Route path="/ShowRecipe" element={ <ShowRecipe />} />
                             <Route path="/recipes" element={ <RecipesGrid />} />
+                            <Route path="/recipes/:id" element={ <RecipeDetails />} />
                             <Route path ="*" element={<span onClick={() => window.location.href = '/'}>404 Go back</span>} />
                       </Routes>
                   </Router>
                 </div>
-                
+
             </>
         )
     }
