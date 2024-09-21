@@ -21,7 +21,7 @@ function ShowRecipe() {
             console.error("Error creating recipe:", error);
         }
     };
-     
+
     const handleSave = async () => {
         setIsRecipeModalOpen(true)
     };

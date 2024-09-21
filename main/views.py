@@ -280,6 +280,6 @@ def delete_recipe_view(request, recipe_id):
 
     return JsonResponse({"detail": "Recipe deleted successfully"}, status=200)
 
-def share_recipe_view(request, user_id):
+def shared_recipe_view(request, user_id):
 
     pass
