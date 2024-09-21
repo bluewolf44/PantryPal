@@ -280,6 +280,17 @@ def delete_recipe_view(request, recipe_id):
 
     return JsonResponse({"detail": "Recipe deleted successfully"}, status=200)
 
+def get_user_recipe_by_id(request, recipe_id):
+    if not request.method == "GET":
+        return HttpResponse(status=404)
+
+    if not request.user.is_authenticated:
+        return JsonResponse({"detail": "You aren't log in"}, status=401)
+
+    user = request.user
+
+    recipe = get_object_or_404(Recipe,id=recipe_id, user=user)
+    return JsonResponse(serialize("json", [recipe]), safe=False)
 
 def shared_recipe_view(request, user_id):
 

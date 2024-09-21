@@ -19,7 +19,8 @@ function RecipeDetails() {
 
   const getRecipeById = async () => {
     try {
-      const response = await axios.get(`/api/recipes/${id}`)
+      console.log(id)
+      const response = await axios.get(`/api/getRecipes/${id}`)
       setRecipe(response.data)
     } catch (error) {
       console.log("Error in getting recipe by id: ", error);
@@ -30,6 +31,7 @@ function RecipeDetails() {
     return (
         <>
             <h2>Recipe Details</h2>
+        <h2>{ recipe }</h2>
         </>
     );
 }
