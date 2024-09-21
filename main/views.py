@@ -288,9 +288,7 @@ def get_user_recipe_by_id(request, recipe_id):
         return JsonResponse({"detail": "You aren't log in"}, status=401)
 
     user = request.user
-
-    recipe = get_object_or_404(Recipe,id=recipe_id, user=user)
-    return JsonResponse(serialize("json", [recipe]), safe=False)
+    return JsonResponse(serialize("json", Recipe.objects.filter(user=user, id=recipe_id)), safe=False)
 
 def shared_recipe_view(request, user_id):
 
