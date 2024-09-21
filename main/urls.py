@@ -9,6 +9,7 @@ urlpatterns = [
     path("savedRecipe", views.index_page, name="saved_recipe"),
     path("showRecipe", views.index_page, name="show_recipe"),
     path("saveRecipe", views.index_page, name="save_recipe"),
+    path("shareRecipe", views.index_page, name="share_recipe"),
     path("recipes", views.index_page, name="recipes"),
     path("api/login/", views.api_login, name="api_login"),
     path("api/aiRecipe/<str:baking_type>", views.ai_recipe, name="ai_recipe"),
@@ -24,5 +25,6 @@ urlpatterns = [
     path("api/createRecipe/", views.create_recipe, name="api_create_recipe"),
     path("api/getRecipes/", views.get_user_recipes, name="api_get_recipes"),
     path("api/saveRecipe/", views.save_recipe, name="api_save_recipe"),
-    path("api/deleteRecipe/<int:recipe_id>/", views.delete_recipe_view, name="api_delete_recipe")
+    path("api/deleteRecipe/<int:recipe_id>/", views.delete_recipe_view, name="api_delete_recipe"),
+    path("api/shareRecipe/<int:user_id>/", views.share_recipe_view, name="api_delete_recipe")
 ]
