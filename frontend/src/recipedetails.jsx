@@ -1,11 +1,16 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import Modal from 'react-modal';
 import axios from "axios";
 import './css/showrecipe.css';
 import { useNavigate } from "react-router-dom";
 import formatRecipeText from "./formatRecipeText"
+import ShareRecipeModal from './modals/ShareRecipeModal';
+
+Modal.setAppElement('#root');
 
 function RecipeDetails() {
+  const [isShareRecipeModalOpen, setIsShareRecipeModalOpen] = useState(false)
   const [recipe, setRecipe] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const { id } = useParams();
@@ -37,12 +42,21 @@ function RecipeDetails() {
       ) : recipe ? (
         <>
           <div className="recipe-content" dangerouslySetInnerHTML={formatRecipeText(recipe.fields.recipe)}></div>
-          <button onClick={() => navigate('/recipes')}>Share</button>
           <button onClick={() => navigate('/recipes')}>Back</button>
+
+          <div className="button-container">
+              <button onClick={() => setIsShareRecipeModalOpen(true)} style={{ cursor: 'pointer' }}>Share Recipe</button>
+          </div>
         </>
       ) : (
         <p>No recipe found.</p>
       )}
+      <ShareRecipeModal
+          isOpen={isShareRecipeModalOpen}
+          onClose={() => setIsShareRecipeModalOpen(false)}
+          // onSubmit={createRecipe}
+          contentLabel="Add Recipe Modal"
+      />
     </>
   );
 }
