@@ -1,7 +1,7 @@
 import React from 'react';
 import './modal.css';
 
-const EditModal = ({isOpen, onClose, ingredient}) => {
+const EditModal = ({isOpen, onClose, ingredient, onSubmit}) => {
   if (!isOpen) return null;
 
   const handleSubmit = (e) => {
