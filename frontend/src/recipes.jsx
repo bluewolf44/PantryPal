@@ -25,6 +25,11 @@ function RecipesGrid() {
     getRecipes();
   }, []);
 
+  const handleImageError = (e) => {
+    e.target.onerror = null;
+    e.target.src = "https://thecrites.com/sites/all/modules/cookbook/theme/images/default-recipe-big.png";
+  };
+
   const getRecipes = async () => {
     try {
       const response = await axios.get("/api/getRecipes");
@@ -81,6 +86,7 @@ function RecipesGrid() {
               <img
                 src={"Storage/" + recipe.fields.picture}
                 alt={recipe.fields.recipeName}
+                onError={handleImageError}
               />
               <span>{recipe.fields.recipeName}</span>
               {/* <span>{recipe.fields.recipe}</span> */}
