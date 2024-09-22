@@ -4,6 +4,13 @@ import './modal.css';
 const ShareRecipeModal = ({isOpen, onClose, onSubmit}) => {
   if (!isOpen) return null;
 
+  // This function checks if the user clicked outside the modal (on the overlay)
+  const handleOverlayClick = (e) => {
+    if (e.target.classList.contains('overlay')) {
+      onClose(); // Close the modal when clicking outside of the modal
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
@@ -12,7 +19,7 @@ const ShareRecipeModal = ({isOpen, onClose, onSubmit}) => {
   }
 
   return (
-      <div className="overlay">
+      <div className="overlay" onClick={handleOverlayClick}>
         <div className="modal">
           <h2>Share Recipe:</h2>
           <form onSubmit={handleSubmit}>

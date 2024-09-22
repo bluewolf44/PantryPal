@@ -4,6 +4,13 @@ import './modal.css';
 const RecipeDetailsModal = ({isOpen, onClose, onSubmit, recipe}) => {
   if (!isOpen) return null;
 
+  // This function checks if the user clicked outside the modal (on the overlay)
+  const handleOverlayClick = (e) => {
+    if (e.target.classList.contains('overlay')) {
+      onClose(); // Close the modal when clicking outside of the modal
+    }
+  };
+
 //   const handleSubmit = (e) => {
 //     e.preventDefault();
 //     const formData = new FormData(e.target);
@@ -13,10 +20,12 @@ const RecipeDetailsModal = ({isOpen, onClose, onSubmit, recipe}) => {
 //     onClose();
 //   }
 
+
+
   return (
-      <div className="overlay">
+      <div className="overlay" onClick={handleOverlayClick}>
         <div className="modal">
-          <h2>Recipe Details</h2>
+          <h2>Recipe Details lol</h2>
           <form>
             <label htmlFor="recipeName">Name:</label>
             <input type="text" id="recipeName" name="recipeName" defaultValue={recipe.fields.recipeName} required/>
@@ -25,7 +34,7 @@ const RecipeDetailsModal = ({isOpen, onClose, onSubmit, recipe}) => {
             <textarea type="text" rows="10" id="recipe" name="recipe" required defaultValue={recipe.fields.recipe}/>
 
 
-            {/* <button type="submit">Confirm Edits</button> */}
+             <button type="submit">Confirm Edits</button> 
             <button type="button" onClick={onClose}>Close</button>
           </form>
         </div>

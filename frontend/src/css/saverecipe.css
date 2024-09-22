@@ -21,10 +21,10 @@ h2 {
 /* Recipe Grid Layout */
 .recipes-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 15px;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Ensure min 250px per item */
+    gap: 20px; /* Add more gap between items */
     padding: 20px;
-    justify-items: center;
+    justify-items: stretch; /* Ensure items take up full width of the grid cell */
 }
 
 .recipes {
@@ -35,6 +35,8 @@ h2 {
     background-color: #f9f9f9;
     transition: all 0.3s ease;
     text-align: center;
+    width: 100%; /* Make sure the card takes full width of the grid item */
+    box-sizing: border-box; /* Include padding and border in width calculation */
 }
 
 .recipes:hover {
