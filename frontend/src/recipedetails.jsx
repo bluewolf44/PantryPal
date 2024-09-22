@@ -45,6 +45,7 @@ function RecipeDetails() {
           <button onClick={() => navigate('/recipes')}>Back</button>
 
           <div className="button-container">
+              <button onClick = {() => navigate('/markAsCreated/'+id)}>Mark as created</button>
               <button onClick={() => setIsShareRecipeModalOpen(true)} style={{ cursor: 'pointer' }}>Share Recipe</button>
           </div>
         </>

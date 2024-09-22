@@ -21,6 +21,10 @@ import json
 def index_page(request):
     return render(request, "dist/index.html")
 
+# doesnt_matter to so recipes_details work in urls
+def index_page_with_parms(request, doesnt_matter):
+    return render(request, "dist/index.html")
+
 
 @require_POST
 def create_account(request):
@@ -315,3 +319,38 @@ def update_recipe(request, recipe_id):
         return JsonResponse({'detail': 'Recipe updated successfully'}, status=200)
     else:
         return JsonResponse({"error": "Invalid form data", "details": form.errors}, status=400)
+
+
+# Get all ingredients which is used by recipe_id using Required
+def get_ingredients_by_required(request, recipe_id):
+    if not request.user.is_authenticated:
+        return JsonResponse({"error": "You aren't logged in"}, status=401)
+
+    recipe = get_object_or_404(Recipe, pk=recipe_id, user=request.user)
+    requireds = Required.objects.filter(recipe=recipe)
+    # Finally get all using Required using the foreign key
+    ingredients = []
+    for required in requireds:
+        ingredients.append(required.ingredient)
+
+    return JsonResponse(serialize("json", ingredients), safe=False)
+
+# This is used for markAsCreated where it will update the database with the new amounts
+@require_POST
+def update_ingredient_by_amount(request):
+    if not request.user.is_authenticated:
+        return JsonResponse({"error": "You aren't logged in"}, status=401)
+
+    body = json.loads(request.body)
+    # Check all the data is there
+    for ingredient in body:
+        if ingredient.get("amount") is None or ingredient.get("pk") is None:
+            return JsonResponse({"detail": "Missing required fields"}, status=400)
+
+    # Updates the database
+    for ingredient in body:
+        ing = get_object_or_404(Ingredient, pk=ingredient.get("pk"))
+        ing.amount = ingredient.get("amount")
+        ing.save()
+
+    return JsonResponse({"detail": "update ingredient successfully"}, status=201)

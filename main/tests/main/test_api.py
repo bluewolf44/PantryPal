@@ -1,6 +1,7 @@
 import json
 from django.contrib.auth.hashers import make_password
 import pytest
+from django.core.serializers import serialize
 
 from django.urls import reverse
 from django.test import Client
@@ -147,3 +148,62 @@ def test_save_recipe(user_factory):
 
     assert response.status_code == 201
     assert len(Recipe.objects.filter(recipeName="Cheese Scones", recipe="Two Cups of Flour, One Cup of Cheese, 3 x Eggs")) == 1
+
+@pytestPantryPal
+def test_get_ingredients_by_required(user_factory,recipe_factory,required_factory,ingredient_factory):
+    c = Client()
+    user = user_factory(username="dave", password=make_password("password123"))
+    recipe = recipe_factory(user = user)
+
+    url = reverse("api_get_ingredients_by_required",args=[recipe.pk])
+    assert c.post(url).status_code == 401 # Not logged in
+
+    # Test empty
+    c.force_login(user)
+    response = c.get(url)
+    assert response.status_code == 200
+    assert len(json.loads(response.json())) == 0
+
+    i1 = ingredient_factory(user=user, ingredientName="cheese")
+    i2 = ingredient_factory(user=user, ingredientName="milk")
+    i3 = ingredient_factory(user=user, ingredientName="flour")
+    required_factory(recipe=recipe, ingredient=i1)
+    required_factory(recipe=recipe, ingredient=i2)
+    required_factory(recipe=recipe, ingredient=i3)
+
+    # Other data so we can check if there some funny stuff happing
+    other = user_factory(username="jeff", password=make_password("password123"))
+    i4 = ingredient_factory(user=other, ingredientName="milk")
+    recipe2 = recipe_factory(user=other)
+    required_factory(recipe=recipe2, ingredient=i4)
+
+    response = c.get(url)
+    assert response.status_code == 200
+    assert serialize("json", [i1, i2, i3]) == response.json()
+
+@pytestPantryPal
+def test_update_ingredient_by_amount(user_factory, ingredient_factory):
+    c = Client()
+    user = user_factory(username="dave", password=make_password("password123"))
+    # recipe = recipe_factory(user = user)
+
+    url = reverse("api_update_ingredient_by_amount")
+    assert c.post(url).status_code == 401 # Not logged in
+
+    c.force_login(user)
+    i1 = ingredient_factory(user=user, ingredientName="cheese")
+    i2 = ingredient_factory(user=user, ingredientName="milk")
+    i3 = ingredient_factory(user=user, ingredientName="flour")
+
+    # Creating data that will be sent
+    data = []
+    for i in [i1, i2, i3]:
+        data.append({
+            "pk": i.pk,
+            "amount": i.amount+200
+        })
+
+    response = c.post(url,data,content_type='application/json')
+    assert response.status_code == 201
+    for i in [i1, i2, i3]:
+        assert Ingredient.objects.filter(pk=i.pk)[0].amount == i.amount+200

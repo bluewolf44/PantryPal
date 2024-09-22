@@ -10,6 +10,7 @@ import ShowRecipe from "./showrecipe"
 import RecipesGrid from "./recipes";
 import RecipeDetails from "./recipedetails"
 import SharedRecipesGrid from "./sharedrecipes"
+import MarkAsCreated from "./markascreated"
 import './App.css';
 
 
@@ -162,6 +163,7 @@ class App extends React.Component {
                             <Route path="/ShowRecipe" element={ <ShowRecipe />} />
                             <Route path="/recipes" element={ <RecipesGrid />} />
                             <Route path="/recipes/:id" element={ <RecipeDetails />} />
+                            <Route path="/markAsCreated/:id" element={ <MarkAsCreated />} />
                             <Route path="/sharedRecipes" element={ <SharedRecipesGrid /> } />
                             <Route path ="*" element={<span onClick={() => window.location.href = '/'}>404 Go back</span>} />
                       </Routes>
