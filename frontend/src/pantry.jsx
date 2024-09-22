@@ -140,12 +140,12 @@ function PantryGrid() {
         <>
             <main>
                 <h2>What's in your pantry?</h2>
-                <div className="item" onClick={() => setIsAddModalOpen(true)} style={{ cursor: 'pointer' }}>
+                <div className="item add-ingredient-btn" onClick={() => setIsAddModalOpen(true)} style={{ cursor: 'pointer' }}>
                         <h4>Add Ingredient</h4>
                 </div>
-                <div className="item" onClick={() => setIsRecipeModalOpen(true)} style={{ cursor: 'pointer' }}>
+                {/* <div className="item" onClick={() => setIsRecipeModalOpen(true)} style={{ cursor: 'pointer' }}>
                     <h4>Add Recipe</h4>
-                </div>
+                </div> */}
                 <div className="pantry-grid">
                     {ingredients}
                 </div>

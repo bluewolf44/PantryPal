@@ -107,10 +107,10 @@ class App extends React.Component {
     }
   };
 
-   toggleMenu = () => {
-      this.setState({menuVisible: !this.state.menuVisible});
-      document.body.classList.toggle('nav-open', this.state.menuVisible); // Toggle class on body
-   };
+  toggleMenu = () => {
+    this.setState({menuVisible: !this.state.menuVisible});
+    document.body.classList.toggle('side-nav-open', this.state.menuVisible);
+  };
 
    closeMenu = () => {
       this.setState({menuVisible:false});  // Set menu to not visible
@@ -128,17 +128,19 @@ class App extends React.Component {
                     </Routes>
                 </Router>
             )
-        }
-        return(
+          }
+          return(
             <>
-                <header>
-                    <nav className="navbar">
+            <header>
+              <nav className="navbar">
                         <div className="menu-button" onClick={this.toggleMenu}>☰</div>
                         <div className="logo-container">
                             <a href="/"><img src={logo} alt="PantryPal Logo" className="logo" /></a>
                         </div>
-                    </nav>
-                </header>
+              </nav>
+   
+            </header>
+                
 
                 <div id="side-menu" className="side-nav" style={{ width: this.state.menuVisible ? '250px' : '0' }}>
                     <a href="javascript:void(0)" className="closebtn" onClick={this.closeMenu}>&times;</a>
@@ -167,7 +169,7 @@ class App extends React.Component {
                 </div>
 
             </>
-        )
+        );
     }
 }
 

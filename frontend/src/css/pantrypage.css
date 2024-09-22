@@ -71,6 +71,21 @@ h2 {
     display: block;
 }
 
+/* Styling for Add Ingredient button */
+.add-ingredient-btn {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    transition: all 0.3s ease-in-out;
+}
+
+.add-ingredient-btn:hover {
+    background-color: #ff4b92; /* Pink background on hover */
+    color: white; /* Change text color to white */
+    transform: scale(1.05); /* Slight scale effect */
+}
+
 .item-buttons {
     display: none; /* Hide buttons by default */
     flex-direction: column;
