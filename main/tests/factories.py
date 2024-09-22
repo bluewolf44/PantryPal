@@ -52,7 +52,6 @@ class RequiredFactory(factory.django.DjangoModelFactory):
 
     recipe = factory.SubFactory(RecipeFactory)
     ingredient = factory.SubFactory(IngredientFactory)
-    amount = 2
 
 class SharedFactory(factory.django.DjangoModelFactory):
     class Meta:
