@@ -2,7 +2,11 @@ import React from 'react';
 import './modal.css';
 
 const RecipeDetailsModal = ({isOpen, onClose, onSubmit, recipe}) => {
-  if (!isOpen) return null;
+  if (!isOpen) return null
+  const handleImageError = (e) => {
+    e.target.onerror = null; // Prevents infinite loop if fallback image also fails
+    e.target.src = "https://thecrites.com/sites/all/modules/cookbook/theme/images/default-recipe-big.png";
+  };
 
   // This function checks if the user clicked outside the modal (on the overlay)
   const handleOverlayClick = (e) => {
@@ -29,7 +33,7 @@ const RecipeDetailsModal = ({isOpen, onClose, onSubmit, recipe}) => {
           <form>
             <label htmlFor="recipeName">Name:</label>
             <input type="text" id="recipeName" name="recipeName" defaultValue={recipe.fields.recipeName} required/>
-            <img src={'Storage/' + recipe.fields.picture}></img>
+            <img src={'Storage/' + recipe.fields.picture} onError={handleImageError}></img>
             <label htmlFor="recipe">Recipe Instructions:</label>
             <textarea type="text" rows="10" id="recipe" name="recipe" required defaultValue={recipe.fields.recipe}/>
 
