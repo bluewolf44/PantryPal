@@ -69,35 +69,39 @@ function RecipesGrid() {
       <main>
         <h2> My Saved Recipes: </h2>
         <div
-          className="item"
+          className="item add-recipe" 
           onClick={() => setIsAddRecipeModalOpen(true)}
           style={{ cursor: "pointer" }}
         >
           <h4>Create your own Recipe</h4>
         </div>
-        {recipes.length != 0 ? (
-          recipes.map((recipe) => (
-            <div key={recipe.pk} className="recipes">
-              <img
-                src={"Storage/" + recipe.fields.picture}
-                alt={recipe.fields.recipeName}
-              />
-              <span>{recipe.fields.recipeName}</span>
-              {/* <span>{recipe.fields.recipe}</span> */}
-              <div className="recipes-buttons">
-                <button
-                  onClick={() => gotoRecipeDetails(recipe)}
-                >View Details</button>
-                <button
-                  onClick={() => handleOpenRecipeDetailsModal(recipe)}
-                >Edit</button>
-                <button onClick={() => deleteRecipe(recipe.pk)}>Delete</button>
+        
+        <div className="recipes-grid">
+          {recipes.length != 0 ? (
+            recipes.map((recipe) => (
+              <div key={recipe.pk} className="recipes">
+                <img
+                  src={"Storage/" + recipe.fields.picture}
+                  alt={recipe.fields.recipeName}
+                />
+                <span>{recipe.fields.recipeName}</span>
+                {/* <span>{recipe.fields.recipe}</span> */}
+                <div className="recipes-buttons">
+                  <button
+                    onClick={() => gotoRecipeDetails(recipe)}
+                  >View Details</button>
+                  <button
+                    onClick={() => handleOpenRecipeDetailsModal(recipe)}
+                  >Edit</button>
+                  <button onClick={() => deleteRecipe(recipe.pk)}>Delete</button>
+                </div>
+                
               </div>
-            </div>
           ))
         ) : (
           <p>No Recipes Found</p>
         )}
+        </div>
       </main>
       <RecipeDetailsModal
         isOpen={isRecipeDetailsModalOpen}
