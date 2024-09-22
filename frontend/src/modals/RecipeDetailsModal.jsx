@@ -15,14 +15,16 @@ const RecipeDetailsModal = ({isOpen, onClose, onSubmit, recipe}) => {
     }
   };
 
-//   const handleSubmit = (e) => {
-//     e.preventDefault();
-//     const formData = new FormData(e.target);
-//     //const data = Object.fromEntries(formData.entries());
-//     //data.liquid = data.liquid === 'on';  // Convert 'on' to true, undefined to false
-//     onSubmit(formData);
-//     onClose();
-//   }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target); // Gather form data
+    if (onSubmit) {
+      onSubmit(formData);  // Ensure onSubmit is called if it's passed
+    } else {
+      console.error("onSubmit function is not defined!");
+    }
+    onClose();
+  };
 
 
 
@@ -30,7 +32,7 @@ const RecipeDetailsModal = ({isOpen, onClose, onSubmit, recipe}) => {
       <div className="overlay" onClick={handleOverlayClick}>
         <div className="modal">
           <h2>Recipe Details lol</h2>
-          <form>
+          <form onSubmit={handleSubmit}>
             <label htmlFor="recipeName">Name:</label>
             <input type="text" id="recipeName" name="recipeName" defaultValue={recipe.fields.recipeName} required/>
             <img src={'Storage/' + recipe.fields.picture} onError={handleImageError}></img>

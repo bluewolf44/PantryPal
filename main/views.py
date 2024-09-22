@@ -5,7 +5,11 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.decorators.http import require_POST
+
 from django.db import IntegrityError
+
+from .models import Recipe
+from .forms import RecipeForm
 
 from main.forms import *
 from main.models import Ingredient, Recipe, Required
@@ -293,3 +297,21 @@ def get_user_recipe_by_id(request, recipe_id):
 def shared_recipe_view(request, user_id):
 
     pass
+
+
+@require_POST
+def update_recipe(request, recipe_id):
+    if not request.user.is_authenticated:
+        return JsonResponse({"error": "You aren't logged in"}, status=401)
+
+    # Get the recipe by id, ensuring it belongs to the logged-in user
+    recipe = get_object_or_404(Recipe, pk=recipe_id, user=request.user)
+    
+    # Use RecipeForm, passing in request.POST and request.FILES along with the instance
+    form = RecipeForm(request.POST, request.FILES, instance=recipe)
+
+    if form.is_valid():
+        form.save()  # This will save the updated recipe
+        return JsonResponse({'detail': 'Recipe updated successfully'}, status=200)
+    else:
+        return JsonResponse({"error": "Invalid form data", "details": form.errors}, status=400)

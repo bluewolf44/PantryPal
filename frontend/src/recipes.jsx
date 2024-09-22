@@ -69,6 +69,21 @@ function RecipesGrid() {
     navigate(`/recipes/${recipe.pk}`);
   };
 
+  const handleRecipeUpdate = async (formData) => {
+    try {
+      const response = await axios.post(`/api/updateRecipe/${recipe.pk}/`, formData, {  // Add the trailing slash here
+        headers: {
+          'Content-Type': 'multipart/form-data', // This is for handling files
+        },
+      });
+      console.log('Recipe updated successfully:', response.data);
+      getRecipes();  // Optionally refresh your recipe list
+    } catch (error) {
+      console.error('Error updating recipe:', error);
+    }
+  };
+  
+
   return (
     <>
       <main>
@@ -112,7 +127,7 @@ function RecipesGrid() {
       <RecipeDetailsModal
         isOpen={isRecipeDetailsModalOpen}
         onClose={() => setIsRecipeDetailsModalOpen(false)}
-        // onSubmit={editIngredient}
+        onSubmit={handleRecipeUpdate}  // Ensure this function is passed correctly
         recipe={recipe}
       />
       <AddRecipeModal
