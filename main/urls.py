@@ -32,6 +32,7 @@ urlpatterns = [
     path("api/sharedRecipe/<int:user_id>/", views.shared_recipe_view, name="api_shared_recipe"),
     path("api/updateRecipe/<int:recipe_id>/", views.update_recipe, name="api_update_recipe"),
     path("api/getIngredientsByRequired/<int:recipe_id>/", views.get_ingredients_by_required, name="api_get_ingredients_by_required"),
-    path("api/updateIngredientByAmount", views.update_ingredient_by_amount, name="api_update_ingredient_by_amount")
+    path("api/updateIngredientByAmount", views.update_ingredient_by_amount, name="api_update_ingredient_by_amount"),
+    path("api/getAllUsers", views.get_all_users_view, name="api_get_all_users")
 
 ]
