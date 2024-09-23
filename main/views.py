@@ -310,7 +310,7 @@ def update_recipe(request, recipe_id):
 
     # Get the recipe by id, ensuring it belongs to the logged-in user
     recipe = get_object_or_404(Recipe, pk=recipe_id, user=request.user)
-    
+
     # Use RecipeForm, passing in request.POST and request.FILES along with the instance
     form = RecipeForm(request.POST, request.FILES, instance=recipe)
 
@@ -354,3 +354,13 @@ def update_ingredient_by_amount(request):
         ing.save()
 
     return JsonResponse({"detail": "update ingredient successfully"}, status=201)
+
+
+# This will be used for getting all users in a list form in the sharerecipe modal, and recipe details.
+def get_all_users_view(request):
+    if not request.user.is_authenticated:
+        return JsonResponse({"error": "You aren't logged in"}, status=401)
+
+    user = request.user
+    users = User.objects.all();
+    return JsonResponse(serialize("json", users), safe=False)
