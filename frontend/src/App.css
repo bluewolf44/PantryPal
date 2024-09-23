@@ -1,5 +1,4 @@
-
-/* Navigation Bar */
+/* Navbar: Fixed at the top */
 .navbar {
   background-color: #ffffff;
   padding: 10px 20px;
@@ -12,27 +11,78 @@
   top: 0;
   left: 0;
   z-index: 1000;
-  height: 60px; /* Adjust based on actual navbar height */
+  height: 10vh; /* Height of the navbar */
 }
 
 /* Main Content Area */
-main {
-  padding-top: 70px; /* Should be at least the height of the navbar */
-  padding-bottom: 50px;
-  margin-top: 60px; /* Give margin-top equal to navbar height if needed */
+.main-content {
+  margin-top: 10vh; /* Matches the navbar height to push content down */
+  padding: 2rem;
+  min-height: calc(100vh - 10vh); /* Ensure the content takes up remaining height */
+  background-color: #ffffff;
+  overflow-y: auto;
+  box-sizing: border-box; /* Make sure padding is included in height calculation */
+}
+
+/* Ensure body stretches full height */
+body {
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Ensure the root takes the full viewport height */
+}
+
+
+/* Sidebar Navigation */
+.side-nav {
+  height: 100%;
+  width: 250px;
+  position: fixed;
+  z-index: 1050;
+  top: 0;
+  left: 0;
+  background-color: #ffffff;
+  overflow-x: hidden;
+  transition: width 0.5s;
+  padding-top: 10vh; /* Ensure padding starts below the navbar, which is now 10% height */
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.side-nav a {
+  padding: 10px;
+  text-decoration: none;
+  display: block;
+  color: #0a02a1;
+}
+
+.side-nav a:hover {
+  background-color: #e0e0e0;
+}
+
+/* When side-nav is open, shift main-content to the right */
+.body.side-nav-open .main-content {
+  margin-left: 250px; /* Same width as the side-nav */
+  transition: margin-left 0.5s; /* Smooth transition */
 }
 
 
 .menu-button {
   font-size: 30px;
   cursor: pointer;
-  margin-right: 20px; /* Ensure space around menu button */
+  margin-right: 20px; 
 }
 
+/* Optional: Handle the logo */
 .logo-container {
   flex-grow: 1;
   display: flex;
-  justify-content: center; /* Center logo */
+  justify-content: center; /* Centers the logo */
 }
 
 .logo {
@@ -41,38 +91,3 @@ main {
 }
 
 
-
-/* Ensure the overall container matches the size restrictions and centering from App.css */
-#root {
-  max-width: 1280px;
-  margin: 0 auto; /* This centers the container */
-  padding: 0; /* Remove the padding if it's causing alignment issues */
-  text-align: center; /* Center align text */
-}
-
-
-/* Sidebar Navigation */
-.side-nav {
-  height: 100%;
-  width: 250px; /* Ensure width is enough to show all text */
-  position: fixed;
-  z-index: 1050; /* Higher z-index to prevent hiding behind other elements */
-  top: 0;
-  left: 0;
-  background-color: #ffffff;
-  overflow-x: hidden;
-  transition: width 0.5s;
-  padding-top: 60px; /* Ensure padding starts below the navbar */
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-}
-
-.side-nav a {
-  padding: 10px;
-  text-decoration: none;
-  display: block;
-  color: #0a02a1; /* Ensure text is visible */
-}
-
-.side-nav a:hover {
-  background-color: #e0e0e0; /* Hover effect for better user feedback */
-}

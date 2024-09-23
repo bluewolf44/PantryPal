@@ -30,7 +30,6 @@ class Recipe(models.Model):
 class Required(models.Model):
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
     ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
-    amount = models.IntegerField()
 
     def __str__(self):
         return self.ingredient.ingredientName + " in " + self.recipe.recipeName + " by " + self.recipe.user.username

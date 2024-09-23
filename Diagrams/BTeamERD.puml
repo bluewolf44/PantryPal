@@ -35,7 +35,6 @@ skinparam linetype ortho
         * ingredientName:VarChar(50) <Fk>
         * userId:VarChar(10) <FK>
         --
-        * amount:Int
     }
 
     entity Shared {

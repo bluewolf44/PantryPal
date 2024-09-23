@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Create the react build file
-(cd frontend;npm install;npm i;npm run build)
+(cd frontend;npm ci;npm run build)
 
 # Set up the migrations
 python manage.py makemigrations

@@ -5,16 +5,24 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.decorators.http import require_POST
+
 from django.db import IntegrityError
 
+from .models import Recipe
+from .forms import RecipeForm
+
 from main.forms import *
-from main.models import Ingredient, Recipe
+from main.models import Ingredient, Recipe, Required
 import google.generativeai as genai
 import os
 import json
 
 
 def index_page(request):
+    return render(request, "dist/index.html")
+
+# doesnt_matter to so recipes_details work in urls
+def index_page_with_parms(request, doesnt_matter):
     return render(request, "dist/index.html")
 
 
@@ -201,6 +209,43 @@ def create_recipe(request):
         recipe=body.cleaned_data["recipe"],
         picture=body.cleaned_data["picture"]
     )
+
+    # Get all word from the query and remove common punctuation
+    words = body.cleaned_data["recipe"].replace("*", "").replace('"', "").replace(",","").split(" ")
+
+
+    ingredients = Ingredient.objects.filter(user=request.user)
+    # ingredients names, Single word per index
+    ingredient_names = []
+    # The objects for the ingredients names, e.g the object in index 1 is the same of ingredient_names index 1
+    ingredient_index = []
+    for ingredient in ingredients:
+        # Removing comma
+        for name in ingredient.ingredientName.replace(",", " ").split(" "):
+            #adding name and the object to each list
+            ingredient_names.append(name)
+            ingredient_index.append(ingredient)
+
+    # The ingredient that the system has found
+    ingredients_in_query = []
+    for w in words:
+        try:
+            # Find if the word in the ingredient_names if not throws ValueError
+            index = ingredient_names.index(w)
+            #Check if that object already in there
+            if not ingredient_index[index] in ingredients_in_query:
+                ingredients_in_query.append(ingredient_index[index])
+        except ValueError:
+            continue
+
+    # Created the required object
+    for ingredient in ingredients_in_query:
+        required = Required.objects.create(
+            recipe=recipe,
+            ingredient=ingredient
+        )
+        required.save()
+
     recipe.save()
 
     return HttpResponse(status=201)
@@ -218,11 +263,11 @@ def save_recipe(request):
     if not request.user.is_authenticated:
         return JsonResponse({"detail": "You aren't log in"}, status=401)
     user = request.user
-    
+
     body = json.loads(request.body)
-    
+
     recipe = Recipe.objects.create(
-        recipeName=("Cake"),
+        recipeName=body.get("recipeName"),
         user=user,
         recipe=body.get("recipe"),
     )
@@ -236,9 +281,86 @@ def delete_recipe_view(request, recipe_id):
 
     if not request.user.is_authenticated:
         return JsonResponse({"detail": "You aren't log in"}, status=401)
-    
+
     user = request.user
     recipe = get_object_or_404(Recipe,id=recipe_id, user=user)
     recipe.delete()
 
     return JsonResponse({"detail": "Recipe deleted successfully"}, status=200)
+
+def get_user_recipe_by_id(request, recipe_id):
+    if not request.method == "GET":
+        return HttpResponse(status=404)
+
+    if not request.user.is_authenticated:
+        return JsonResponse({"detail": "You aren't log in"}, status=401)
+
+    user = request.user
+    return JsonResponse(serialize("json", Recipe.objects.filter(user=user, id=recipe_id)), safe=False)
+
+def shared_recipe_view(request, user_id):
+
+    pass
+
+
+@require_POST
+def update_recipe(request, recipe_id):
+    if not request.user.is_authenticated:
+        return JsonResponse({"error": "You aren't logged in"}, status=401)
+
+    # Get the recipe by id, ensuring it belongs to the logged-in user
+    recipe = get_object_or_404(Recipe, pk=recipe_id, user=request.user)
+
+    # Use RecipeForm, passing in request.POST and request.FILES along with the instance
+    form = RecipeForm(request.POST, request.FILES, instance=recipe)
+
+    if form.is_valid():
+        form.save()  # This will save the updated recipe
+        return JsonResponse({'detail': 'Recipe updated successfully'}, status=200)
+    else:
+        return JsonResponse({"error": "Invalid form data", "details": form.errors}, status=400)
+
+
+# Get all ingredients which is used by recipe_id using Required
+def get_ingredients_by_required(request, recipe_id):
+    if not request.user.is_authenticated:
+        return JsonResponse({"error": "You aren't logged in"}, status=401)
+
+    recipe = get_object_or_404(Recipe, pk=recipe_id, user=request.user)
+    requireds = Required.objects.filter(recipe=recipe)
+    # Finally get all using Required using the foreign key
+    ingredients = []
+    for required in requireds:
+        ingredients.append(required.ingredient)
+
+    return JsonResponse(serialize("json", ingredients), safe=False)
+
+# This is used for markAsCreated where it will update the database with the new amounts
+@require_POST
+def update_ingredient_by_amount(request):
+    if not request.user.is_authenticated:
+        return JsonResponse({"error": "You aren't logged in"}, status=401)
+
+    body = json.loads(request.body)
+    # Check all the data is there
+    for ingredient in body:
+        if ingredient.get("amount") is None or ingredient.get("pk") is None:
+            return JsonResponse({"detail": "Missing required fields"}, status=400)
+
+    # Updates the database
+    for ingredient in body:
+        ing = get_object_or_404(Ingredient, pk=ingredient.get("pk"))
+        ing.amount = ingredient.get("amount")
+        ing.save()
+
+    return JsonResponse({"detail": "update ingredient successfully"}, status=201)
+
+
+# This will be used for getting all users (excluding you) in a list form for the sharerecipe modal, and recipe details.
+def get_all_users_view(request):
+    if not request.user.is_authenticated:
+        return JsonResponse({"error": "You aren't logged in"}, status=401)
+
+    user = request.user
+    users = User.objects.exclude(id=user.id)
+    return JsonResponse(serialize("json", users), safe=False)

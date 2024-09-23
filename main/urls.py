@@ -9,7 +9,10 @@ urlpatterns = [
     path("savedRecipe", views.index_page, name="saved_recipe"),
     path("showRecipe", views.index_page, name="show_recipe"),
     path("saveRecipe", views.index_page, name="save_recipe"),
+    path("sharedRecipes", views.index_page, name="shared_recipes"),
     path("recipes", views.index_page, name="recipes"),
+    path("recipes/<int:doesnt_matter>", views.index_page_with_parms, name="recipes_details"),
+    path("markAsCreated/<int:doesnt_matter>", views.index_page_with_parms, name="recipes_details"),
     path("api/login/", views.api_login, name="api_login"),
     path("api/aiRecipe/<str:baking_type>", views.ai_recipe, name="ai_recipe"),
     path("api/session/", views.session_view, name="api_session"),
@@ -23,6 +26,13 @@ urlpatterns = [
     path("api/editIngredient/<int:ingredient_id>", views.edit_ingredient_view, name="api_edit_ingredient"),
     path("api/createRecipe/", views.create_recipe, name="api_create_recipe"),
     path("api/getRecipes/", views.get_user_recipes, name="api_get_recipes"),
+    path("api/getRecipes/<int:recipe_id>/", views.get_user_recipe_by_id, name="api_get_recipe_by_id"),
     path("api/saveRecipe/", views.save_recipe, name="api_save_recipe"),
-    path("api/deleteRecipe/<int:recipe_id>/", views.delete_recipe_view, name="api_delete_recipe")
+    path("api/deleteRecipe/<int:recipe_id>/", views.delete_recipe_view, name="api_delete_recipe"),
+    path("api/sharedRecipe/<int:user_id>/", views.shared_recipe_view, name="api_shared_recipe"),
+    path("api/updateRecipe/<int:recipe_id>/", views.update_recipe, name="api_update_recipe"),
+    path("api/getIngredientsByRequired/<int:recipe_id>/", views.get_ingredients_by_required, name="api_get_ingredients_by_required"),
+    path("api/updateIngredientByAmount", views.update_ingredient_by_amount, name="api_update_ingredient_by_amount"),
+    path("api/getAllUsers/", views.get_all_users_view, name="api_get_all_users")
+
 ]

@@ -12,6 +12,9 @@ build/
 .coverage
 /Storage/IngredientImages/*
 !/Storage/IngredientImages/.gitkeep
+/Storage/RecipeImages/*
+!/Storage/RecipeImages/.gitkeep
+
 
 ### STS ###
 .apt_generated

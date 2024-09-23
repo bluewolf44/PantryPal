@@ -1,0 +1,101 @@
+/* General Styles */
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #0a02a1; /* Primary text color */
+}
+
+h2 {
+    text-align: center;
+    margin: 20px 0;
+}
+
+/* Recipe Grid Layout */
+.recipes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Ensure min 250px per item */
+    gap: 20px; /* Add more gap between items */
+    padding: 20px;
+    justify-items: stretch; /* Ensure items take up full width of the grid cell */
+}
+
+.recipes {
+    position: relative;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    transition: all 0.3s ease;
+    text-align: center;
+    width: 100%; /* Make sure the card takes full width of the grid item */
+    box-sizing: border-box; /* Include padding and border in width calculation */
+}
+
+.recipes:hover {
+    transform: scale(1.04); /* Slight scale on hover */
+}
+
+.recipes img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+    border-radius: 8px;
+}
+
+.recipes span {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.recipes-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.recipes-buttons button {
+    padding: 10px;
+    margin-top: 5px;
+    background-color: #0a02a1;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.recipes-buttons button:hover {
+    background-color: #ff4b92; /* Pink color on hover */
+    transform: scale(1.05);
+}
+
+/* No Recipes Found Message */
+p {
+    text-align: center;
+    font-size: 18px;
+    color: #ff4b92;
+}
+
+/* Styling for Add Ingredient button */
+.add-recipe {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    transition: all 0.3s ease-in-out;
+}
+
+.add-recipe:hover {
+    background-color: #ff4b92; /* Pink background on hover */
+    color: white; /* Change text color to white */
+    transform: scale(1.05); /* Slight scale effect */
+}

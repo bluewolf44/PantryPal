@@ -62,3 +62,10 @@ button:hover {
 button:focus {
     outline: none;
 }
+
+.button-container {
+    position: fixed;
+    right: 10px; /* Fixed to the left bottom corner */
+    bottom: 10px;
+    z-index: 1000;
+}

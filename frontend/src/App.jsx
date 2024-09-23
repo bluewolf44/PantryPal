@@ -8,7 +8,10 @@ import logo from "./images/pantrypal-logo.png";
 import CreateRecipe from "./createrecipe"
 import ShowRecipe from "./showrecipe"
 import RecipesGrid from "./recipes";
-import './App.css'; 
+import RecipeDetails from "./recipedetails"
+import SharedRecipesGrid from "./sharedrecipes"
+import MarkAsCreated from "./markascreated"
+import './App.css';
 
 
 const cookies = new Cookies();
@@ -79,6 +82,7 @@ class App extends React.Component {
     .then((data) => {
       console.log(data);
       this.setState({isAuthenticated: false});
+      window.location.href = "/"
     })
     .catch((err) => {
       console.log(err);
@@ -91,11 +95,12 @@ class App extends React.Component {
       fetch("/api/deleteAccount", {
         credentials: "same-origin",
       })
-    
+
     .then(this.isResponseOk)
     .then((data) => {
       console.log(data);
       this.setState({isAuthenticated: false});
+      window.location.href = "/"
     })
     .catch((err) => {
       console.log(err);
@@ -103,10 +108,10 @@ class App extends React.Component {
     }
   };
 
-   toggleMenu = () => {
-      this.setState({menuVisible: !this.state.menuVisible});
-      document.body.classList.toggle('nav-open', this.state.menuVisible); // Toggle class on body
-   };
+  toggleMenu = () => {
+    this.setState({menuVisible: !this.state.menuVisible});
+    document.body.classList.toggle('side-nav-open', this.state.menuVisible);
+  };
 
    closeMenu = () => {
       this.setState({menuVisible:false});  // Set menu to not visible
@@ -124,17 +129,32 @@ class App extends React.Component {
                     </Routes>
                 </Router>
             )
-        }
-        return(
+          }
+          return(
             <>
-                <header>
-                    <nav className="navbar">
+            <header>
+              <nav className="navbar">
                         <div className="menu-button" onClick={this.toggleMenu}>☰</div>
                         <div className="logo-container">
                             <a href="/"><img src={logo} alt="PantryPal Logo" className="logo" /></a>
                         </div>
-                    </nav>
-                </header>
+              </nav>
+   
+            </header>
+                
+
+                <div id="side-menu" className="side-nav" style={{ width: this.state.menuVisible ? '250px' : '0' }}>
+                    <a href="javascript:void(0)" className="closebtn" onClick={this.closeMenu}>&times;</a>
+                    <a href="/" className="active">My Pantry</a>
+                    <a href="/createRecipe">Create Recipe</a>
+                    <a href="/recipes">My Recipes</a>
+                    <a href="/sharedRecipes">Shared Recipes</a>
+                    <div className="nav-bottom">
+                        <a onClick={this.logout}>Log Out</a>
+                        <a onClick={this.deleteAccount}>Delete Account</a>
+                    </div>
+                </div>
+
                 <div className="main-content">
                   <Router>
                       <Routes>
@@ -142,22 +162,16 @@ class App extends React.Component {
                             <Route path="/createRecipe" element={ <CreateRecipe />} />
                             <Route path="/ShowRecipe" element={ <ShowRecipe />} />
                             <Route path="/recipes" element={ <RecipesGrid />} />
+                            <Route path="/recipes/:id" element={ <RecipeDetails />} />
+                            <Route path="/markAsCreated/:id" element={ <MarkAsCreated />} />
+                            <Route path="/sharedRecipes" element={ <SharedRecipesGrid /> } />
                             <Route path ="*" element={<span onClick={() => window.location.href = '/'}>404 Go back</span>} />
                       </Routes>
                   </Router>
                 </div>
-                <div id="side-menu" className="side-nav" style={{ width: this.state.menuVisible ? '250px' : '0' }}>
-                    <a href="javascript:void(0)" className="closebtn" onClick={this.closeMenu}>&times;</a>
-                    <a href="/" className="active">Pantry</a>
-                    <a href="/createRecipe">Create Recipe</a>
-                    <a href="/recipes">My Recipes</a>
-                    <div className="nav-bottom">
-                        <a href="#" onClick={this.logout}>Log Out</a>
-                        <a href="#" onClick={this.deleteAccount}>Delete Account</a>
-                    </div>
-                </div>
+
             </>
-        )
+        );
     }
 }
 
