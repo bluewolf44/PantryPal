@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './modal.css';
+import axios from "axios";
+const ShareRecipeModal = ({isOpen, onClose, onSubmit, users}) => {
+  const [filteredUsers, setFilteredUsers] = useState([])
+  const [searchTerm, setSearchTerm] = useState('')
 
-const ShareRecipeModal = ({isOpen, onClose, onSubmit}) => {
   if (!isOpen) return null;
 
   // This function checks if the user clicked outside the modal (on the overlay)

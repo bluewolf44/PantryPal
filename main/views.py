@@ -356,11 +356,11 @@ def update_ingredient_by_amount(request):
     return JsonResponse({"detail": "update ingredient successfully"}, status=201)
 
 
-# This will be used for getting all users in a list form in the sharerecipe modal, and recipe details.
+# This will be used for getting all users (excluding you) in a list form for the sharerecipe modal, and recipe details.
 def get_all_users_view(request):
     if not request.user.is_authenticated:
         return JsonResponse({"error": "You aren't logged in"}, status=401)
 
     user = request.user
-    users = User.objects.all();
+    users = User.objects.exclude(id=user.id)
     return JsonResponse(serialize("json", users), safe=False)

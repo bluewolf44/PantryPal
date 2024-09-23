@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React,{ useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Modal from 'react-modal';
 import axios from "axios";
@@ -13,7 +13,7 @@ function RecipeDetails() {
   const [isShareRecipeModalOpen, setIsShareRecipeModalOpen] = useState(false)
   const [recipe, setRecipe] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [users, setUsers] = useState(null)
+  const [users, setUsers] = useState([])
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -70,8 +70,9 @@ useEffect(() => {
       <ShareRecipeModal
           isOpen={isShareRecipeModalOpen}
           onClose={() => setIsShareRecipeModalOpen(false)}
-          // onSubmit={createRecipe}
-          contentLabel="Add Recipe Modal"
+          onSubmit={() => setIsShareRecipeModalOpen(false)}
+          users={ users }
+          contentLabel="Share Recipe Modal"
       />
     </>
   );
