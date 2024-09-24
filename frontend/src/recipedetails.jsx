@@ -34,6 +34,12 @@ function RecipeDetails() {
     getRecipeById();
   }, [id]);
 
+
+  /* Basically retrieves 'selectedUsers' user ids array from modal to share recipe */
+  const shareRecipe = (userIdsForSharing) => {
+    console.log("List of id's to share to: ", userIdsForSharing)
+  }
+
   return (
     <>
       <h2>Recipe Details</h2>
@@ -55,7 +61,7 @@ function RecipeDetails() {
       <ShareRecipeModal
           isOpen={isShareRecipeModalOpen}
           onClose={() => setIsShareRecipeModalOpen(false)}
-          onSubmit={() => setIsShareRecipeModalOpen(false)}
+          onSubmit={shareRecipe}
           contentLabel="Share Recipe Modal"
       />
     </>
