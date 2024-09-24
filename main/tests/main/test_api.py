@@ -12,8 +12,8 @@ from main.models import Recipe
 pytestPantryPal = pytest.mark.django_db
 
 
-    
-    
+
+
 @pytestPantryPal
 def test_delete_ingredient(user_factory, ingredient_factory):
     c = Client()
@@ -103,7 +103,7 @@ def test_get_user_ingredients(user_factory, ingredient_factory):
     assert response.status_code == 200
 
     response_data = json.loads(response.json())
-    
+
     for item in response_data:
         fields = item.get("fields", {})
         assert fields == {"ingredientName": "cheese", "user": 5, "amount": 2, "describe": "I have two slices of cheese", "picture": "", "liquid": False} or \
@@ -133,10 +133,10 @@ def test_save_recipe(user_factory):
     c = Client()
     url = reverse("api_save_recipe")
     assert c.post(url).status_code == 401 # Not logged in
-    
+
     user = user_factory(username="dave", password=make_password("password123"))
     c.force_login(user)
-    
+
     response = c.post(
         url,
         json.dumps({
