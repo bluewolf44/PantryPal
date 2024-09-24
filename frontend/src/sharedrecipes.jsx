@@ -14,17 +14,19 @@ Modal.setAppElement("#root"); // Assuming your root div has an ID of 'root'
 
 function SharedRecipesGrid() {
   const [recipesReceived, setRecipesReceived] = useState([])
-  getRecipesReceived();
 
-  const getRecipesReceived = async () => {
-    try {
-      const response = await axios.get("/api/getRecipesReceived/");
-      console.log("Recipes Received: ", response.data)
-      setRecipesReceived(response.data);
-    } catch (error) {
-      console.log("Error in getting recipes from backend: ", error);
-    }
-  };
+  useEffect(() => {
+    const getRecipesReceived = async () => {
+      try {
+        const response = await axios.get("/api/getRecipesReceived/");
+        setRecipesReceived(JSON.parse(response.data));
+        console.log("Recipes Received: ", recipesReceived)
+      } catch (error) {
+        console.log("Error in getting recipes from backend: ", error);
+      }
+    };
+    getRecipesReceived();
+  }, [])
 
   return (
     <>
