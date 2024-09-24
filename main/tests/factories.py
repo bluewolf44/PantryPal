@@ -1,4 +1,3 @@
-from pickle import FALSE
 # Author Hamish Phillips
 # Date: 20/08/2024
 # Description: This file is used to create factories for the tests to use

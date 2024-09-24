@@ -1,0 +1,3 @@
+# FILE: .bandit
+[bandit]
+exclude = ./main/tests,.\frontend\node_modules
