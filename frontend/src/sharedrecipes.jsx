@@ -53,6 +53,9 @@ function SharedRecipesGrid() {
         <p>No Recipes Found</p>
       )}
       </div>
+      <h2> Recipes I shared: </h2>
+      <div className="recipes-grid">
+      </div>
     </>
   );
 }
