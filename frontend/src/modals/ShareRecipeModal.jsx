@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './modal.css';
+import './userList.css'
 import axios from "axios";
 const ShareRecipeModal = ({isOpen, onClose, onSubmit}) => {
   const [users, setUsers] = useState([])
@@ -53,8 +54,8 @@ const ShareRecipeModal = ({isOpen, onClose, onSubmit}) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const formData = new FormData(e.target);
-    onSubmit(formData);
+    // const formData = new FormData(e.target);
+    onSubmit(selectedUsers);
     onClose();
   }
 
@@ -67,13 +68,13 @@ const ShareRecipeModal = ({isOpen, onClose, onSubmit}) => {
           <div className="userList">
             {filteredUsers.length > 0 ? (
               filteredUsers.map(user => (
-                <div key={user.pk}>
+                <div key={user.pk} className="userItem">
+                  <span>{user.fields.username}</span>
                   <input
                     type="checkbox"
                     checked={selectedUsers.includes(user.pk)}
                     onChange={() => handleCheckboxChange(user.pk)}
                   />
-                  {user.fields.username}
                 </div>
               ))
             ) : (

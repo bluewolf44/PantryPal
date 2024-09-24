@@ -1,0 +1,33 @@
+.modal form {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.userList {
+    max-height: 300px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    margin: 10px 0;
+    padding: 10px;
+}
+
+.userItem {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 5px;
+    border-bottom: 1px solid #eee;
+}
+
+.userItem:last-child {
+    border-bottom: none;
+}
+
+.userItem input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+.userItem span {
+    flex-grow: 1;
+}
