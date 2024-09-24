@@ -337,7 +337,18 @@ def share_recipe_view(request):
         #     userShared = models.ForeignKey(User, on_delete=models.CASCADE, related_name="userShared")
         #     feedback = models.CharField(max_length=200)
 
+def get_recipes_received_view(request):
+    if not request.user.is_authenticated:
+        return JsonResponse({"error": "You aren't logged in"}, status=401)
 
+    user = request.user
+    recipes_received = Shared.objects.filter(userShared=user).select_related('recipeName')
+
+    recipes = []
+    for recipe in recipes_received:
+        recipes.append(recipe.recipeName)
+
+    return JsonResponse(serialize("json", recipes), safe=False)
 
 
 @require_POST
