@@ -8,8 +8,8 @@ from django.views.decorators.http import require_POST
 
 from django.db import IntegrityError
 
-from .models import Recipe
-from .forms import RecipeForm
+from .models import Recipe, Shared
+from .forms import RecipeForm, SharedRecipeForm
 
 from main.forms import *
 from main.models import Ingredient, Recipe, Required
@@ -302,13 +302,41 @@ def shared_recipe_view(request, user_id):
 
     pass
 
-# this code will take the parameter of the recipe receiving end user id
+# this code will receive json of user_ids list, and recipe id
 @require_POST
-def share_recipe_view(request, user_recipient_id):
+def share_recipe_view(request):
+
     if not request.user.is_authenticated:
         return JsonResponse({"error": "You aren't logged in"}, status = 401)
     user = request.user
-    recipient_user = User.objects.filter(pk=user_recipient_id)
+
+    body = SharedRecipeForm(request.POST)
+
+    if not body.is_valid():
+        return JsonResponse({"error": body.errors, "POSTreq": request.POST}, status=400)
+
+    user_ids = json.loads(body.cleaned_data['user_ids'])
+    recipe_id = body.cleaned_data['recipe_id']
+
+    recipients = User.objects.filter(pk__in=user_ids)
+    recipe = Recipe.objects.get(pk=recipe_id)
+    print(recipe, " ", recipients)
+    for recipient in recipients:
+        shared_recipe = Shared.objects.create(
+            recipeOwner = user,
+            recipeShared = recipe,
+            userShared = recipient
+        )
+        shared_recipe.save()
+
+    return JsonResponse({"message": "Recipe shared successfully"}, status=201)
+
+        # class Shared(models.Model):
+        #     recipeOwner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='recipeOwner')
+        #     recipeShared = models.ForeignKey(Recipe, on_delete=models.CASCADE)
+        #     userShared = models.ForeignKey(User, on_delete=models.CASCADE, related_name="userShared")
+        #     feedback = models.CharField(max_length=200)
+
 
 
 

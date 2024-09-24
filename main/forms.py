@@ -9,6 +9,11 @@ class IngredientsForm(forms.Form):
     amount = forms.IntegerField(label="amount")
     liquid = forms.BooleanField(label="liquid",required=False)
 
+class SharedRecipeForm(forms.Form):
+    user_ids = forms.CharField()
+    recipe_id = forms.IntegerField()
+    feedback = forms.CharField(label="feedback", required=False)
+
 class RecipeForm(forms.ModelForm):
     class Meta:
         model = Recipe

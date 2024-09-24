@@ -35,10 +35,15 @@ function RecipeDetails() {
   }, [id]);
 
 
-  /* Basically retrieves 'selectedUsers' user ids array from modal to share recipe */
-  const shareRecipe = (userIdsForSharing) => {
-    const data = [userIdsForSharing, recipe]
-    console.log("List of id's to share to: ", userIdsForSharing, recipe)
+  /* data parameter contains a list of userIds to share recipe to, and recipe id */
+  const shareRecipe = async (data) => {
+    console.log("Share Recipe: ", data)
+    try {
+      const response = await axios.post("/api/shareRecipe/", data)
+      console.log("share recipe: ", response.data)
+    } catch (error) {
+      console.log("Error occured trying to share recipe: ", error)
+    }
   }
 
   return (
@@ -63,6 +68,7 @@ function RecipeDetails() {
           isOpen={isShareRecipeModalOpen}
           onClose={() => setIsShareRecipeModalOpen(false)}
           onSubmit={shareRecipe}
+        recipe={ recipe }
           contentLabel="Share Recipe Modal"
       />
     </>

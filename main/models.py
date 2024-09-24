@@ -37,7 +37,7 @@ class Required(models.Model):
 
 class Shared(models.Model):
     recipeOwner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='recipeOwner')
-    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
+    recipeShared = models.ForeignKey(Recipe, on_delete=models.CASCADE)
     userShared = models.ForeignKey(User, on_delete=models.CASCADE, related_name="userShared")
     feedback = models.CharField(max_length=200)
 

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './modal.css';
 import './userList.css'
 import axios from "axios";
-const ShareRecipeModal = ({isOpen, onClose, onSubmit}) => {
+const ShareRecipeModal = ({isOpen, onClose, onSubmit, recipe}) => {
   const [users, setUsers] = useState([])
   const [filteredUsers, setFilteredUsers] = useState([])
   const [searchTerm, setSearchTerm] = useState('')
@@ -54,8 +54,10 @@ const ShareRecipeModal = ({isOpen, onClose, onSubmit}) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // const formData = new FormData(e.target);
-    onSubmit(selectedUsers);
+    const formData = new FormData();
+    formData.append('user_ids', JSON.stringify(selectedUsers))
+    formData.append('recipe_id', recipe.pk)
+    onSubmit(formData)
     onClose();
   }
 
