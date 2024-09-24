@@ -18,7 +18,9 @@ body {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     width: 340px;
     text-align: center;
+    margin: 150px;
 }
+
 
 form {
     display: flex;

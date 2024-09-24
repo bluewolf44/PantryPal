@@ -22,6 +22,7 @@
   background-color: #ffffff;
   overflow-y: auto;
   box-sizing: border-box; /* Make sure padding is included in height calculation */
+  width: 100%;
 }
 
 /* Ensure body stretches full height */
@@ -67,8 +68,8 @@ body {
 
 /* When side-nav is open, shift main-content to the right */
 .body.side-nav-open .main-content {
-  margin-left: 250px; /* Same width as the side-nav */
-  transition: margin-left 0.5s; /* Smooth transition */
+  margin-left: 250px; /* Shift content when the sidebar is open */
+  width: calc(100% - 250px); /* Adjust the width dynamically based on the sidebar */
 }
 
 
@@ -90,4 +91,14 @@ body {
   width: auto;
 }
 
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+  .side-nav {
+    width: 200px; /* Smaller sidebar on mobile */
+  }
 
+  .body.side-nav-open .main-content {
+    margin-left: 200px;
+    width: calc(100% - 200px);
+  }
+}
