@@ -59,11 +59,12 @@ const ShareRecipeModal = ({isOpen, onClose, onSubmit}) => {
   }
 
   return (
-      <div className="overlay" onClick={handleOverlayClick}>
-        <div className="modal">
-          <h2>Share Recipe:</h2>
-          <form onSubmit={handleSubmit}>
-          <div className="user-list">
+    <div className="overlay" onClick={handleOverlayClick}>
+      <div className="modal">
+        <h2>Share Recipe:</h2>
+        <form onSubmit={handleSubmit}>
+          <input type="text" placeholder="Search for users..." value={searchTerm} onChange={handleSearchChange} />
+          <div className="userList">
             {filteredUsers.length > 0 ? (
               filteredUsers.map(user => (
                 <div key={user.pk}>
@@ -79,12 +80,11 @@ const ShareRecipeModal = ({isOpen, onClose, onSubmit}) => {
               <p>No users found.</p>
             )}
           </div>
-          <button onClick={onClose}>Share</button>
-            <button type="submit">Share</button>
-            <button type="button" onClick={onClose}>Close</button>
-          </form>
-        </div>
+          <button type="submit">Share</button>
+          <button type="button" onClick={onClose}>Close</button>
+        </form>
       </div>
+    </div>
   );
 }
 
