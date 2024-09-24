@@ -302,6 +302,15 @@ def shared_recipe_view(request, user_id):
 
     pass
 
+# this code will take the parameter of the recipe receiving end user id
+@require_POST
+def share_recipe_view(request, user_recipient_id):
+    if not request.user.is_authenticated:
+        return JsonResponse({"error": "You aren't logged in"}, status = 401)
+    user = request.user
+    recipient_user = User.objects.filter(pk=user_recipient_id)
+
+
 
 @require_POST
 def update_recipe(request, recipe_id):

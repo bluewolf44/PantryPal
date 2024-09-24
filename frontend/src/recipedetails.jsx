@@ -37,7 +37,8 @@ function RecipeDetails() {
 
   /* Basically retrieves 'selectedUsers' user ids array from modal to share recipe */
   const shareRecipe = (userIdsForSharing) => {
-    console.log("List of id's to share to: ", userIdsForSharing)
+    const data = [userIdsForSharing, recipe]
+    console.log("List of id's to share to: ", userIdsForSharing, recipe)
   }
 
   return (
