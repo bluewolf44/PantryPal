@@ -13,7 +13,6 @@ function RecipeDetails() {
   const [isShareRecipeModalOpen, setIsShareRecipeModalOpen] = useState(false)
   const [recipe, setRecipe] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [users, setUsers] = useState([])
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -34,20 +33,6 @@ function RecipeDetails() {
     };
     getRecipeById();
   }, [id]);
-
-useEffect(() => {
-  const getAllUsers = async () => {
-    try {
-      const response = await axios.get("/api/getAllUsers/")
-      console.log(response.data)
-      setUsers(response.data)
-    } catch (error) {
-    console.log("Error occured in obtaining all users: ", error)
-    }
-  }
-
-  getAllUsers()
-}, [isShareRecipeModalOpen])
 
   return (
     <>
@@ -71,7 +56,6 @@ useEffect(() => {
           isOpen={isShareRecipeModalOpen}
           onClose={() => setIsShareRecipeModalOpen(false)}
           onSubmit={() => setIsShareRecipeModalOpen(false)}
-          users={ users }
           contentLabel="Share Recipe Modal"
       />
     </>

@@ -1,9 +1,46 @@
 import React, { useState, useEffect } from 'react';
 import './modal.css';
 import axios from "axios";
-const ShareRecipeModal = ({isOpen, onClose, onSubmit, users}) => {
+const ShareRecipeModal = ({isOpen, onClose, onSubmit}) => {
+  const [users, setUsers] = useState([])
   const [filteredUsers, setFilteredUsers] = useState([])
   const [searchTerm, setSearchTerm] = useState('')
+  const [selectedUsers, setSelectedUsers] = useState([])
+
+  useEffect(() => {
+    const getAllUsers = async () => {
+      try {
+        const response = await axios.get("/api/getAllUsers/")
+        const parsedToJson = JSON.parse(response.data)
+        console.log(parsedToJson)
+        setUsers(parsedToJson)
+        setFilteredUsers(parsedToJson)
+      } catch (error) {
+      console.log("Error occured in obtaining all users: ", error)
+      }
+    }
+
+    getAllUsers();
+  }, [])
+
+  useEffect(() => {
+    const filtered = users.filter(user =>
+      user.fields.username.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setFilteredUsers(filtered);
+  }, [searchTerm, users]);
+
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value)
+  }
+
+  const handleCheckboxChange = (userId) => {
+    setSelectedUsers(prevSelectedUsers =>
+      prevSelectedUsers.includes(userId)
+        ? prevSelectedUsers.filter(id => id !== userId)
+        : [...prevSelectedUsers, userId]
+    );
+  };
 
   if (!isOpen) return null;
 
@@ -26,10 +63,23 @@ const ShareRecipeModal = ({isOpen, onClose, onSubmit, users}) => {
         <div className="modal">
           <h2>Share Recipe:</h2>
           <form onSubmit={handleSubmit}>
-            <label htmlFor="ingredientName">Search for users:</label>
-            <input type="text" id="ingredientName" name="ingredientName" required/>
-
-
+          <div className="user-list">
+            {filteredUsers.length > 0 ? (
+              filteredUsers.map(user => (
+                <div key={user.pk}>
+                  <input
+                    type="checkbox"
+                    checked={selectedUsers.includes(user.pk)}
+                    onChange={() => handleCheckboxChange(user.pk)}
+                  />
+                  {user.fields.username}
+                </div>
+              ))
+            ) : (
+              <p>No users found.</p>
+            )}
+          </div>
+          <button onClick={onClose}>Share</button>
             <button type="submit">Share</button>
             <button type="button" onClick={onClose}>Close</button>
           </form>
