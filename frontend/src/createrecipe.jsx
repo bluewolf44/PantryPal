@@ -20,7 +20,20 @@ const foods = [
         name:"Cookie",
         picture:"cookie.jpg",
         queryName:"cookie",
-    },];
+    },
+    {
+        name:"Brownie",
+        picture:"brownie.jpg",
+        queryName:"brownie",
+    }, 
+    {
+        name:"Crumble",
+        picture:"crumble.jpg",
+        queryName:"crumble",
+    },
+
+
+];
 
 function CreateRecipe() {
 

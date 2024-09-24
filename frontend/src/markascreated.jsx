@@ -3,6 +3,7 @@ import {useParams} from 'react-router-dom';
 import Modal from 'react-modal';
 Modal.setAppElement('#root');
 import axios from "axios";
+import './css/markascreated.css';
 
 function MarkAsCreated() {
     const [ingredients,setIngredients] = useState([]);

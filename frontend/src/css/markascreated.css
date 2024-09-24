@@ -1,0 +1,72 @@
+/* General styling */
+body {
+    font-family: Arial, sans-serif;
+    color: #0a02a1;
+    margin: 0;
+    padding: 0;
+  }
+  
+  h2 {
+    text-align: center;
+    margin: 20px 0;
+    font-size: 24px;
+    color: #0a02a1;
+  }
+  
+  /* Ingredient container */
+  .ingredient {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    margin: 20px auto;
+    width: 80%; /* Make it responsive */
+    max-width: 500px;
+    background-color: white;
+    border: 1px solid #0a02a1;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .ingredient img {
+    max-width: 150px;
+    height: auto;
+    margin-bottom: 10px;
+    border-radius: 8px;
+  }
+  
+  .ingredient span {
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  
+  /* Input field styling */
+  input[type="number"] {
+    width: 60px;
+    padding: 5px;
+    font-size: 16px;
+    margin-top: 10px;
+    text-align: center;
+    border: 1px solid #0a02a1;
+    border-radius: 4px;
+  }
+  
+  
+  /* Responsive layout for smaller screens */
+  @media (max-width: 600px) {
+    .ingredient {
+      width: 90%;
+      padding: 15px;
+    }
+  
+    input[type="number"] {
+      width: 50px;
+    }
+  
+    button {
+      width: 180px;
+    }
+  }
+  

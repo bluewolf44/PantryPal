@@ -5,13 +5,9 @@ html, body {
     height: 100%;
     overflow-x: hidden;
     overflow-y: auto;
+    color: #0a02a1;
 }
 
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    color: #0a02a1; /* Primary text color */
-}
 
 h2 {
     text-align: center;
