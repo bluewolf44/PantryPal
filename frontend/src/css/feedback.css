@@ -1,0 +1,50 @@
+/* Recipe card container */
+.recipe-card {
+    position: relative;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    text-align: center;
+    background-color: #f9f9f9;
+    transition: all 0.3s ease;
+    margin: 20px;
+    display: inline-block;
+}
+
+/* Recipe image styling */
+.recipe-card img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+/* Recipe buttons - initially hidden */
+.recipe-buttons {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Show buttons on hover */
+.recipe-card:hover .recipe-buttons {
+    display: flex;
+}
+
+/* Individual button styling */
+.recipe-buttons button {
+    margin: 5px;
+    padding: 10px;
+    background-color: #0a02a1;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.recipe-buttons button:hover {
+    background-color: #ff4b92;
+}

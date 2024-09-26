@@ -43,15 +43,22 @@ function giveFeedback(){
     }
 
     return(
-        <>
-            {isLoading ?
-                (<p>Loading...</p>) : (
-                    <>
-                       <h2>Give us your feedback:</h2>
-                        <textarea value={feedback} onChange={handleChange}></textarea>
-                        <button onClick={handleComplete}>Submit</button>
-                    </>
-                )
-            }
-        </>
-    )
+        <div className="recipe-card">
+        {isLoading ? (
+            <p>Loading...</p>
+        ) : (
+            <>
+                <h2>Give us your feedback:</h2>
+                <textarea value={feedback} onChange={handleChange}></textarea>
+                {/* Buttons inside a container to use hover effect */}
+                <div className="recipe-buttons">
+                    <button onClick={handleComplete}>Submit</button>
+                    <button>Another Action</button>
+                </div>
+            </>
+        )}
+        </div>
+        );
+    }
+    
+    export default giveFeedback;
