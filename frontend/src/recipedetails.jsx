@@ -12,6 +12,7 @@ Modal.setAppElement('#root');
 function RecipeDetails() {
   const [isShareRecipeModalOpen, setIsShareRecipeModalOpen] = useState(false)
   const [recipe, setRecipe] = useState(null);
+  const [recipeFeedback, setRecipeFeedback] = useState([])
   const [isLoading, setIsLoading] = useState(true);
   const { id } = useParams();
   const navigate = useNavigate();
@@ -34,6 +35,18 @@ function RecipeDetails() {
     getRecipeById();
   }, [id]);
 
+  useEffect(() => {
+    const getFeedbackForRecipe = async () => {
+      try {
+        const response = await axios.get(`/api/getFeedbackForRecipe/${id}`)
+        setRecipeFeedback(response.data)
+        console.log("Recipe Feedback: ", response.data)
+      } catch (error){
+        console.log("Error in getting recipe feedback by recipe id: ", error);
+      }
+    }
+  }, [id]);
+
 
   /* data parameter contains a list of userIds to share recipe to, and recipe id */
   const shareRecipe = async (data) => {
@@ -48,22 +61,27 @@ function RecipeDetails() {
 
   return (
     <>
-      <h2>Recipe Details</h2>
+      <h2>Recipe Details:</h2>
       {isLoading ? (
         <p>Loading...</p>
       ) : recipe ? (
         <>
+          <h2>{ recipe.fields.recipeName }</h2>
           <div className="recipe-content" dangerouslySetInnerHTML={formatRecipeText(recipe.fields.recipe)}></div>
-          <button onClick={() => navigate('/recipes')}>Back</button>
 
           <div className="button-container">
+              <button onClick={() => navigate('/recipes')}>Back</button>
               <button onClick = {() => navigate('/markAsCreated/'+id)}>Mark as created</button>
               <button onClick={() => setIsShareRecipeModalOpen(true)} style={{ cursor: 'pointer' }}>Share Recipe</button>
           </div>
         </>
       ) : (
         <p>No recipe found.</p>
-      )}
+      )
+      }
+      <div className="recipe-feedback-list">
+      <h2>Feedback:</h2>
+      </div>
       <ShareRecipeModal
           isOpen={isShareRecipeModalOpen}
           onClose={() => setIsShareRecipeModalOpen(false)}
