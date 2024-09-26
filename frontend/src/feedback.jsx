@@ -3,7 +3,7 @@ import {useParams} from 'react-router-dom';
 import Modal from 'react-modal';
 Modal.setAppElement('#root');
 import axios from "axios";
-import './css/createrecipe.css';
+import './css/feedback.css';
 
 function giveFeedback(){
     const [feedback, setFeedback] = useState('');

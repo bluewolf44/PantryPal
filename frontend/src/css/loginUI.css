@@ -1,25 +1,34 @@
-/* Basic Reset */
+/* Ensure body stretches full height and centers content */
 body {
-    font-family: 'Gotham', Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Fill the viewport height */
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
     background-color: #ffffff;
-    color: #0a02a1;
+  }
+  
+  /* Root container to take full viewport height */
+  #root {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    margin: 0;
-    padding: 0;
-}
-
-.login-container {
+    width: 100vw;
+  }
+  
+  /* Login container styles */
+  .login-container {
     background: #ffffff;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     width: 340px;
     text-align: center;
-    margin: 150px;
-}
+  }
+  
 
 
 form {
