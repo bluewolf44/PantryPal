@@ -68,3 +68,25 @@ button:focus {
     bottom: 10px;
     z-index: 1000;
 }
+
+.recipe-feedback-list {
+  margin-top: 20px;
+}
+
+.feedback-item {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.feedback-user {
+  font-size: 0.9em;
+  color: #555;
+  margin-bottom: 5px;
+}
+
+.feedback-text {
+  font-style: italic;
+}

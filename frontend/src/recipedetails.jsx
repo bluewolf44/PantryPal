@@ -41,10 +41,11 @@ function RecipeDetails() {
         const response = await axios.get(`/api/getFeedbackForRecipe/${id}`)
         setRecipeFeedback(response.data)
         console.log("Recipe Feedback: ", response.data)
-      } catch (error){
+      } catch (error) {
         console.log("Error in getting recipe feedback by recipe id: ", error);
       }
-    }
+    };
+    getFeedbackForRecipe();
   }, [id]);
 
 
@@ -81,6 +82,20 @@ function RecipeDetails() {
       }
       <div className="recipe-feedback-list">
       <h2>Feedback:</h2>
+      {recipeFeedback.length != 0 ? (
+        recipeFeedback.map((feedback, index) => (
+          <div key={index} className="feedback-item">
+            <div className="feedback-user">
+              <strong>{feedback.userShared.username}</strong> says:
+            </div>
+            <div className="feedback-text">
+              {feedback.feedback}
+            </div>
+          </div>
+      ))
+    ) : (
+      <p>No Feedback :(</p>
+    )}
       </div>
       <ShareRecipeModal
           isOpen={isShareRecipeModalOpen}

@@ -360,11 +360,13 @@ def get_feedback_for_recipe(request, recipe_id):
         return JsonResponse({"error": "You aren't logged in"}, status=401)
     user = request.user
     recipe = get_object_or_404(Recipe, pk=recipe_id, user=request.user)
-    shared = Shared.objects.filter(recipeOwner=user, recipeName=recipe)
+    shared = Shared.objects.filter(recipeOwner=user, recipeName=recipe).all()
 
     feedback_list = []
     for item in shared:
-        feedback_list.append(item.feedback)
+        shared_dict = model_to_dict(item, fields=['feedback'])
+        shared_dict['userShared'] = model_to_dict(item.userShared, fields=['id', 'username'])
+        feedback_list.append(shared_dict)
 
     return JsonResponse(feedback_list, safe=False)
 
