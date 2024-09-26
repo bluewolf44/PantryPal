@@ -188,7 +188,6 @@ def ai_recipe(request,baking_type):
 
     # The main request
     response = model.generate_content("give me a "+baking_type+" recipe only using the following ingredients:"+ingredients)
-    print(response.candidates[0].safety_ratings)
     return JsonResponse({"detail": response.text})
 
 # Add View for creating a recipe
@@ -320,10 +319,8 @@ def share_recipe_view(request):
 
     recipients = User.objects.filter(pk__in=user_ids)
     recipe = Recipe.objects.get(pk=recipe_id)
-    print(recipe, " ", recipients)
     for recipient in recipients:
         shared_recipe = Shared.objects.create(
-            recipeOwner = user,
             recipeName = recipe,
             userShared = recipient
         )
