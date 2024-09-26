@@ -16,13 +16,14 @@
 
 /* Main Content Area */
 .main-content {
-  margin-top: 10vh; /* Matches the navbar height to push content down */
-  padding: 2rem;
+  margin-top: 15vh; /* Matches the navbar height to push content down */
   min-height: calc(100vh - 10vh); /* Ensure the content takes up remaining height */
   background-color: #ffffff;
-  overflow-y: auto;
-  box-sizing: border-box; /* Make sure padding is included in height calculation */
-  width: 100vw;
+  overflow-y: auto; /* Allow scrolling for vertical overflow */
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+  box-sizing: border-box; /* Include padding in the width calculation */
+  width: 100%; /* Use the full width of the container */
+  padding: 0 2rem; /* Adjust padding to control content width */
 }
 
 /* Ensure body stretches full height */
@@ -31,13 +32,16 @@ body {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
+  overflow-y: auto; /* Apply scrolling to the entire page */
 }
 
 #root {
   display: flex;
   flex-direction: column;
    /* Ensure the root takes the full viewport height */
-  height: 100vh;
+   height: 100vh; /* Ensure the root takes the full viewport height */
+   width: 100vw; /* Ensure it fills the entire viewport */
+   overflow-x: hidden; /* Prevent horizontal scrolling */
 }
 
 
@@ -102,5 +106,6 @@ body {
   .body.side-nav-open .main-content {
     margin-left: 200px;
     width: calc(100vw - 200px);
+    max-width: calc(100vw - 200px); /* Prevent overflow */
   }
 }

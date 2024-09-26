@@ -31,17 +31,6 @@ h2 {
 
 
 
-
-/* Ensure the overall container matches the size restrictions and centering from App.css */
-#root {
-    max-width: 1280px;
-    margin: 0 auto; /* This centers the container */
-    padding: 0; /* Remove the padding if it's causing alignment issues */
-    text-align: center; /* Center align text */
-}
-
-
-
 .item {
     position: relative;
     padding: 10px;

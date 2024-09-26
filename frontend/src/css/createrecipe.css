@@ -1,0 +1,12 @@
+/* Basic Reset */
+body {
+    font-family: 'Gotham', Arial, sans-serif;
+    background-color: #ffffff;
+    color: #0a02a1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+}
