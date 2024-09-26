@@ -55,7 +55,6 @@ class RequiredFactory(factory.django.DjangoModelFactory):
 class SharedFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Shared
-    recipeOwner = factory.SubFactory(UserFactory)
     recipeName = factory.SubFactory(RecipeFactory)
     userShared = factory.SubFactory(UserFactory)
     feedback = "This is a great recipe"
