@@ -22,7 +22,7 @@
   background-color: #ffffff;
   overflow-y: auto;
   box-sizing: border-box; /* Make sure padding is included in height calculation */
-  width: 100%;
+  width: 100vw;
 }
 
 /* Ensure body stretches full height */
@@ -36,8 +36,10 @@ body {
 #root {
   display: flex;
   flex-direction: column;
-  height: 100vh; /* Ensure the root takes the full viewport height */
+   /* Ensure the root takes the full viewport height */
+  height: 100vh;
 }
+
 
 
 /* Sidebar Navigation */
@@ -99,6 +101,6 @@ body {
 
   .body.side-nav-open .main-content {
     margin-left: 200px;
-    width: calc(100% - 200px);
+    width: calc(100vw - 200px);
   }
 }
