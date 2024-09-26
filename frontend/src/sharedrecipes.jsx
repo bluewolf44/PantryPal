@@ -16,11 +16,13 @@ function SharedRecipesGrid() {
   const [recipesReceived, setRecipesReceived] = useState([])
 
   useEffect(() => {
+    // This fetch will contain a custom json including recipeOwner, userShared, recipe, and feedback
     const getRecipesReceived = async () => {
       try {
         const response = await axios.get("/api/getRecipesReceived/");
-        setRecipesReceived(JSON.parse(response.data));
+        setRecipesReceived(response.data);
         console.log("Recipes Received: ", recipesReceived)
+        console.log("response.data: ", response.data)
       } catch (error) {
         console.log("Error in getting recipes from backend: ", error);
       }
@@ -33,13 +35,13 @@ function SharedRecipesGrid() {
       <h2> Recipes Received: </h2>
       <div className="recipes-grid">
         {recipesReceived.length != 0 ? (
-          recipesReceived.map((recipe) => (
-            <div key={recipe.pk} className="recipes">
+          recipesReceived.map((shared) => (
+            <div key={shared.pk} className="recipes">
               <img
-                src={"Storage/" + recipe.fields.picture}
-                alt={recipe.fields.recipeName}
+                src={"Storage/" + shared.recipeName.recipeName}
+                alt={shared.fields.recipeName}
             />
-              <span>{recipe.fields.recipeName}</span>
+              <span>{shared.fields.recipeName}</span>
               {/* <span>{recipe.fields.recipe}</span> */}
               <div className="recipes-buttons">
                 <button>View Details</button>

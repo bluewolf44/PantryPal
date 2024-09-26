@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.decorators.http import require_POST
+from django.forms.models import model_to_dict
 
 from django.db import IntegrityError
 
@@ -188,7 +189,6 @@ def ai_recipe(request,baking_type):
 
     # The main request
     response = model.generate_content("give me a "+baking_type+" recipe only using the following ingredients:"+ingredients)
-    print(response.candidates[0].safety_ratings)
     return JsonResponse({"detail": response.text})
 
 # Add View for creating a recipe
@@ -320,10 +320,8 @@ def share_recipe_view(request):
 
     recipients = User.objects.filter(pk__in=user_ids)
     recipe = Recipe.objects.get(pk=recipe_id)
-    print(recipe, " ", recipients)
     for recipient in recipients:
         shared_recipe = Shared.objects.create(
-            recipeOwner = user,
             recipeName = recipe,
             userShared = recipient
         )
@@ -342,14 +340,20 @@ def get_recipes_received_view(request):
         return JsonResponse({"error": "You aren't logged in"}, status=401)
 
     user = request.user
-    recipes_received = Shared.objects.filter(userShared=user).select_related('recipeName')
+    shared = Shared.objects.filter(userShared=user).select_related('recipeOwner', 'recipeName').all()
 
-    recipes = []
-    for recipe in recipes_received:
-        recipes.append(recipe.recipeName)
 
-    return JsonResponse(serialize("json", recipes), safe=False)
+    shared_list = []
+    for item in shared:
+        shared_dict = model_to_dict(item)
+        shared_dict['recipeOwner'] = model_to_dict(item.recipeOwner)
+        shared_dict['recipeName'] = model_to_dict(item.recipeName)
+        # I added this part to convert "picture" to string directory.
+        shared_dict['recipeName']['picture'] = str(shared_dict['recipeName']['picture'])
+        shared_dict['userShared'] = model_to_dict(item.userShared)
+        shared_list.append(shared_dict)
 
+    return JsonResponse(shared_list, safe=False)
 
 @require_POST
 def update_recipe(request, recipe_id):
