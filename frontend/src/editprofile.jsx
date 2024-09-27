@@ -1,21 +1,32 @@
 import React, { useState, useEffect } from 'react';
-import Modal from 'react-modal';
 // import './css/pantrypage.css';  // Assuming your CSS is adapted for React
 import './css/editprofile.css'
-import logo from "./images/pantrypal-logo.png";
 import axios from "axios";
-import AddModal from "./modals/AddModal";
-import EditModal from "./modals/EditModal";
-import AddRecipeModal from "./modals/AddRecipeModal";
+
 
 function EditProfileGrid() {
-  const defaultPfp = "Storage/UserImages/DefaultPicture/default.jpg"
   const [user, setUser] = useState(null);
   const [userProfile, setUserProfile] = useState(null);
+  const [selectedPicture, setSelectedPicture] = useState(null)
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
+    if(selectedPicture) {
+      formData.append('picture', selectedPicture)
+    }
+
+    try {
+      const response = await axios.put("/api/updateUserDetails/", formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      })
+      console.log("Profile Updated: ", response.data)
+    } catch (error) {
+      console.log("Error in updating user details: ", error)
+    }
+
   }
 
   useEffect(() => {
@@ -26,12 +37,20 @@ function EditProfileGrid() {
     try {
       const response = await axios.get("/api/getCurrentUser/")
       console.log("currentUser: ", response.data)
+      setUser(response.data.user)
+      setUserProfile(response.data.profile)
     } catch (error) {
       console.log("Error in getting the current signed in user: ", error)
     }
   }
 
-  const handlePictureChange = () => {
+  const handlePictureChange = (e) => {
+    const file = e.target.files[0]
+    setSelectedPicture(file)
+  }
+
+  if (!user || !userProfile) {
+    return <div>Loading...</div>
   }
 
   return (
@@ -40,7 +59,7 @@ function EditProfileGrid() {
         <h2>Edit Profile</h2>
         <form onSubmit={handleSubmit}>
           <div className="profile-picture-container">
-            <img src={defaultPfp} alt="Profile" className="profile-picture" />
+            <img src={userProfile.picture} alt="Profile" className="profile-picture" />
             <label htmlFor="profilePicture" className="upload-button">
               Upload Picture
               <input
@@ -56,12 +75,12 @@ function EditProfileGrid() {
 
           <div className="form-group">
             <label htmlFor="username">Username:</label>
-            <input type="text" id="username" name="username" required />
+            <input type="text" id="username" name="username" defaultValue={ user.username } required />
           </div>
 
           <div className="form-group">
             <label htmlFor="email">Email:</label>
-            <input type="email" id="email" name="email" required />
+            <input type="email" id="email" name="email" defaultValue={ user.email } required />
           </div>
 
           <div className="form-group">

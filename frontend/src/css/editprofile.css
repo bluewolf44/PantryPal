@@ -1,5 +1,5 @@
 .center {
-  height: 100%;
+  min-height: 100vh; /* Use min-height instead of height for better responsiveness */
   margin: 0;
   display: flex;
   justify-content: center;
@@ -24,8 +24,17 @@ h2 {
 
 .profile-picture-container {
   display: flex;
-  justify-content: center;
+  flex-direction: column; /* Stack children vertically */
+  align-items: center; /* Center children horizontally */
   margin-bottom: 1.5rem;
+}
+
+.profile-picture {
+  width: 150px; /* Set a fixed width */
+  height: 150px; /* Set a fixed height */
+  border-radius: 50%; /* Make it circular */
+  object-fit: cover; /* Ensure the image covers the area without stretching */
+  margin-bottom: 1rem; /* Add space between the image and the upload button */
 }
 
 .upload-button {
@@ -35,11 +44,11 @@ h2 {
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s;
+  text-align: center; /* Center the text in the button */
 }
 
 .upload-button:hover {
   background-color: #45a049;
-}
 
 .form-group {
   margin-bottom: 1rem;

@@ -64,8 +64,9 @@ def get_current_user_view(request):
     if not request.user.is_authenticated:
         return JsonResponse({"error": "You aren't logged in"}, status=401)
     user = model_to_dict(request.user)
-    profile = model_to_dict(get_object_or_404(Profile, user=user))
-    profile['picture'] = profile.picture.url
+    profile_model = get_object_or_404(Profile, user=request.user)
+    profile = model_to_dict(profile_model)
+    profile['picture'] = profile_model.picture.url
     user_profile = {
         'user': user,
         'profile':profile
