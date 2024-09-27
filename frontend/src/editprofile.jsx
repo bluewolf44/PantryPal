@@ -9,6 +9,7 @@ import EditModal from "./modals/EditModal";
 import AddRecipeModal from "./modals/AddRecipeModal";
 
 function EditProfileGrid() {
+  const defaultPfp = "Storage/UserImages/DefaultPicture/default.jpg"
   const [user, setUser] = useState(null);
 
   const handleSubmit = (e) => {
@@ -26,7 +27,7 @@ function EditProfileGrid() {
         <h2>Edit Profile</h2>
         <form onSubmit={handleSubmit}>
           <div className="profile-picture-container">
-            <img src={profilePicture || defaultProfilePic} alt="Profile" className="profile-picture" />
+            <img src={defaultPfp} alt="Profile" className="profile-picture" />
             <label htmlFor="profilePicture" className="upload-button">
               Upload Picture
               <input
