@@ -80,14 +80,14 @@ function RecipeDetails() {
         <p>No recipe found.</p>
       )
       }
-      {/* <div className="recipe-feedback-list">
+      <div className="recipe-feedback-list">
         <h2>Feedback:</h2>
         {recipeFeedback.length !== 0 ? (
           recipeFeedback.filter(feedback => feedback.feedback.trim().length > 0).map((feedback, index) => (
             <div key={index} className="feedback-item">
             <div className="profile-picture">
               {
-                <img src={"Storage/" + feedback.profile.picture} alt={`${feedback.userShared.username}'s profile`} />
+                <img src={"/Storage/" + feedback.profile.picture} alt={`${feedback.userShared.username}'s profile`} />
               }
             </div>
               <div className="feedback-user">
@@ -101,8 +101,9 @@ function RecipeDetails() {
         ) : (
           <p>No Feedback :(</p>
         )}
-      </div> */}
-      <div className="recipe-feedback-list">
+      </div>
+
+      {/* <div className="recipe-feedback-list">
       <h2>Feedback:</h2>
       {recipeFeedback.length != 0 ? (
         recipeFeedback.map((feedback, index) => (
@@ -123,7 +124,7 @@ function RecipeDetails() {
     ) : (
       <p>No Feedback :(</p>
     )}
-      </div>
+      </div> */}
       <ShareRecipeModal
           isOpen={isShareRecipeModalOpen}
           onClose={() => setIsShareRecipeModalOpen(false)}
