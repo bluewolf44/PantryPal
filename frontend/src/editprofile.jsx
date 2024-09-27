@@ -17,9 +17,12 @@ function EditProfileGrid() {
     e.preventDefault();
     const formData = new FormData(e.target);
   }
+  useEffect(() => {
+    handlePictureChange();
+  }, [])
 
   const handlePictureChange = () => {
-
+    console.log(sessionStorage);
   }
 
   return (

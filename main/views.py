@@ -60,6 +60,16 @@ def create_account(request):
         return JsonResponse({"detail": "Invalid JSON format"}, status=400)
 
 
+def get_current_user_view(request):
+    if not request.user.is_authenticated:
+        return JsonResponse({"error": "You aren't logged in"}, status=401)
+    user = request.user
+    profile = get_object_or_404(Profile, user=user)
+    user_profile = [model_to_dict(user), model_to_dict(profile)]
+
+    return JsonResponse(user_profile, safe=False)
+
+
 @require_POST
 def api_login(request):
     body = json.loads(request.body)
