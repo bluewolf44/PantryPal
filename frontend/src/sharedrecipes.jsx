@@ -15,25 +15,25 @@ Modal.setAppElement("#root"); // Assuming your root div has an ID of 'root'
 function SharedRecipesGrid() {
   const [recipesReceived, setRecipesReceived] = useState([])
   const [recipesShared, setRecipesShared] = useState([])
-  const [recipe, setRecipe] = useState(null)
 
   useEffect(() => {
-    // This fetch will contain a custom json including recipeOwner, userShared, recipe, and feedback
-    const getRecipesReceived = async () => {
-      try {
-        const response = await axios.get("/api/getRecipesReceived/");
-        setRecipesReceived(response.data);
-        console.log("Recipes Received: ", recipesReceived)
-        console.log("response.data: ", response.data)
-        console.log("test: ", response.data[0].recipeName)
-        console.log("test: ", response.data[0].recipeName.recipeName)
-
-      } catch (error) {
-        console.log("Error in getting recipes from backend: ", error);
-      }
-    };
     getRecipesReceived();
   }, [useLocation()])
+
+  // This fetch will contain a custom json including recipeOwner, userShared, recipe, and feedback
+  const getRecipesReceived = async () => {
+    try {
+      const response = await axios.get("/api/getRecipesReceived/");
+      setRecipesReceived(response.data);
+      console.log("Recipes Received: ", recipesReceived)
+      console.log("response.data: ", response.data)
+      console.log("test: ", response.data[0].recipeName)
+      console.log("test: ", response.data[0].recipeName.recipeName)
+
+    } catch (error) {
+      console.log("Error in getting recipes from backend: ", error);
+    }
+  };
 
   const saveToMyRecipes = async (recipe_id) => {
     try {
@@ -41,6 +41,16 @@ function SharedRecipesGrid() {
       console.log("saveToMyRecipes: ", response.data)
     } catch (error) {
       console.log("Error in saving shared recipes from backend: ", error);
+    }
+  }
+
+  const deleteRecipeReceived = async (shared_id) => {
+    try {
+      const response = await axios.delete(`/api/deleteRecipeReceived/${shared_id}/`)
+      console.log("deleteRecipeReceived: ", response.data)
+      getRecipesReceived();
+    } catch (error) {
+      console.log("Error in deleting a shared recipe from backend: ", error);
     }
   }
 
@@ -74,7 +84,7 @@ function SharedRecipesGrid() {
               <div className="recipes-buttons">
                 <button onClick={() => saveToMyRecipes(shared.recipeName.id) }>Add to your recipes</button>
                 <button>Give Feedback</button>
-                <button>Delete</button>
+                <button onClick={() => deleteRecipeReceived(shared.id) }>Delete</button>
               </div>
 
             </div>

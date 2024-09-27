@@ -387,6 +387,17 @@ def save_to_my_recipes_view(request, recipe_id):
 
     return JsonResponse({"detail": "Saved to my recipes successfully"}, status=201)
 
+def delete_recipe_received_view(request, shared_id):
+    if not request.user.is_authenticated:
+        return JsonResponse({"error": "You aren't logged in"}, status=401)
+
+    shared_recipe = get_object_or_404(Shared, pk=shared_id)
+
+    shared_recipe.delete()
+
+    return JsonResponse({"detail": "Ingredient deleted successfully"}, status=200)
+
+
 @require_POST
 def update_recipe(request, recipe_id):
     if not request.user.is_authenticated:
