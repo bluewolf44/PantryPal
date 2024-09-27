@@ -90,7 +90,13 @@ def update_user_details_view(request):
 
     user.save()
 
-    return JsonResponse({"details": "Successfully updated user details"})
+
+    if 'picture' in request.FILES:
+        profile.picture = request.FILES['picture']
+
+    profile.save()
+
+    return JsonResponse({"details": "Successfully updated user details", "body": body})
 
 
 @require_POST

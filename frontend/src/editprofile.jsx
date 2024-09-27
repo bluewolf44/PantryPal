@@ -12,7 +12,6 @@ function EditProfileGrid() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
-    // handlePictureChange();
     if(selectedPicture) {
       formData.append('picture', selectedPicture)
     }
@@ -24,6 +23,7 @@ function EditProfileGrid() {
         }
       })
       console.log("Profile Updated: ", response.data)
+      window.location.href = "/editProfile"
     } catch (error) {
       console.log("Error in updating user details: ", error)
     }
