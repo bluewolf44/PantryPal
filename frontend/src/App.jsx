@@ -96,24 +96,24 @@ class App extends React.Component {
     });
   };
 
-  // //Delete Account Method
-  // deleteAccount = () => {
-  //   if(window.confirm("Are you sure you want to delete your account?")) {
-  //     fetch("/api/deleteAccount", {
-  //       credentials: "same-origin",
-  //     })
+  //Delete Account Method
+  deleteAccount = () => {
+    if(window.confirm("Are you sure you want to delete your account?")) {
+      fetch("/api/deleteAccount", {
+        credentials: "same-origin",
+      })
 
-  //   .then(this.isResponseOk)
-  //   .then((data) => {
-  //     console.log(data);
-  //     this.setState({isAuthenticated: false});
-  //     window.location.href = "/"
-  //   })
-  //   .catch((err) => {
-  //     console.log(err);
-  //   });
-  //   }
-  // };
+    .then(this.isResponseOk)
+    .then((data) => {
+      console.log(data);
+      this.setState({isAuthenticated: false});
+      window.location.href = "/"
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+    }
+  };
 
   toggleMenu = () => {
     this.setState({menuVisible: !this.state.menuVisible});
@@ -133,6 +133,13 @@ class App extends React.Component {
     }
   }
 
+  // This should call getCurrentUser for the session navbar display to show.
+  handleSuccessfulLogin = () => {
+    this.setState({isAuthenticated: true}, () => {
+      this.getCurrentUser();
+    });
+  }
+
 
   // UI Rendering using bootstrap
     render() {
@@ -140,7 +147,7 @@ class App extends React.Component {
             return(
                 <Router>
                     <Routes>
-                        <Route path="/" element= {<Login app = {this} cookies = {cookies} /> } />
+                  <Route path="/" element={<Login app={this} cookies={cookies} onLoginSuccess={ this.handleSuccessfulLogin} /> } />
                         <Route path="/createAccount" element={<CreateAccount cookies={cookies}/>} />
                         <Route path ="*" element={<span onClick={() => window.location.href = '/'}>404 Go back</span>} />
                     </Routes>

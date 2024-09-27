@@ -4,7 +4,7 @@ import './css/loginUI.css';
 import logo from "./images/pantrypal-logo.png";
 import { useNavigate } from 'react-router-dom';
 
-function Login({ app, cookies }) {
+function Login({ app, cookies, onLoginSuccess }) {
 
     const isResponseOk = (response) => {
         if (response.status >= 200 && response.status <= 299) {
@@ -43,7 +43,7 @@ function Login({ app, cookies }) {
             .then(isResponseOk)
             .then((data) => {
                 console.log(data);
-                app.setState({ isAuthenticated: true, username: "", password: "", error: "" });
+              app.setState({ isAuthenticated: true, username: "", password: "", error: "" }, () => { onLoginSuccess(); });
             })
             .catch((err) => {
                 console.log(err);
@@ -54,7 +54,7 @@ function Login({ app, cookies }) {
     return (
         <div className="login-container">
             <img src={logo} alt="PantryPal Logo" style={{ width: '300px', marginBottom: '20px' }} />
-            
+
             <form onSubmit={login}>
                 <div>
                     <label htmlFor="username">Username:</label>
