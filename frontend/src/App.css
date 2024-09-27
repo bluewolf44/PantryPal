@@ -14,6 +14,19 @@
   height: 10vh; /* Height of the navbar */
 }
 
+.session-container {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+}
+
+.profile-pic {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 20px;
+}
+
 /* Main Content Area */
 .main-content {
   margin-top: 15vh; /* Matches the navbar height to push content down */
@@ -82,7 +95,7 @@ body {
 .menu-button {
   font-size: 30px;
   cursor: pointer;
-  margin-right: 20px; 
+  margin-right: 20px;
 }
 
 /* Optional: Handle the logo */

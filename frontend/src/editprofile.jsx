@@ -45,6 +45,14 @@ function EditProfileGrid() {
     }
   }
 
+  const deleteUserAccount = async () => {
+    try {
+      const response = await axios.get("/api/getCurrentUser/")
+    } catch (error) {
+      console.elog("Error in deleting user account: ", error)
+    }
+  }
+
   const handlePictureChange = (e) => {
     const file = e.target.files[0]
     setSelectedPicture(file)
@@ -91,6 +99,7 @@ function EditProfileGrid() {
 
           <div className="button-group">
             <button type="submit" className="submit-button">Save Changes</button>
+            <button type="button" className="submit-button">Delete Account</button>
             <button type="button"  className="cancel-button">Cancel</button>
           </div>
         </form>

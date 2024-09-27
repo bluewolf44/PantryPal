@@ -1,4 +1,4 @@
-import React from "react";
+import React,{ useState, useEffect } from 'react';
 import Login from './login';
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 import Cookies from "universal-cookie";
@@ -12,6 +12,7 @@ import RecipeDetails from "./recipedetails"
 import SharedRecipesGrid from "./sharedrecipes"
 import MarkAsCreated from "./markascreated"
 import EditProfileGrid from "./editprofile"
+import axios from "axios";
 import './App.css';
 
 
@@ -27,11 +28,13 @@ class App extends React.Component {
       error: "",
       isAuthenticated: false,
       menuVisible: false,
+      currentUser: null,
     };
   }
 
   componentDidMount = () => {
     this.getSession();
+    this.getCurrentUser();
   }
 
 
@@ -46,7 +49,10 @@ class App extends React.Component {
       //console.log(data); // Log the response data to the console
       //// If the response indicates the user is authenticated
       if (data.isAuthenticated) {
-        this.setState({isAuthenticated: true, username: "", password: "", error: ""}); // Update the component's state
+        this.setState({isAuthenticated: true, username: "", password: "", error: ""},
+          () => {
+            this.getCurrentUser();
+          }); // Update the component's state
       } else {  // If the response indicates the user is not authenticated
         this.setState({isAuthenticated: false, username: "", password: "", error: ""}); // Update the component's state
       }
@@ -118,6 +124,16 @@ class App extends React.Component {
       this.setState({menuVisible:false});  // Set menu to not visible
    };
 
+  getCurrentUser = async () => {
+    try {
+      const response = await axios.get("/api/getCurrentUser/")
+      this.setState({currentUser:response.data})
+    } catch (error){
+      console.log("Error in display session and pfp in navbar: ", error)
+    }
+  }
+
+
   // UI Rendering using bootstrap
     render() {
         if (!this.state.isAuthenticated) {
@@ -138,6 +154,21 @@ class App extends React.Component {
                         <div className="menu-button" onClick={this.toggleMenu}>☰</div>
                         <div className="logo-container">
                             <a href="/"><img src={logo} alt="PantryPal Logo" className="logo" /></a>
+                        </div>
+                        <div className="session-container">
+                          {this.state.currentUser && (
+                            <>
+                              {this.state.currentUser.profile.picture && (
+                                <img
+                                  src={this.state.currentUser.profile.picture}
+                                  alt="Profile"
+                                  className="profile-pic"
+
+                                />
+                              )}
+                              <span>Hi, {this.state.currentUser.user.username}</span>
+                            </>
+                          )}
                         </div>
               </nav>
 
