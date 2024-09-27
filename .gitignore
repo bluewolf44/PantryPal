@@ -14,6 +14,8 @@ build/
 !/Storage/IngredientImages/.gitkeep
 /Storage/RecipeImages/*
 !/Storage/RecipeImages/.gitkeep
+/Storage/UserImages/ProfilePictures/*
+!/Storage/UserImages/ProfilePictures/.gitkeep
 
 
 ### STS ###

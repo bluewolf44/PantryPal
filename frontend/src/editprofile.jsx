@@ -9,10 +9,15 @@ import EditModal from "./modals/EditModal";
 import AddRecipeModal from "./modals/AddRecipeModal";
 
 function EditProfileGrid() {
+  const [user, setUser] = useState(null);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
+  }
+
+  const handlePictureChange = () => {
+
   }
 
   return (
@@ -21,7 +26,7 @@ function EditProfileGrid() {
         <h2>Edit Profile</h2>
         <form onSubmit={handleSubmit}>
           <div className="profile-picture-container">
-
+            <img src={profilePicture || defaultProfilePic} alt="Profile" className="profile-picture" />
             <label htmlFor="profilePicture" className="upload-button">
               Upload Picture
               <input
@@ -29,6 +34,7 @@ function EditProfileGrid() {
                 id="profilePicture"
                 name="profilePicture"
                 accept="image/*"
+                onChange={ handlePictureChange }
                 style={{display: 'none'}}
               />
             </label>
