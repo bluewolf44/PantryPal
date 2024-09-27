@@ -80,11 +80,38 @@ function RecipeDetails() {
         <p>No recipe found.</p>
       )
       }
+      {/* <div className="recipe-feedback-list">
+        <h2>Feedback:</h2>
+        {recipeFeedback.length !== 0 ? (
+          recipeFeedback.filter(feedback => feedback.feedback.trim().length > 0).map((feedback, index) => (
+            <div key={index} className="feedback-item">
+            <div className="profile-picture">
+              {
+                <img src={"Storage/" + feedback.profile.picture} alt={`${feedback.userShared.username}'s profile`} />
+              }
+            </div>
+              <div className="feedback-user">
+                <strong>{feedback.userShared.username}</strong> says:
+              </div>
+              <div className="feedback-text">
+                {feedback.feedback}
+              </div>
+            </div>
+          ))
+        ) : (
+          <p>No Feedback :(</p>
+        )}
+      </div> */}
       <div className="recipe-feedback-list">
       <h2>Feedback:</h2>
       {recipeFeedback.length != 0 ? (
         recipeFeedback.map((feedback, index) => (
           <div key={index} className="feedback-item">
+          <div className="profile-picture">
+            {
+              <img src={'/Storage/' + feedback.profile.picture} alt={`${feedback.userShared.username}'s profile`} />
+            }
+          </div>
             <div className="feedback-user">
               <strong>{feedback.userShared.username}</strong> says:
             </div>

@@ -399,6 +399,8 @@ def get_recipes_received_view(request):
         shared_dict['userShared'] = model_to_dict(item.userShared)
         shared_list.append(shared_dict)
 
+
+
     return JsonResponse(shared_list, safe=False)
 
 def get_feedback_for_recipe(request, recipe_id):
@@ -407,11 +409,16 @@ def get_feedback_for_recipe(request, recipe_id):
     user = request.user
     recipe = get_object_or_404(Recipe, pk=recipe_id, user=request.user)
     shared = Shared.objects.filter(recipeOwner=user, recipeName=recipe).all()
+    profile = Profile.objects.filter()
 
     feedback_list = []
     for item in shared:
+        profile = Profile.objects.get(user=item.userShared)
         shared_dict = model_to_dict(item, fields=['feedback'])
         shared_dict['userShared'] = model_to_dict(item.userShared, fields=['id', 'username'])
+        shared_dict['profile'] = model_to_dict(profile, fields=['picture'])
+        # I added this part to convert "picture" to string directory.
+        shared_dict['profile']['picture'] = str(shared_dict['profile']['picture'])
         feedback_list.append(shared_dict)
 
     return JsonResponse(feedback_list, safe=False)

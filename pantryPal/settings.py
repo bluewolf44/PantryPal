@@ -1,3 +1,5 @@
+from django.conf import settings
+from django.conf.urls.static import static
 """
 Django settings for pantryPal project.
 
@@ -150,5 +152,5 @@ SESSION_COOKIE_HTTPONLY = True
 #For projection:
 # CSRF_COOKIE_HTTPONLY = True
 
-MEDIA_ROOT = 'Storage/'
-MEDIA_URL = 'Storage/'
+MEDIA_ROOT = BASE_DIR / 'Storage'
+MEDIA_URL = '/Storage/'
