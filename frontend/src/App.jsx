@@ -12,6 +12,7 @@ import RecipeDetails from "./recipedetails"
 import SharedRecipesGrid from "./sharedrecipes"
 import MarkAsCreated from "./markascreated"
 import EditProfileGrid from "./editprofile"
+import GiveFeedback from "./feedback"
 import axios from "axios";
 import './App.css';
 

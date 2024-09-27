@@ -1,31 +1,28 @@
 import {useState, useEffect} from "react";
 import {useParams} from 'react-router-dom';
 import Modal from 'react-modal';
-Modal.setAppElement('#root');
 import axios from "axios";
 import './css/feedback.css';
 
-function giveFeedback(){
+function GiveFeedback(){
     const [feedback, setFeedback] = useState('');
     const [isLoading, setIsLoading] = useState(true);
     const { id } = useParams();
 
     useEffect(() => {
-        // get the ingredients that the recipe may use
-        const getFeedback = async () => {
-            try {
-              setIsLoading(true);
-              const response = await axios.get(`/api/getFeedback/${id}`);
-              const parsedToJson = JSON.parse(response.data);
-              setFeedback(parsedToJson);
-            } catch (error) {
-              console.log("Error in getting recipe by id: ", error);
-            } finally {
-              setIsLoading(false);
-            }
-        }
-        getFeedback();
+        console.log("test works");
+        getRecipe();
     },[id]);
+
+    const getRecipe = async () => {
+        try {
+            const response = await axios.get(`/api/getRecipes/${id}`);
+            setFeedback(response.data);
+            setIsLoading(false);
+        } catch (error) {
+            console.log("Error in getting recipe from backend: ", error);
+        }
+    };
 
     const handleChange = (e) => {
         e.preventDefault();
@@ -38,8 +35,8 @@ function giveFeedback(){
         const data = {
             feedback: feedback
         }
-        const response = await axios.post(`/api/updateFeedback`,data);
-        window.location.href = '/'
+        const response = await axios.post(`/api/giveFeedback/${id}`,data);
+        window.location.href = '/sharedRecipes'
     }
 
     return(
@@ -61,4 +58,4 @@ function giveFeedback(){
         );
     }
     
-    export default giveFeedback;
+    export default GiveFeedback;

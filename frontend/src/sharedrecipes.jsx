@@ -54,6 +54,10 @@ function SharedRecipesGrid() {
     }
   }
 
+  // This will send user to the feedback page to provide feedback on shared recipe with the shared recipe id as a parameter
+    const giveFeedback = (recipe_id) => {
+        window.location.href = `/feedback/${recipe_id}`
+    }
   // useEffect(() => {
   //   const getRecipesShared = async () => {
   //     try {
@@ -83,7 +87,7 @@ function SharedRecipesGrid() {
               {/* <span>{recipe.fields.recipe}</span> */}
               <div className="recipes-buttons">
                 <button onClick={() => saveToMyRecipes(shared.recipeName.id) }>Add to your recipes</button>
-                <button>Give Feedback</button>
+                <button onClick={() => giveFeedback(shared.recipeName.id)}>Give Feedback</button>
                 <button onClick={() => deleteRecipeReceived(shared.id) }>Delete</button>
               </div>
 

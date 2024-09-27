@@ -12,6 +12,7 @@ urlpatterns = [
     path("sharedRecipes", views.index_page, name="shared_recipes"),
     path("editProfile", views.index_page, name="edit_profile"),
     path("recipes", views.index_page, name="recipes"),
+    path("feedback/<int:doesnt_matter>",views.index_page_with_parms, name="feedback"),
     path("recipes/<int:doesnt_matter>", views.index_page_with_parms, name="recipes_details"),
     path("markAsCreated/<int:doesnt_matter>", views.index_page_with_parms, name="recipes_details"),
     path("api/getCurrentUser/", views.get_current_user_view, name="api_get_current_user"),

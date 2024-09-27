@@ -512,3 +512,5 @@ def get_all_users_view(request):
     user = request.user
     users = User.objects.exclude(id=user.id)
     return JsonResponse(serialize("json", users), safe=False)
+
+
