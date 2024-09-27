@@ -11,6 +11,7 @@ import RecipesGrid from "./recipes";
 import RecipeDetails from "./recipedetails"
 import SharedRecipesGrid from "./sharedrecipes"
 import MarkAsCreated from "./markascreated"
+import EditProfileGrid from "./editprofile"
 import './App.css';
 
 
@@ -139,9 +140,9 @@ class App extends React.Component {
                             <a href="/"><img src={logo} alt="PantryPal Logo" className="logo" /></a>
                         </div>
               </nav>
-   
+
             </header>
-                
+
 
                 <div id="side-menu" className="side-nav" style={{ width: this.state.menuVisible ? '250px' : '0' }}>
                     <a href="javascript:void(0)" className="closebtn" onClick={this.closeMenu}>&times;</a>
@@ -149,6 +150,7 @@ class App extends React.Component {
                     <a href="/createRecipe">Create Recipe</a>
                     <a href="/recipes">My Recipes</a>
                     <a href="/sharedRecipes">Shared Recipes</a>
+                    <a href="/editProfile">Edit Profile</a>
                     <div className="nav-bottom">
                         <a onClick={this.logout}>Log Out</a>
                         <a onClick={this.deleteAccount}>Delete Account</a>
@@ -165,6 +167,7 @@ class App extends React.Component {
                             <Route path="/recipes/:id" element={ <RecipeDetails />} />
                             <Route path="/markAsCreated/:id" element={ <MarkAsCreated />} />
                             <Route path="/sharedRecipes" element={ <SharedRecipesGrid /> } />
+                            <Route path="/editProfile" element={ <EditProfileGrid /> } />
                             <Route path ="*" element={<span onClick={() => window.location.href = '/'}>404 Go back</span>} />
                       </Routes>
                   </Router>
