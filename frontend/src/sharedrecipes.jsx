@@ -15,6 +15,7 @@ Modal.setAppElement("#root"); // Assuming your root div has an ID of 'root'
 function SharedRecipesGrid() {
   const [recipesReceived, setRecipesReceived] = useState([])
   const [recipesShared, setRecipesShared] = useState([])
+  const [recipe, setRecipe] = useState(null)
 
   useEffect(() => {
     // This fetch will contain a custom json including recipeOwner, userShared, recipe, and feedback
@@ -33,6 +34,15 @@ function SharedRecipesGrid() {
     };
     getRecipesReceived();
   }, [useLocation()])
+
+  const saveToMyRecipes = async (recipe_id) => {
+    try {
+      const response = await axios.post(`/api/saveToMyRecipes/${recipe_id}/`)
+      console.log("saveToMyRecipes: ", response.data)
+    } catch (error) {
+      console.log("Error in saving shared recipes from backend: ", error);
+    }
+  }
 
   // useEffect(() => {
   //   const getRecipesShared = async () => {
@@ -62,7 +72,7 @@ function SharedRecipesGrid() {
               <span>{"Shared by " + shared.recipeOwner.username}</span>
               {/* <span>{recipe.fields.recipe}</span> */}
               <div className="recipes-buttons">
-                <button>Add to your recipes</button>
+                <button onClick={() => saveToMyRecipes(shared.recipeName.id) }>Add to your recipes</button>
                 <button>Give Feedback</button>
                 <button>Delete</button>
               </div>

@@ -371,6 +371,23 @@ def get_feedback_for_recipe(request, recipe_id):
     return JsonResponse(feedback_list, safe=False)
 
 @require_POST
+def save_to_my_recipes_view(request, recipe_id):
+    if not request.user.is_authenticated:
+        return JsonResponse({"error": "You aren't logged in"}, status=401)
+
+    user = request.user
+    recipe = get_object_or_404(Recipe, pk=recipe_id)
+    clone_recipe = Recipe.objects.create(
+        recipeName = recipe.recipeName,
+        user = user,
+        recipe = recipe.recipe,
+        picture = recipe.picture
+    )
+    clone_recipe.save()
+
+    return JsonResponse({"detail": "Saved to my recipes successfully"}, status=201)
+
+@require_POST
 def update_recipe(request, recipe_id):
     if not request.user.is_authenticated:
         return JsonResponse({"error": "You aren't logged in"}, status=401)
