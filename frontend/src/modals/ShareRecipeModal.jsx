@@ -12,10 +12,10 @@ const ShareRecipeModal = ({isOpen, onClose, onSubmit, recipe}) => {
     const getAllUsers = async () => {
       try {
         const response = await axios.get("/api/getAllUsers/")
-        const parsedToJson = JSON.parse(response.data)
-        console.log(parsedToJson)
-        setUsers(parsedToJson)
-        setFilteredUsers(parsedToJson)
+
+        console.log(response.data)
+        setUsers(response.data)
+        setFilteredUsers(response.data)
       } catch (error) {
       console.log("Error occured in obtaining all users: ", error)
       }
@@ -26,7 +26,7 @@ const ShareRecipeModal = ({isOpen, onClose, onSubmit, recipe}) => {
 
   useEffect(() => {
     const filtered = users.filter(user =>
-      user.fields.username.toLowerCase().includes(searchTerm.toLowerCase())
+      user.username.toLowerCase().includes(searchTerm.toLowerCase())
     );
     setFilteredUsers(filtered);
   }, [searchTerm, users]);
@@ -70,12 +70,15 @@ const ShareRecipeModal = ({isOpen, onClose, onSubmit, recipe}) => {
           <div className="userList">
             {filteredUsers.length > 0 ? (
               filteredUsers.map(user => (
-                <div key={user.pk} className="userItem">
-                  <span>{user.fields.username}</span>
+                <div key={user.id} className="userItem">
+                <div className="profile-picture">
+                  <img src={"/Storage/" + user.profile.picture} alt="pfp" />
+                </div>
+                  <span>{user.username}</span>
                   <input
                     type="checkbox"
-                    checked={selectedUsers.includes(user.pk)}
-                    onChange={() => handleCheckboxChange(user.pk)}
+                    checked={selectedUsers.includes(user.id)}
+                    onChange={() => handleCheckboxChange(user.id)}
                   />
                 </div>
               ))

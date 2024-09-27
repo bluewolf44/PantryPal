@@ -392,14 +392,16 @@ def get_recipes_received_view(request):
     shared_list = []
     for item in shared:
         shared_dict = model_to_dict(item)
+        profile = Profile.objects.get(user=item.recipeOwner)
         shared_dict['recipeOwner'] = model_to_dict(item.recipeOwner)
+        shared_dict['profile'] = model_to_dict(profile)
+        # I added this part to convert "picture" to string directory.
+        shared_dict['profile']['picture'] = str(shared_dict['profile']['picture'])
         shared_dict['recipeName'] = model_to_dict(item.recipeName)
         # I added this part to convert "picture" to string directory.
         shared_dict['recipeName']['picture'] = str(shared_dict['recipeName']['picture'])
         shared_dict['userShared'] = model_to_dict(item.userShared)
         shared_list.append(shared_dict)
-
-
 
     return JsonResponse(shared_list, safe=False)
 
@@ -512,5 +514,3 @@ def get_all_users_view(request):
     user = request.user
     users = User.objects.exclude(id=user.id)
     return JsonResponse(serialize("json", users), safe=False)
-
-
