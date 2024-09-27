@@ -66,9 +66,9 @@ def get_current_user_view(request):
     user = request.user
     profile = get_object_or_404(Profile, user=user)
     user_profile = [model_to_dict(user), model_to_dict(profile)]
-    user_profile[1]['picture'] = profile.picture.url
 
     return JsonResponse(user_profile, safe=False)
+
 
 @require_POST
 def api_login(request):

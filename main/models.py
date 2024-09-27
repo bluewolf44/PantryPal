@@ -48,5 +48,5 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     picture = models.ImageField(upload_to='UserImages/ProfilePictures/', default='UserImages/DefaultPicture/default.jpg', null=True, blank=True)
 
-    # def __str__(self):
-    #     return self.user.username + " with the profile picture of " + self.picture
+    def __str__(self):
+        return self.user.username + " with the profile picture of " + self.picture
