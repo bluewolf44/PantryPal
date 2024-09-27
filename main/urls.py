@@ -10,6 +10,7 @@ urlpatterns = [
     path("showRecipe", views.index_page, name="show_recipe"),
     path("saveRecipe", views.index_page, name="save_recipe"),
     path("sharedRecipes", views.index_page, name="shared_recipes"),
+    path("editProfile", views.index_page, name="edit_profile"),
     path("recipes", views.index_page, name="recipes"),
     path("recipes/<int:doesnt_matter>", views.index_page_with_parms, name="recipes_details"),
     path("markAsCreated/<int:doesnt_matter>", views.index_page_with_parms, name="recipes_details"),
