@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 // import './css/pantrypage.css';  // Assuming your CSS is adapted for React
 import './css/editprofile.css'
-import axios from "axios";
+import axios from 'axios';
 
 
 function EditProfileGrid() {
@@ -47,11 +47,18 @@ function EditProfileGrid() {
 
   const deleteUserAccount = async () => {
     try {
-      const response = await axios.get("/api/getCurrentUser/")
+      if(window.confirm("Are you sure you want to delete your account?")) {
+        const response = await axios.delete("/api/deleteAccount/")
+        window.location.href = '/'
+        console.log("Deleted Account successfully: ", response.data)
+
+      }
+
     } catch (error) {
-      console.elog("Error in deleting user account: ", error)
+      console.log("Error in deleting user account: ", error)
     }
   }
+
 
   const handlePictureChange = (e) => {
     const file = e.target.files[0]
@@ -99,7 +106,7 @@ function EditProfileGrid() {
 
           <div className="button-group">
             <button type="submit" className="submit-button">Save Changes</button>
-            <button type="button" className="submit-button">Delete Account</button>
+            <button type="button" onClick={deleteUserAccount} className="submit-button">Delete Account</button>
             <button type="button"  className="cancel-button">Cancel</button>
           </div>
         </form>

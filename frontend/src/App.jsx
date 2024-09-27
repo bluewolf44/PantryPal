@@ -96,24 +96,24 @@ class App extends React.Component {
     });
   };
 
-  //Delete Account Method
-  deleteAccount = () => {
-    if(window.confirm("Are you sure you want to delete your account?")) {
-      fetch("/api/deleteAccount", {
-        credentials: "same-origin",
-      })
+  // //Delete Account Method
+  // deleteAccount = () => {
+  //   if(window.confirm("Are you sure you want to delete your account?")) {
+  //     fetch("/api/deleteAccount", {
+  //       credentials: "same-origin",
+  //     })
 
-    .then(this.isResponseOk)
-    .then((data) => {
-      console.log(data);
-      this.setState({isAuthenticated: false});
-      window.location.href = "/"
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-    }
-  };
+  //   .then(this.isResponseOk)
+  //   .then((data) => {
+  //     console.log(data);
+  //     this.setState({isAuthenticated: false});
+  //     window.location.href = "/"
+  //   })
+  //   .catch((err) => {
+  //     console.log(err);
+  //   });
+  //   }
+  // };
 
   toggleMenu = () => {
     this.setState({menuVisible: !this.state.menuVisible});
@@ -184,7 +184,7 @@ class App extends React.Component {
                     <a href="/editProfile">Edit Profile</a>
                     <div className="nav-bottom">
                         <a onClick={this.logout}>Log Out</a>
-                        <a onClick={this.deleteAccount}>Delete Account</a>
+                        {/* <a onClick={this.deleteAccount}>Delete Account</a> */}
                     </div>
                 </div>
 
