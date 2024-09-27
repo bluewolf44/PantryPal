@@ -17,12 +17,21 @@ function EditProfileGrid() {
     e.preventDefault();
     const formData = new FormData(e.target);
   }
+
   useEffect(() => {
-    handlePictureChange();
+    getCurrentUser();
   }, [])
 
+  const getCurrentUser = async () => {
+    try {
+      const response = await axios.get("/api/getCurrentUser/")
+      console.log("currentUser: ", response.data)
+    } catch (error) {
+      console.log("Error in getting the current signed in user: ", error)
+    }
+  }
+
   const handlePictureChange = () => {
-    console.log(sessionStorage);
   }
 
   return (
