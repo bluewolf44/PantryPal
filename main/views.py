@@ -392,14 +392,16 @@ def get_recipes_received_view(request):
     shared_list = []
     for item in shared:
         shared_dict = model_to_dict(item)
+        profile = Profile.objects.get(user=item.recipeOwner)
         shared_dict['recipeOwner'] = model_to_dict(item.recipeOwner)
+        shared_dict['profile'] = model_to_dict(profile)
+        # I added this part to convert "picture" to string directory.
+        shared_dict['profile']['picture'] = str(shared_dict['profile']['picture'])
         shared_dict['recipeName'] = model_to_dict(item.recipeName)
         # I added this part to convert "picture" to string directory.
         shared_dict['recipeName']['picture'] = str(shared_dict['recipeName']['picture'])
         shared_dict['userShared'] = model_to_dict(item.userShared)
         shared_list.append(shared_dict)
-
-
 
     return JsonResponse(shared_list, safe=False)
 
@@ -511,4 +513,25 @@ def get_all_users_view(request):
 
     user = request.user
     users = User.objects.exclude(id=user.id)
-    return JsonResponse(serialize("json", users), safe=False)
+    profiles = Profile.objects.filter(user__in=users)
+
+    user_profiles_list = []
+    for user, profile in zip(users, profiles):
+        user_data = model_to_dict(user, fields=['id', 'username', 'email'])
+        profile_data = model_to_dict(profile, fields=['picture'])
+        user_data['profile'] = profile_data
+        user_data['profile']['picture'] = str(user_data['profile']['picture'])
+        user_profiles_list.append(user_data)
+
+    return JsonResponse(user_profiles_list, safe=False)
+
+
+    # feedback_list = []
+    # for item in shared:
+    #     profile = Profile.objects.get(user=item.userShared)
+    #     shared_dict = model_to_dict(item, fields=['feedback'])
+    #     shared_dict['userShared'] = model_to_dict(item.userShared, fields=['id', 'username'])
+    #     shared_dict['profile'] = model_to_dict(profile, fields=['picture'])
+    #     # I added this part to convert "picture" to string directory.
+    #     shared_dict['profile']['picture'] = str(shared_dict['profile']['picture'])
+    #     feedback_list.append(shared_dict)

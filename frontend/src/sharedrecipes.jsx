@@ -79,6 +79,10 @@ function SharedRecipesGrid() {
                 alt={shared.recipeName.recipeName}
             />
               <span>{shared.recipeName.recipeName}</span>
+              <div className="profile-picture">
+                <img src={"/Storage/" + shared.profile.picture} alt="pfp" />
+              </div>
+
               <span>{"Shared by " + shared.recipeOwner.username}</span>
               {/* <span>{recipe.fields.recipe}</span> */}
               <div className="recipes-buttons">
