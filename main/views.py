@@ -63,9 +63,13 @@ def create_account(request):
 def get_current_user_view(request):
     if not request.user.is_authenticated:
         return JsonResponse({"error": "You aren't logged in"}, status=401)
-    user = request.user
-    profile = get_object_or_404(Profile, user=user)
-    user_profile = [model_to_dict(user), model_to_dict(profile)]
+    user = model_to_dict(request.user)
+    profile = model_to_dict(get_object_or_404(Profile, user=user))
+    profile['picture'] = profile.picture.url
+    user_profile = {
+        'user': user,
+        'profile':profile
+    }
 
     return JsonResponse(user_profile, safe=False)
 
