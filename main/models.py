@@ -42,8 +42,8 @@ class Shared(models.Model):
     feedback = models.CharField(max_length=200)
 
 class Profile(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    picture = models.ImageField(upload_to='UserImages/ProfilePictures/', null=True, blank=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    picture = models.ImageField(upload_to='UserImages/ProfilePictures/', default='UserImages/DefaultPicture/default.jpg', null=True, blank=True)
 
     def __str__(self):
         return self.recipeName.recipeName + " made by " + self.recipeOwner.username + " shared with " + self.userShared.username

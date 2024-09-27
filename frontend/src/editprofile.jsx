@@ -11,6 +11,7 @@ import AddRecipeModal from "./modals/AddRecipeModal";
 function EditProfileGrid() {
   const defaultPfp = "Storage/UserImages/DefaultPicture/default.jpg"
   const [user, setUser] = useState(null);
+  const [userProfile, setUserProfile] = useState(null);
 
   const handleSubmit = (e) => {
     e.preventDefault();

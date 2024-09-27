@@ -9,7 +9,7 @@ from django.forms.models import model_to_dict
 
 from django.db import IntegrityError
 
-from .models import Recipe, Shared
+from .models import Recipe, Shared, Profile
 from .forms import RecipeForm, SharedRecipeForm
 
 from main.forms import *
@@ -43,6 +43,12 @@ def create_account(request):
 
         user = User.objects.create_user(username=username, password=password, email=email)
         user.save()
+
+        profile = Profile.objects.create(
+            user = user
+        )
+
+        profile.save()
 
         login(request, user)
         return JsonResponse({"detail": "Account created and logged in successfully!"}, status=201)
