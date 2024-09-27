@@ -367,6 +367,7 @@ def share_recipe_view(request):
     recipe = Recipe.objects.get(pk=recipe_id)
     for recipient in recipients:
         shared_recipe = Shared.objects.create(
+            recipeOwner = user,
             recipeName = recipe,
             userShared = recipient
         )
