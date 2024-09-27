@@ -74,6 +74,24 @@ def get_current_user_view(request):
 
     return JsonResponse(user_profile, safe=False)
 
+@require_POST
+def update_user_details_view(request):
+    if not request.user.is_authenticated:
+        return JsonResponse({"error": "You aren't logged in"}, status=401)
+    user = request.user
+    body = request.POST
+    profile = user.profile
+
+    user.username = body.get('username', user.username)
+    user.email = body.get('email', user.email)
+    password = body.get('password')
+    if password:
+        user.set_password(password)
+
+    user.save()
+
+    return JsonResponse({"details": "Successfully updated user details"})
+
 
 @require_POST
 def api_login(request):

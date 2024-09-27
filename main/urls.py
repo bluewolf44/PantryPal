@@ -15,6 +15,7 @@ urlpatterns = [
     path("recipes/<int:doesnt_matter>", views.index_page_with_parms, name="recipes_details"),
     path("markAsCreated/<int:doesnt_matter>", views.index_page_with_parms, name="recipes_details"),
     path("api/getCurrentUser/", views.get_current_user_view, name="api_get_current_user"),
+    path("api/updateUserDetails/", views.update_user_details_view, name="api_update_user_details"),
     path("api/login/", views.api_login, name="api_login"),
     path("api/aiRecipe/<str:baking_type>", views.ai_recipe, name="ai_recipe"),
     path("api/session/", views.session_view, name="api_session"),

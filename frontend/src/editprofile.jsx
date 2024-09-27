@@ -9,15 +9,16 @@ function EditProfileGrid() {
   const [userProfile, setUserProfile] = useState(null);
   const [selectedPicture, setSelectedPicture] = useState(null)
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
+    // handlePictureChange();
     if(selectedPicture) {
       formData.append('picture', selectedPicture)
     }
 
     try {
-      const response = await axios.put("/api/updateUserDetails/", formData, {
+      const response = await axios.post("/api/updateUserDetails/", formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
@@ -86,11 +87,6 @@ function EditProfileGrid() {
           <div className="form-group">
             <label htmlFor="password">New Password:</label>
             <input type="password" id="password" name="password" placeholder="Leave blank to keep current password" />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="confirmPassword">Confirm New Password:</label>
-            <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm new password" />
           </div>
 
           <div className="button-group">
