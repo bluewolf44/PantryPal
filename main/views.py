@@ -411,7 +411,6 @@ def get_feedback_for_recipe(request, recipe_id):
     user = request.user
     recipe = get_object_or_404(Recipe, pk=recipe_id, user=request.user)
     shared = Shared.objects.filter(recipeOwner=user, recipeName=recipe).all()
-    profile = Profile.objects.filter()
 
     feedback_list = []
     for item in shared:
@@ -422,6 +421,9 @@ def get_feedback_for_recipe(request, recipe_id):
         # I added this part to convert "picture" to string directory.
         shared_dict['profile']['picture'] = str(shared_dict['profile']['picture'])
         feedback_list.append(shared_dict)
+
+    if not feedback_list:
+        return JsonResponse([], safe=False)
 
     return JsonResponse(feedback_list, safe=False)
 
@@ -513,4 +515,14 @@ def get_all_users_view(request):
 
     user = request.user
     users = User.objects.exclude(id=user.id)
-    return JsonResponse(serialize("json", users), safe=False)
+    profiles = Profile.objects.filter(user__in=users)
+
+    user_profiles_list = []
+    for user, profile in zip(users, profiles):
+        user_data = model_to_dict(user, fields=['id', 'username', 'email'])
+        profile_data = model_to_dict(profile, fields=['picture'])
+        user_data['profile'] = profile_data
+        user_data['profile']['picture'] = str(user_data['profile']['picture'])
+        user_profiles_list.append(user_data)
+
+    return JsonResponse(user_profiles_list, safe=False)

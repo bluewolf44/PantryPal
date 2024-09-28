@@ -38,11 +38,17 @@ function RecipeDetails() {
   useEffect(() => {
     const getFeedbackForRecipe = async () => {
       try {
-        const response = await axios.get(`/api/getFeedbackForRecipe/${id}`)
-        setRecipeFeedback(response.data)
-        console.log("Recipe Feedback: ", response.data)
+        const response = await axios.get(`/api/getFeedbackForRecipe/${id}`);
+        console.log("Recipe Feedback: ", response.data);
+        if (Array.isArray(response.data)) {
+          setRecipeFeedback(response.data);
+        } else {
+          console.error("Expected an array but got:", response.data);
+          setRecipeFeedback([]);
+        }
       } catch (error) {
         console.log("Error in getting recipe feedback by recipe id: ", error);
+        setRecipeFeedback([]);
       }
     };
     getFeedbackForRecipe();
@@ -82,7 +88,7 @@ function RecipeDetails() {
       }
       <div className="recipe-feedback-list">
         <h2>Feedback:</h2>
-        {recipeFeedback.length !== 0 ? (
+        {Array.isArray(recipeFeedback) && recipeFeedback.length !== 0 ? (
           recipeFeedback.filter(feedback => feedback.feedback.trim().length > 0).map((feedback, index) => (
             <div key={index} className="feedback-item">
             <div className="profile-picture">
