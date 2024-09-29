@@ -1,33 +1,135 @@
+/* Modal Container */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 500px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Modal Title */
+.modal h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #0a02a1;
+}
+
+/* Form Layout */
 .modal form {
     display: flex;
     flex-direction: column;
-    flex-grow: 1;
+    gap: 15px;
 }
 
+/* Search Input */
+.modal input[type="text"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* User List Styling */
 .userList {
-    max-height: 300px;
+    max-height: 200px;
     overflow-y: auto;
     border: 1px solid #ccc;
-    margin: 10px 0;
+    border-radius: 4px;
     padding: 10px;
+    background-color: #f9f9f9;
 }
 
+/* User Item */
 .userItem {
     display: flex;
     align-items: center;
-    margin-bottom: 10px;
     padding: 5px;
     border-bottom: 1px solid #eee;
+    gap: 10px; /* Space between elements */
 }
 
 .userItem:last-child {
     border-bottom: none;
 }
 
-.userItem input[type="checkbox"] {
-    margin-right: 10px;
+
+/* Profile Picture Container */
+.profile-picture {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px; /* Smaller width for the picture */
+    height: 40px; /* Same height to create a perfect circle */
+    border-radius: 50%; /* Makes the container circular */
+    overflow: hidden; /* Ensures image overflow is clipped */
+    border: 2px solid #0a02a1; /* Optional border for styling */
+    margin-right: 10px; /* Spacing between the picture and username */
 }
 
+/* Image inside the profile picture */
+.profile-picture img {
+    width: 100%; /* Cover the container's width */
+    height: 100%; /* Cover the container's height */
+    object-fit: cover; /* Ensures the image covers the circle without distortion */
+}
+
+
+/* Username */
 .userItem span {
-    flex-grow: 1;
+    flex-grow: 0.3;
+    color: #0a02a1;
+    font-weight: bold;
+}
+
+/* Checkbox */
+.userItem input[type="checkbox"] {
+    transform: scale(1.2);
+    cursor: pointer;
+}
+
+/* Buttons */
+.modal button {
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 1rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.modal button[type="submit"] {
+    background-color: #0a02a1;
+    color: white;
+    margin-top: 15px;
+}
+
+.modal button[type="submit"]:hover {
+    background-color: #ff4b92;
+}
+
+.modal button[type="button"] {
+    background-color: #f44336;
+    color: white;
+    margin-top: 10px;
+}
+
+.modal button[type="button"]:hover {
+    background-color: #d32f2f;
 }
