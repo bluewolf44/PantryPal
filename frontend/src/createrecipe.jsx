@@ -87,7 +87,7 @@ function CreateRecipe() {
             <main>
                 <h2>What's would you like to make?</h2>
 
-                
+                <div className="recipe-input-container">
                 <input
                     type="text"
                     placeholder="Enter recipe type (e.g., 'pizza', 'cake')"
@@ -98,7 +98,7 @@ function CreateRecipe() {
                 <button onClick={handleRecipeCreationSearch} style={{ padding: '10px 20px' }}>
                     Generate Recipe
                 </button>
-
+                </div>
                 <h2>Suggested Recipes</h2>
 
                 <div className="pantry-grid">

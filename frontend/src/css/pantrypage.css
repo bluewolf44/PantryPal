@@ -40,8 +40,30 @@ h2 {
     border-radius: 4px;
     text-align: center;
     background-color: #f9f9f9;
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
+    overflow: hidden;
 }
+
+/* Exclude shading effect from the add-ingredient button */
+.item:not(.add-ingredient-btn)::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Black shade with 50% opacity */
+    opacity: 0; /* Start as invisible */
+    transition: opacity 0.3s ease;
+    border-radius: 4px; /* Match the border-radius of the item */
+    z-index: 1; /* Place it above the item but below the buttons */
+}
+
+/* Show the overlay on hover, excluding add-ingredient button */
+.item:not(.add-ingredient-btn):hover::before {
+    opacity: 1; /* Show the shaded overlay */
+}
+
 
 .item {
     transition: transform 0.3s ease-in-out;
@@ -77,6 +99,7 @@ h2 {
     transform: scale(1.05); /* Slight scale effect */
 }
 
+/* Styling for the item-buttons container */
 .item-buttons {
     display: none; /* Hide buttons by default */
     flex-direction: column;
@@ -84,35 +107,35 @@ h2 {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    z-index: 2; /* Place buttons above the overlay */
     transition: opacity 0.3s ease;
-    /*padding: 5px; /* Padding around buttons */
-   /* background-color: rgba(255, 255, 255, 0.9); /* Slight background to enhance visibility */
-   /* border-radius: 8px; /* Rounded corners for button container */
-    /*box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
 }
 
+/* Show buttons on hover with the background overlay */
 .item:hover .item-buttons {
     display: flex; /* Show on hover */
 }
 
 /* Button Styling */
 button {
-    padding: 10px 20px; /* More padding for a better touch area */
+    padding: 15px 30px; /* Increase padding for larger buttons */
     margin-top: 5px;
     background-color: #0a02a1 !important;
     color: white;
     border: none;
     border-radius: 8px; /* Rounded corners for buttons */
     cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s; /* Smooth color transition and a slight transform */
+    transition: background-color 0.3s, transform 0.2s; /* Smooth transition for hover effects */
 }
 
+/* Button hover effect */
 button:hover {
     background-color: #ff4b92 !important; /* Pink color on hover */
-    transform: scale(1.05); /* Slight increase in size on hover for effect */
+    transform: scale(0.8); /* Slightly increase size on hover */
+    
 }
 
-/* Fixed Button Container at the Bottom */
+
 /* Fixed Button Container at the Bottom */
 .button-container {
     position: fixed;
