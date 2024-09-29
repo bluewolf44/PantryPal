@@ -113,13 +113,25 @@ button:hover {
 }
 
 /* Fixed Button Container at the Bottom */
+/* Fixed Button Container at the Bottom */
 .button-container {
     position: fixed;
-    right: 10px; /* Fixed to the left bottom corner */
+    right: 10px;
     bottom: 10px;
-    z-index: 1000;
+    z-index: 900; /* Lower than the modal's z-index */
+    transition: opacity 0.3s ease; /* Transition for smooth hiding effect */
 }
 
+/* Hide button when modal is open */
+.button-container.hidden {
+    opacity: 0;
+    pointer-events: none; /* Prevent interaction */
+}
+
+/* Container for modals and button */
+.modal-container {
+    position: relative;
+}
 
 
 .modal {

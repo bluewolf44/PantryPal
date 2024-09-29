@@ -13,6 +13,7 @@
     overflow-x: hidden; /* Prevents horizontal scrolling */
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     box-sizing: border-box; /* Ensure padding doesn't affect width */
+    z-index: 1100; /* Ensure the modal is above the sidebar */
 }
 
 .overlay {

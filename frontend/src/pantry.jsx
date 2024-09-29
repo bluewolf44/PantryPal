@@ -149,6 +149,8 @@ function PantryGrid() {
                 <div className="pantry-grid">
                     {ingredients}
                 </div>
+                {/* Container to hold the modal and button */}
+                <div className="modal-container">
                 <AddModal
                     isOpen={isAddModalOpen}
                     onClose={() => setIsAddModalOpen(false)}
@@ -167,8 +169,9 @@ function PantryGrid() {
                     onSubmit={createRecipe}
                     contentLabel="Add Recipe Modal"
                 />
-                <div className="button-container">
+                <div className={`button-container ${isAddModalOpen || isEditModalOpen || isRecipeModalOpen ? 'hidden' : ''}`}>
                     <button onClick={() => window.location.href = 'createRecipe'}>Let's Get Baking!</button>
+                </div>
                 </div>
             </main>
         </>
