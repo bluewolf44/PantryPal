@@ -45,9 +45,11 @@ function GiveFeedback(){
             <p>Loading...</p>
         ) : (
             <>
+            <div className="feed-div">
                 <h2>Give us your feedback:</h2>
                 <textarea value={feedback} onChange={handleChange}></textarea>
                 {/* Buttons inside a container to use hover effect */}
+                </div>
                 <div className="recipe-buttons">
                     <button onClick={handleComplete}>Submit</button>
                     <button>Another Action</button>

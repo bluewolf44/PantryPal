@@ -44,62 +44,69 @@
     box-sizing: border-box;
 }
 
-/* User List Styling */
+/* Container for the user list */
 .userList {
     max-height: 200px;
     overflow-y: auto;
     border: 1px solid #ccc;
-    border-radius: 4px;
-    padding: 10px;
-    background-color: #f9f9f9;
+    margin: 10px 0;
+    padding: 5px;
 }
 
-/* User Item */
+/* Individual user item row */
 .userItem {
     display: flex;
     align-items: center;
-    padding: 5px;
+    margin-bottom: 5px;
+    padding: 1px;
     border-bottom: 1px solid #eee;
-    gap: 10px; /* Space between elements */
 }
 
+/* Remove border from the last user item */
 .userItem:last-child {
     border-bottom: none;
 }
 
+.userItem .profile-picture {
+    width: 50px !important; /* Ensure the size is enforced */
+    height: 50px !important;
+}
 
-/* Profile Picture Container */
+/* Profile picture container */
 .profile-picture {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 40px; /* Smaller width for the picture */
-    height: 40px; /* Same height to create a perfect circle */
-    border-radius: 50%; /* Makes the container circular */
-    overflow: hidden; /* Ensures image overflow is clipped */
-    border: 2px solid #0a02a1; /* Optional border for styling */
-    margin-right: 10px; /* Spacing between the picture and username */
+    width: 50px; /* Adjust size as needed */
+    height: 50px; /* Adjust size as needed */
+    border-radius: 50%; /* Circular shape */
+    overflow: hidden; /* Hide any overflow outside the circle */
+    margin-right: 10px; /* Space between image and text */
+    border: none; /* Remove any container border */
 }
 
 /* Image inside the profile picture */
 .profile-picture img {
-    width: 100%; /* Cover the container's width */
-    height: 100%; /* Cover the container's height */
-    object-fit: cover; /* Ensures the image covers the circle without distortion */
+    width: 100%; /* Fill the container */
+    height: 100%; /* Fill the container */
+    object-fit: cover; /* Ensure the image covers the container area */
+    border-radius: 50%; /* Circular shape */
+    border: none; /* Remove any image border */
+    outline: none; /* Remove any outline */
 }
 
 
-/* Username */
+/* Username text */
 .userItem span {
-    flex-grow: 0.3;
+    flex-grow: 1;
+    font-size: 14px;
     color: #0a02a1;
-    font-weight: bold;
+    margin-left: 5px;
 }
 
-/* Checkbox */
+/* Checkbox styling */
 .userItem input[type="checkbox"] {
-    transform: scale(1.2);
-    cursor: pointer;
+    margin-left: 10px;
 }
 
 /* Buttons */

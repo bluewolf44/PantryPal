@@ -21,16 +21,16 @@
   align-items: center;
   justify-content: flex-end; /* Align content to the right */
   margin-left: auto;
-  gap: 10px; /* Add spacing between profile picture and username */
+  gap: 7px; /* Add spacing between profile picture and username */
  padding-right: 30px;
 }
 
 /* Profile picture styling */
 .profile-pic {
-  width: 40px; /* Reduced size for a more balanced look */
-  height: 40px;
+  width: 50px; /* Reduced size for a more balanced look */
+  height: 50px;
   border-radius: 50%;
-  margin-right: 10px; /* Spacing between profile picture and username */
+  margin-right: 7px; /* Spacing between profile picture and username */
 }
 
 /* Main Content Area */
