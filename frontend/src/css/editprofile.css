@@ -1,57 +1,63 @@
+/* Center the entire profile container */
 .center {
-  min-height: 100vh; /* Use min-height instead of height for better responsiveness */
+  min-height: 100vh; /* Use min-height for better responsiveness */
   margin: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #f0f0f0;
+  background-color: white; /* Matches the app's overall background color */
+  padding: 2rem; /* Adds padding for better spacing on smaller screens */
 }
 
+/* Container for the profile editing form */
 .edit-profile-container {
   background-color: white;
   padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  width: 90%;
-  max-width: 400px;
+  width: 100%; /* Use full width */
+  max-width: 500px; /* Adjust to be slightly wider */
 }
 
 h2 {
   text-align: center;
   margin-bottom: 1.5rem;
-  color: #333;
+  color: #0a02a1; /* Use the app's primary color */
 }
 
+/* Profile picture section */
 .profile-picture-container {
   display: flex;
-  flex-direction: column; /* Stack children vertically */
-  align-items: center; /* Center children horizontally */
+  flex-direction: column;
+  align-items: center;
   margin-bottom: 1.5rem;
 }
 
 .profile-picture {
-  width: 150px; /* Set a fixed width */
-  height: 150px; /* Set a fixed height */
-  border-radius: 50%; /* Make it circular */
-  object-fit: cover; /* Ensure the image covers the area without stretching */
-  margin-bottom: 1rem; /* Add space between the image and the upload button */
+  width: 120px; /* Slightly smaller for balance */
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 1rem;
+  border: 2px solid #0a02a1; /* Add border matching the app's color */
 }
 
 .upload-button {
-  background-color: #4CAF50;
-  color: white;
+  background-color: #0a02a1; /* Change to match the app's theme */
+  color: white !important;
   padding: 0.5rem 1rem;
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s;
-  text-align: center; /* Center the text in the button */
+  text-align: center;
 }
 
 .upload-button:hover {
-  background-color: #45a049;
+  background-color: #ff4b92;
+  color: white !important; /* Use the hover color from the rest of the app */
 }
+
+/* Input fields styling */
 .form-group {
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem; /* Add more spacing between fields */
 }
 
 label {
@@ -64,41 +70,46 @@ input[type="text"],
 input[type="email"],
 input[type="password"] {
   width: 100%;
-  padding: 0.5rem;
+  padding: 0.75rem; /* Slightly larger padding */
   border: 1px solid #ddd;
   border-radius: 4px;
   font-size: 1rem;
+  box-sizing: border-box; /* Include padding in width calculation */
 }
 
+/* Button group for actions */
 .button-group {
   display: flex;
   justify-content: space-between;
+  gap: 10px; /* Add a gap between buttons */
   margin-top: 1.5rem;
 }
 
 .submit-button,
 .cancel-button {
-  padding: 0.5rem 1rem;
+  padding: 0.75rem 1rem;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s;
+  width: 100%; /* Full width within flex container */
+  max-width: 120px; /* Set a maximum width for buttons */
 }
 
 .submit-button {
-  background-color: #4CAF50;
+  background-color: #0a02a1; /* Use primary color */
   color: white;
 }
 
 .submit-button:hover {
-  background-color: #45a049;
+  background-color: #ff4b92; /* Pink hover color */
 }
 
 .cancel-button {
-  background-color: #f44336;
+  background-color: #ff4b92;;
   color: white;
 }
 
 .cancel-button:hover {
-  background-color: #d32f2f;
+  background-color: #ff4b92;;
 }
