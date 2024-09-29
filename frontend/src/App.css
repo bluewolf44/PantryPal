@@ -14,6 +14,7 @@
   height: 10vh; /* Height of the navbar */
 }
 
+
 .session-container {
   display: flex;
   align-items: center;
@@ -37,6 +38,7 @@
   box-sizing: border-box; /* Include padding in the width calculation */
   width: 100%; /* Use the full width of the container */
   padding: 0 2rem; /* Adjust padding to control content width */
+  color: #0a02a1 !important;
 }
 
 /* Ensure body stretches full height */
@@ -46,6 +48,7 @@ body {
   padding: 0;
   overflow-x: hidden;
   overflow-y: auto; /* Apply scrolling to the entire page */
+  color: #0a02a1 !important;
 }
 
 #root {

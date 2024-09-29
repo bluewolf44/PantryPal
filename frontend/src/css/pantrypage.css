@@ -6,6 +6,7 @@ html, body {
     height: 100%; /* Ensure full height */
     overflow-x: hidden; /* Prevent horizontal scrolling */
     overflow-y: auto; /* Ensure vertical scrolling is enabled */
+    color: #0a02a1;
 }
 
 body {
@@ -27,6 +28,7 @@ body {
 h2 {
     text-align: center; /* Centers the text horizontally */
     margin: 20px 0; /* Adds top and bottom margins for spacing */
+    color: #0a02a1 !important;
 }
 
 

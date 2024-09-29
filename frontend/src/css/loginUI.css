@@ -3,71 +3,78 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* Fill the viewport height */
+    min-height: 100vh; /* Use min-height to ensure it fills the viewport */
     margin: 0;
     padding: 0;
     overflow-x: hidden;
     background-color: #ffffff;
-  }
-  
-  /* Root container to take full viewport height */
-  #root {
+    color: #0a02a1; /* Default text color set to blue */
+}
+
+/* Root container to take full viewport height */
+#root {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    width: 100vw;
-  }
-  
-  /* Login container styles */
-  .login-container {
+    width: 100%; /* Ensure it spans the full width */
+}
+
+/* Login container styles */
+.login-container {
     background: #ffffff;
-    padding: 20px;
+    padding: 30px; /* Uniform padding for all sides */
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     width: 340px;
     text-align: center;
-  }
-  
-
+    color: #0a02a1; /* Ensures all text inside is blue */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
 
 form {
     display: flex;
     flex-direction: column;
+    width: 100%; /* Ensure form takes the full width of the container */
 }
 
 label {
     margin-bottom: 5px;
-    color: #0a02a1;
+    color: #0a02a1 !important; /* Explicitly set the label color to blue */
+    
 }
 
-input[type="text"], input[type="password"] {
+input[type="text"], input[type="password"], input[type="email"] {
     padding: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     border: 1px solid #0a02a1;
     border-radius: 4px;
     font-size: 16px;
+    width: 100%; /* Input fields span the full width of the container */
+    box-sizing: border-box; /* Include padding and border in the element's total width */
 }
 
 .login-container button {
-    background-color: #0a02a1; /* Change the initial color to your theme blue */
+    background-color: #0a02a1;
     color: white;
     border: none;
-    padding: 10px 20px; /* Adjust padding to reduce width */
+    padding: 10px 20px;
     border-radius: 4px;
     cursor: pointer;
     font-size: 16px;
-    transition: background-color 0.3s; /* Smooth transition for hover effect */
-    width: 80%; /* Example to make it shorter lengthwise */
-    margin: 0 auto; /* Center the button in the container */
+    transition: background-color 0.3s;
+    width: 100%; /* Button spans the full width of the container */
+    box-sizing: border-box;
 }
 
 .login-container button:hover {
-    background-color: #ff4b92; /* Bright pink on hover */
+    background-color: #ff4b92;
 }
 
 .login-link {
-    color: #0a02a1;
+    color: #0a02a1; /* Blue text */
     cursor: pointer;
     text-decoration: underline;
 }
