@@ -67,10 +67,6 @@
     border-bottom: none;
 }
 
-.userItem .profile-picture {
-    width: 50px !important; /* Ensure the size is enforced */
-    height: 50px !important;
-}
 
 /* Profile picture container */
 .profile-picture {
@@ -78,7 +74,6 @@
     align-items: center;
     justify-content: center;
     width: 50px; /* Adjust size as needed */
-    height: 50px; /* Adjust size as needed */
     border-radius: 50%; /* Circular shape */
     overflow: hidden; /* Hide any overflow outside the circle */
     margin-right: 10px; /* Space between image and text */

@@ -75,7 +75,7 @@ function EditProfileGrid() {
         <h2>Edit Profile</h2>
         <form onSubmit={handleSubmit}>
           <div className="profile-picture-container">
-            <img src={userProfile.picture} alt="Profile" className="profile-picture" />
+            <img src={userProfile.picture} alt="Profile" className="profile-picture1" />
             <label htmlFor="profilePicture" className="upload-button">
               Upload Picture
               <input

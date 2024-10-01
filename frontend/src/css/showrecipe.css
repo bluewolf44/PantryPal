@@ -1,4 +1,4 @@
-/* showrecipe.css */
+
 body {
     font-family: 'Arial', sans-serif;
     color: #0a02a1;
@@ -7,18 +7,27 @@ body {
     text-align: left;
 }
 
+/* Profile picture container */
 .profile-picture {
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
-  overflow: hidden;
-  margin-right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px; /* Adjust size as needed */
+  
+  border-radius: 50%; /* Circular shape */
+  overflow: hidden; /* Hide any overflow outside the circle */
+  margin-right: 10px; /* Space between image and text */
+  border: none; /* Remove any container border */
 }
+
+/* Image inside the profile picture */
 .profile-picture img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
+  width: 100%; /* Fill the container */
+  height: 100%; /* Fill the container */
+  object-fit: cover; /* Ensure the image covers the container area */
+  border-radius: 50%; /* Circular shape */
+  border: none; /* Remove any image border */
+  outline: none; /* Remove any outline */
 }
 
 .recipe-content {
