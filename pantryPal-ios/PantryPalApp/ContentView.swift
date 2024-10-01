@@ -10,7 +10,7 @@ import WebKit
 
 struct ContentView: View {
     @State private var showWebView = false
-    private let urlString : String = "http://localhost:8000/"
+    private let urlString : String = "http://3.95.190.173/"
     
     var body: some View {
         VStack(spacing : 40) {

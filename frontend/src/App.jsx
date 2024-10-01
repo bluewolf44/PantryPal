@@ -207,6 +207,7 @@ class App extends React.Component {
                             <Route path="/markAsCreated/:id" element={ <MarkAsCreated />} />
                             <Route path="/sharedRecipes" element={ <SharedRecipesGrid /> } />
                             <Route path="/editProfile" element={ <EditProfileGrid /> } />
+                            <Route path="/feedback/:id" element={ <GiveFeedback /> } />
                             <Route path ="*" element={<span onClick={() => window.location.href = '/'}>404 Go back</span>} />
                       </Routes>
                   </Router>
