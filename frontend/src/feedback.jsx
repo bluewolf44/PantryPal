@@ -6,6 +6,7 @@ import './css/feedback.css';
 
 function GiveFeedback(){
     const [feedback, setFeedback] = useState('');
+    const [recipe, setRecipe] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const { id } = useParams();
 
@@ -24,40 +25,32 @@ function GiveFeedback(){
         }
     };
 
-    const handleChange = (e) => {
-        e.preventDefault();
-        setFeedback(e.target.value);
-    };
-
-    const handleComplete = async () =>
-    {
-        //Create the json what will be sent
-        const data = {
-            feedback: feedback
-        }
-        const response = await axios.post(`/api/giveFeedback/${id}`,data);
-        window.location.href = '/sharedRecipes'
-    }
+      // Function to handle feedback submission
+      const handleSubmit = async (e) => {
+          e.preventDefault();
+          try {
+              const response = await axios.post(`/api/sharedRecipe/${id}/feedback`, feedback);
+              console.log("Feedback submitted:", response.data);
+          } catch (error) {
+              console.error("Error submitting feedback:", error);
+          }
+      };
 
     return(
-        <div className="recipe-card">
-        {isLoading ? (
-            <p>Loading...</p>
-        ) : (
-            <>
-            <div className="feed-div">
-                <h2>Give us your feedback:</h2>
-                <textarea value={feedback} onChange={handleChange}></textarea>
-                {/* Buttons inside a container to use hover effect */}
-                </div>
-                <div className="recipe-buttons">
-                    <button onClick={handleComplete}>Submit</button>
-                    <button>Another Action</button>
-                </div>
-            </>
-        )}
-        </div>
-        );
+    return (
+         <div>
+             <h2>Give Feedback for {recipe?.recipeName}</h2>
+             <form onSubmit={handleSubmit}>
+                 <textarea
+                     value={feedback}
+                     onChange={(e) => setFeedback(e.target.value)}
+                     placeholder="Enter your feedback here..."
+                 />
+                 <button type="submit">Submit Feedback</button>
+                 <button type="button" onClick={() => window.location.href = '/showRecipe'}>Back</button>
+             </form>
+         </div>
+     );
     }
     
     export default GiveFeedback;

@@ -381,6 +381,31 @@ def share_recipe_view(request):
         #     userShared = models.ForeignKey(User, on_delete=models.CASCADE, related_name="userShared")
         #     feedback = models.CharField(max_length=200)
 
+# this code will post the feedback to the shared recipe
+@require_POST
+def feedback_shared_recipe_view(request, recipe_id):
+    if not request.user.is_authenticated:
+        return JsonResponse({"error": "You aren't logged in"}, status=401)
+
+    try:
+        body = json.loads(request.body)
+        feedback = body.get("feedback")
+
+        if not feedback:
+            return JsonResponse({"error": "Feedback cannot be empty"}, status=400)
+
+        # Fetch the shared recipe
+        shared_recipe = get_object_or_404(Shared, recipeShared__id=recipe_id, userShared=request.user)
+
+        # Update the feedback field
+        shared_recipe.feedback = feedback
+        shared_recipe.save()
+
+        return JsonResponse({"detail": "Feedback submitted successfully!"}, status=200)
+
+    except json.JSONDecodeError:
+        return JsonResponse({"error": "Invalid JSON format"}, status=400)
+
 def get_recipes_received_view(request):
     if not request.user.is_authenticated:
         return JsonResponse({"error": "You aren't logged in"}, status=401)
