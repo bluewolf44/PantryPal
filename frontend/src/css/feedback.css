@@ -1,54 +1,88 @@
-/* Recipe card container */
+/* Container for the entire feedback section */
 .recipe-card {
-    position: relative;
-    padding: 10px;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    max-width: 600px;
+    margin: 50px auto; /* Centers the card on the page */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.feed-div{
+    width: 90%;
+}
+
+/* Title */
+.feed-div h2 {
+    text-align: center;
+    color: #0a02a1;
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* Feedback textarea */
+.feed-div textarea {
+    width: 100%;
+    height: 150px;
+    padding: 15px;
     border: 1px solid #ccc;
     border-radius: 8px;
-    text-align: center;
-    background-color: #f9f9f9;
-    transition: all 0.3s ease;
-    margin: 20px;
-    display: inline-block;
+    resize: none; /* Prevents resizing */
+    font-size: 16px;
+    box-sizing: border-box; /* Include padding in the element's total width and height */
+    margin-bottom: 20px;
 }
 
-/* Recipe image styling */
-.recipe-card img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 8px;
-}
-
-/* Recipe buttons - initially hidden */
+/* Container for buttons */
 .recipe-buttons {
-    display: none;
-    flex-direction: column;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-/* Show buttons on hover */
-.recipe-card:hover .recipe-buttons {
     display: flex;
+    justify-content: space-around; /* Evenly spaces the buttons */
+    width: 100%; /* Takes full width of the parent */
 }
 
-/* Individual button styling */
+/* Individual buttons */
 .recipe-buttons button {
-    margin: 5px;
-    padding: 10px;
     background-color: #0a02a1;
     color: white;
+    padding: 12px 25px;
     border: none;
-    border-radius: 4px;
+    border-radius: 8px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    font-size: 16px;
+    flex: 1; /* Allows buttons to grow evenly */
+    margin: 0 10px; /* Adds space between buttons */
 }
 
+/* Button hover effects */
 .recipe-buttons button:hover {
     background-color: #ff4b92;
+    transform: scale(1.05); /* Slightly enlarges button on hover */
 }
 
-.feed-div{
-    padding-bottom: 30px;
+/* Loading text */
+p {
+    font-size: 18px;
+    color: #555;
+    text-align: center;
+}
+
+/* Media query for responsiveness */
+@media (max-width: 600px) {
+    .recipe-card {
+        padding: 20px;
+        margin: 20px;
+    }
+
+    .recipe-buttons {
+        flex-direction: column; /* Stacks buttons vertically */
+        align-items: center;
+    }
+
+    .recipe-buttons button {
+        width: 100%; /* Makes buttons take full width */
+        margin: 10px 0; /* Adds space between stacked buttons */
+    }
 }
