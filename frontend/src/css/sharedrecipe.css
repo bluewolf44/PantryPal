@@ -1,0 +1,105 @@
+/* Recipe Card Container */
+.recipes {
+    position: relative;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    background-color: #f9f9f9;
+    transition: all 0.3s ease;
+    text-align: center;
+    box-sizing: border-box;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centers content horizontally */
+    justify-content: space-between; /* Spreads content vertically */
+    min-height: 350px; /* Adjust height for consistency */
+}
+
+/* Recipe Image */
+.recipes img {
+    width: 100%;
+    max-height: 200px;
+    object-fit: cover; /* Ensures the image fits without distortion */
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+/* Shared by container */
+.sharedby {
+    display: flex;
+    align-items: center; /* Vertically centers the profile picture and text */
+    justify-content: center; /* Centers content horizontally */
+    gap: 10px; /* Adds space between the profile picture and the text */
+    margin-top: 10px; /* Adds some spacing from the content above */
+}
+
+/* Profile picture within the sharedby section */
+.profile-picture {
+    width: 30px; /* Adjust the size to fit beside the text */
+    height: 30px; /* Ensure it's a circle */
+    border-radius: 50%; /* Make it circular */
+    overflow: hidden; /* Hide overflow for a clean circle */
+    border: 2px solid #0a02a1; /* Optional border for styling */
+    display: flex; /* Flex to center the image */
+    align-items: center; /* Center image vertically */
+    justify-content: center; /* Center image horizontally */
+}
+
+.profile-picture img {
+    width: 100%; /* Fit the image within the container */
+    height: auto; /* Maintain the aspect ratio */
+    object-fit: cover; /* Ensure the image covers the container without distortion */
+}
+
+
+/* "Shared by" text */
+.sharedby span {
+    font-size: 14px; /* Adjust text size if needed */
+    color: #0a02a1;
+    font-weight: bold;
+}
+
+
+/* Recipe Title */
+.recipes span {
+    display: block;
+    font-weight: bold;
+    margin: 5px 0;
+    text-align: center;
+}
+
+/* Buttons Container */
+.recipes-buttons {
+    display: none; /* Hide buttons by default */
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: opacity 0.3s ease;
+    z-index: 2;
+}
+
+/* Show buttons on hover */
+.recipes:hover .recipes-buttons {
+    display: flex;
+}
+
+/* Buttons */
+.recipes-buttons button {
+    padding: 8px 12px;
+    margin-top: 5px;
+    background-color: #0a02a1;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.recipes-buttons button:hover {
+    background-color: #ff4b92;
+    transform: scale(1.05);
+}

@@ -4,7 +4,7 @@ import axios from "axios";
 import RecipeDetailsModal from "./modals/RecipeDetailsModal";
 import { useNavigate, useLocation } from "react-router-dom";
 
-import "./css/saverecipe.css"; // Assuming your CSS is adapted for React
+import "./css/sharedrecipe.css"; // Assuming your CSS is adapted for React
 
 axios.defaults.xsrfCookieName = "csrftoken";
 axios.defaults.xsrfHeaderName = "X-CSRFToken";
@@ -83,11 +83,15 @@ function SharedRecipesGrid() {
                 alt={shared.recipeName.recipeName}
             />
               <span>{shared.recipeName.recipeName}</span>
+
+              <div className="sharedby">
+
               <div className="profile-picture">
                 <img src={"/Storage/" + shared.profile.picture} alt="pfp" />
               </div>
-
+              
               <span>{"Shared by " + shared.recipeOwner.username}</span>
+              </div>
               {/* <span>{recipe.fields.recipe}</span> */}
               <div className="recipes-buttons">
                 <button onClick={() => saveToMyRecipes(shared.recipeName.id) }>Add to your recipes</button>
