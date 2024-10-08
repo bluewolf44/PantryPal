@@ -70,7 +70,9 @@ function MarkAsCreated() {
                                 </div>
                             ))
                         ) : (<p>No Recipes Found</p>)}
+                        <div className="button-con">
                        <button onClick = {handleComplete}>Complete pantry update</button>
+                       </div>
                     </>
                 )
             }

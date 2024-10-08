@@ -52,6 +52,11 @@ body {
     border: 1px solid #0a02a1;
     border-radius: 4px;
   }
+  .button-con {
+    align-items: center;
+    text-align: center;
+    padding-bottom: 20px;
+  }
   
   
   /* Responsive layout for smaller screens */
@@ -68,5 +73,6 @@ body {
     button {
       width: 180px;
     }
+
   }
   

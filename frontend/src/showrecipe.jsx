@@ -63,8 +63,10 @@ function ShowRecipe() {
         <>
             <h2>Recipe Details</h2>
             <div className="recipe-content" dangerouslySetInnerHTML={formatRecipeText(query)}></div>
+            <div className="but-con">
             <button onClick={handleSave}>Save</button>
             <button onClick={() => window.location.href = '/createRecipe'}>Back</button>
+            </div>
             <AddRecipeModal
                 isOpen={isRecipeModalOpen}
                 onClose={() => setIsRecipeModalOpen(false)}

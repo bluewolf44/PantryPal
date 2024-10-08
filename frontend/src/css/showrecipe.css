@@ -113,3 +113,15 @@ button:focus {
 .feedback-text {
   font-style: italic;
 }
+
+
+/* Padding for feedback to not be covered by buttons */
+p{
+  padding-bottom: 35px;
+}
+
+.but-con{
+  align-items: center;
+    text-align: center;
+    padding-bottom: 20px;
+}
