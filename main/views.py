@@ -383,7 +383,7 @@ def share_recipe_view(request):
 
 # this code will post the feedback to the shared recipe
 @require_POST
-def feedback_shared_recipe_view(request, shared_id):
+def feedback_shared_recipe_view(request, id):
     if not request.user.is_authenticated:
         return JsonResponse({"error": "You aren't logged in"}, status=401)
 
@@ -395,7 +395,7 @@ def feedback_shared_recipe_view(request, shared_id):
             return JsonResponse({"error": "Feedback cannot be empty"}, status=400)
 
         # Fetch the shared recipe
-        shared_recipe = get_object_or_404(Shared, id=shared_id,  userShared=request.user)
+        shared_recipe = get_object_or_404(Shared, id=id,  userShared=request.user)
 
         # Update the feedback field
         shared_recipe.feedback = feedback
