@@ -8,7 +8,7 @@ import SwiftUI
 import WebKit
 
 struct ContentView: View {
-    private let urlString: String = "https://www.nichols.co.nz/"
+    private let urlString: String = "http://pantrypal.fun:8000/"
     @StateObject private var webViewModel = WebViewModel() // ViewModel to manage the WebView's state
     
     var body: some View {
