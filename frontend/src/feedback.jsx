@@ -29,6 +29,7 @@ function GiveFeedback(){
       // Function to handle feedback submission
       const handleSubmit = async (e) => {
           e.preventDefault();
+          console.log("Submitting feedback for recipe ID: ", id);
           try {
               const response = await axios.post(`/api/sharedRecipe/${id}/feedback`, { feedback });
               console.log("Feedback submitted:", response.data);
