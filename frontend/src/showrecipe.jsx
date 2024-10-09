@@ -1,6 +1,7 @@
 import Modal from 'react-modal';
 import React, { useState, useEffect } from 'react';
 import axios from "axios";
+import { useNavigate } from 'react-router-dom';
 import './css/showrecipe.css';
 import AddRecipeModal from "./modals/AddRecipeModal";
 import formatRecipeText from "./formatRecipeText";
@@ -13,13 +14,14 @@ function ShowRecipe() {
     const query = sessionStorage.getItem('currentQuery');
     const [showAlert, setShowAlert] = useState(false); // State for alert visibility
     const [alertMessage, setAlertMessage] = useState(''); // State for alert message
+    const navigate = useNavigate();
 
 
     const saveRecipe = async (data) => {
         try{
             console.log(data);
             await axios.post("/api/createRecipe/", data);
-            window.location.href = '/recipes';
+            
             setAlertMessage("Recipe saved successfully!");
             setShowAlert(true);
             setTimeout(() => setShowAlert(false), 5000); // Hide alert after 5 seconds
