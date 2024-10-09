@@ -6,6 +6,7 @@ import axios from "axios";
 import AddModal from "./modals/AddModal";
 import EditModal from "./modals/EditModal";
 import AddRecipeModal from "./modals/AddRecipeModal";
+import Alert from './modals/alert';
 
 axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFToken';
@@ -20,6 +21,9 @@ function PantryGrid() {
     const [isRecipeModalOpen, setIsRecipeModalOpen] = useState(false);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [ingredientToEdit, setIngredientToEdit] = useState(null);
+    const [showDeleteAlert, setShowDeleteAlert] = useState(false); // State to manage delete alert visibility
+    const [showEditAlert, setShowEditAlert] = useState(false); // State for the edit alert
+
 
     // Get Ingredients
     useEffect(() => {
@@ -94,6 +98,8 @@ function PantryGrid() {
         try {
             await axios.post(`/api/editIngredient/${ingredientToEdit.pk}`, newIngredient);
             get_ingredients();
+            setShowEditAlert(true); // Show the edit success alert
+            setTimeout(() => setShowEditAlert(false), 3000); // Hide alert after 5 seconds
         } catch (error) {
             console.log("Error editing ingredient: ", error);
         }
@@ -105,6 +111,8 @@ function PantryGrid() {
             await axios.delete(`/api/deleteIngredient/${ingredientId}`);
             get_ingredients();
             console.log(`Deleted ingredient with id: ${ingredientId} successfully`);
+            setShowDeleteAlert(true); // Show the delete alert
+            setTimeout(() => setShowDeleteAlert(false), 3000); // Hide alert after 5 seconds
         } catch (error) {
             console.log("Error in deleting ingredient: ", error);
         }
@@ -143,12 +151,20 @@ function PantryGrid() {
                 <div className="item add-ingredient-btn" onClick={() => setIsAddModalOpen(true)} style={{ cursor: 'pointer' }}>
                         <h4>Add Ingredient</h4>
                 </div>
-                {/* <div className="item" onClick={() => setIsRecipeModalOpen(true)} style={{ cursor: 'pointer' }}>
-                    <h4>Add Recipe</h4>
-                </div> */}
+                
                 <div className="pantry-grid">
                     {ingredients}
                 </div>
+
+                {showDeleteAlert && (
+                    <Alert message="Ingredient deleted successfully!" onClose={() => setShowDeleteAlert(false)} />
+                )}
+                {showEditAlert && (
+                    <Alert message="Ingredient edited successfully!" onClose={() => setShowEditAlert(false)} />
+                )}
+
+
+
                 {/* Container to hold the modal and button */}
                 <div className="modal-container">
                 <AddModal
