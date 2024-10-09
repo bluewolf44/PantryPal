@@ -8,16 +8,17 @@ function GiveFeedback(){
     const [feedback, setFeedback] = useState('');
     const [recipe, setRecipe] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
-    const { shared_id } = useParams();
+    const { id } = useParams();
 
     useEffect(() => {
         console.log("test works");
         getRecipe();
-    },[shared_id]);
+        console.log("Shared ID:", id);
+    },[id]);
 
     const getRecipe = async () => {
         try {
-            const response = await axios.get(`/api/getRecipes/${shared_id}`);
+            const response = await axios.get(`/api/getRecipes/${id}`);
             setFeedback(response.data);
             setIsLoading(false);
         } catch (error) {
@@ -29,13 +30,12 @@ function GiveFeedback(){
       const handleSubmit = async (e) => {
           e.preventDefault();
           try {
-              const response = await axios.post(`/api/sharedRecipe/${shared_id}/feedback`, { feedback });
+              const response = await axios.post(`/api/sharedRecipe/${id}/feedback`, { feedback });
               console.log("Feedback submitted:", response.data);
           } catch (error) {
               console.error("Error submitting feedback:", error);
           }
       };
-
     return (
          <div className="recipe-content">
              <h2>Give Feedback for {recipe?.recipeName}</h2>
