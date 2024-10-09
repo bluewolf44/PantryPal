@@ -3,20 +3,27 @@ import React, { useState, useEffect } from 'react';
 import axios from "axios";
 import './css/showrecipe.css';
 import AddRecipeModal from "./modals/AddRecipeModal";
-import formatRecipeText from "./formatRecipeText"
+import formatRecipeText from "./formatRecipeText";
+import Alert from './modals/alert';
 
 Modal.setAppElement('#root');
 
 function ShowRecipe() {
     const [isRecipeModalOpen, setIsRecipeModalOpen] = useState(false);
     const query = sessionStorage.getItem('currentQuery');
+    const [showAlert, setShowAlert] = useState(false); // State for alert visibility
+    const [alertMessage, setAlertMessage] = useState(''); // State for alert message
 
 
     const saveRecipe = async (data) => {
         try{
             console.log(data);
             await axios.post("/api/createRecipe/", data);
-            window.location.href = '/recipes'
+            window.location.href = '/recipes';
+            setAlertMessage("Recipe saved successfully!");
+            setShowAlert(true);
+            setTimeout(() => setShowAlert(false), 5000); // Hide alert after 5 seconds
+           
 
         } catch (error) {
             console.error("Error creating recipe:", error);
@@ -67,6 +74,11 @@ function ShowRecipe() {
             <button onClick={handleSave}>Save</button>
             <button onClick={() => window.location.href = '/createRecipe'}>Back</button>
             </div>
+
+            {showAlert && (
+                <Alert message={alertMessage} onClose={() => setShowAlert(false)} />
+            )}
+
             <AddRecipeModal
                 isOpen={isRecipeModalOpen}
                 onClose={() => setIsRecipeModalOpen(false)}
