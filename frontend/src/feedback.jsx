@@ -12,7 +12,6 @@ function GiveFeedback(){
 
     useEffect(() => {
         console.log("test works");
-        getRecipe();
         console.log("Shared ID:", id);
     },[id]);
 
@@ -39,7 +38,7 @@ function GiveFeedback(){
       };
     return (
          <div className="recipe-content">
-             <h2>Give Feedback for {recipe?.recipeName}</h2>
+             <h2>Give Feedback</h2>
              <form onSubmit={handleSubmit}>
                  <textarea
                      value={feedback}
