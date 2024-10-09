@@ -256,8 +256,7 @@ def create_recipe(request):
     )
 
     # Get all word from the query and remove common punctuation
-    words = body.cleaned_data["recipe"].replace("*", "").replace('"', "").replace(",","").split(" ")
-
+    words = body.cleaned_data["recipe"].replace("*", "").replace('"', "").replace(",","").lower().split(" ")
 
     ingredients = Ingredient.objects.filter(user=request.user)
     # ingredients names, Single word per index
@@ -267,7 +266,7 @@ def create_recipe(request):
     for ingredient in ingredients:
         # Removing comma
         for name in ingredient.ingredientName.replace(",", " ").split(" "):
-            #adding name and the object to each list
+            # adding name and the object to each list
             ingredient_names.append(name)
             ingredient_index.append(ingredient)
 
