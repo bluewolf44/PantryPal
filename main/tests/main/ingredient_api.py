@@ -11,9 +11,6 @@ from main.models import Recipe
 
 pytestPantryPal = pytest.mark.django_db
 
-
-
-
 @pytestPantryPal
 def test_delete_ingredient(user_factory, ingredient_factory):
     c = Client()
@@ -39,6 +36,7 @@ def test_delete_ingredient(user_factory, ingredient_factory):
     url = reverse("api_delete_ingredients", args=[other_ingredient.id])
     response = c.delete(url)
     assert response.status_code == 404
+
 
 @pytestPantryPal
 def test_edit_ingredient(user_factory, ingredient_factory):
@@ -84,6 +82,7 @@ def test_edit_ingredient(user_factory, ingredient_factory):
         "liquid": True
     }, files={"picture":""})
     assert response.status_code == 404
+
 
 @pytestPantryPal
 def test_get_user_ingredients(user_factory, ingredient_factory):
@@ -187,3 +186,4 @@ def test_update_ingredient_by_amount(user_factory, ingredient_factory):
     assert response.status_code == 201
     for i in [i1, i2, i3]:
         assert Ingredient.objects.filter(pk=i.pk)[0].amount == i.amount+200
+
