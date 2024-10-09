@@ -1,0 +1,19 @@
+.alert {
+  position: fixed;
+  top: 0; /* Set the alert to appear at the top of the viewport */
+  left: 0; /* Align it to the left edge */
+  width: 100%; /* Stretch the alert to cover the full width of the screen */
+  background-color: #ff4b92; /* Example background color, adjust as needed */
+  color: white; /* Text color */
+  padding: 10px 20px; /* Padding for some internal spacing */
+  text-align: center; /* Center the text inside the alert */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* Optional shadow for some depth */
+  z-index: 1000; /* Ensure it is on top of other content */
+  transition: opacity 0.5s ease-in-out; /* Smooth transition for appearing and disappearing */
+}
+
+.alert-hide {
+  opacity: 0; /* Make the alert invisible */
+  visibility: hidden; /* Remove it from the layout */
+  transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+}
