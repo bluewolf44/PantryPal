@@ -4,6 +4,7 @@ import axios from "axios";
 import RecipeDetailsModal from "./modals/RecipeDetailsModal";
 import AddRecipeModal from "./modals/AddRecipeModal";
 import { useNavigate } from "react-router-dom";
+import Alert from "./modals/alert";
 
 import "./css/saverecipe.css"; // Assuming your CSS is adapted for React
 
@@ -20,6 +21,8 @@ function RecipesGrid() {
   const [isRecipeDetailsModalOpen, setIsRecipeDetailsModalOpen] =
     useState(false);
   const navigate = useNavigate();
+  const [alertMessage, setAlertMessage] = useState('');
+  const [showAlert, setShowAlert] = useState(false);
 
   useEffect(() => {
     getRecipes();
@@ -45,6 +48,7 @@ function RecipesGrid() {
       await axios.delete(`/api/deleteRecipe/${recipeId}`);
       getRecipes();
       console.log(`Deleted ingredient id: ${recipeId} successfully`);
+      triggerAlert("Recipe deleted successfully!");
     } catch (error) {
       console.log("Error in deleting recipe: ", error);
     }
@@ -54,6 +58,7 @@ function RecipesGrid() {
     try {
       console.log(data);
       await axios.post("/api/createRecipe/", data);
+      triggerAlert("Recipe created successfully!");
       getRecipes();
     } catch (error) {
       console.error("Error creating recipe:", error);
@@ -78,9 +83,16 @@ function RecipesGrid() {
       });
       console.log('Recipe updated successfully:', response.data);
       getRecipes();  // Optionally refresh your recipe list
+      triggerAlert("Recipe updated successfully!");
     } catch (error) {
       console.error('Error updating recipe:', error);
     }
+  };
+
+  const triggerAlert = (message) => {
+    setAlertMessage(message);
+    setShowAlert(true);
+    setTimeout(() => setShowAlert(false), 5000);
   };
   
 
@@ -123,6 +135,11 @@ function RecipesGrid() {
           <p>No Recipes Found</p>
         )}
         </div>
+
+        {showAlert && (
+          <Alert message={alertMessage} onClose={() => setShowAlert(false)} />
+        )}
+
       </main>
       <RecipeDetailsModal
         isOpen={isRecipeDetailsModalOpen}
