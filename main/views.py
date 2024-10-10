@@ -22,6 +22,7 @@ import json
 def index_page(request):
     return render(request, "dist/index.html")
 
+
 # doesnt_matter to so recipes_details work in urls
 def index_page_with_parms(request, doesnt_matter):
     return render(request, "dist/index.html")
@@ -45,7 +46,7 @@ def create_account(request):
         user.save()
 
         profile = Profile.objects.create(
-            user = user
+            user=user
         )
 
         profile.save()
@@ -69,10 +70,11 @@ def get_current_user_view(request):
     profile['picture'] = profile_model.picture.url
     user_profile = {
         'user': user,
-        'profile':profile
+        'profile': profile
     }
 
     return JsonResponse(user_profile, safe=False)
+
 
 @require_POST
 def update_user_details_view(request):
@@ -89,7 +91,6 @@ def update_user_details_view(request):
         user.set_password(password)
 
     user.save()
-
 
     if 'picture' in request.FILES:
         profile.picture = request.FILES['picture']
@@ -169,6 +170,7 @@ def create_ingredient(request):
 
     return HttpResponse(status=201)
 
+
 # ingredient_id is obtained from urls.py matching ingredient_id.
 def delete_ingredient_view(request, ingredient_id):
     if not request.method == "DELETE":
@@ -178,7 +180,7 @@ def delete_ingredient_view(request, ingredient_id):
         return JsonResponse({"detail": "You aren't log in"}, status=401)
     user = request.user
 
-    ingredient = get_object_or_404(Ingredient,id=ingredient_id, user=user)
+    ingredient = get_object_or_404(Ingredient, id=ingredient_id, user=user)
 
     ingredient.delete()
 
@@ -215,8 +217,9 @@ def get_user_ingredients(request):
 
     return JsonResponse(serialize("json", Ingredient.objects.filter(user=user)), safe=False)
 
+
 #the baking_type is the baking your doing e.g cake,cup cakes
-def ai_recipe(request,baking_type):
+def ai_recipe(request, baking_type):
     if not request.user.is_authenticated:
         return JsonResponse({"detail": "You aren't log in"}, status=401)
     #Uses the api in .env
@@ -230,11 +233,13 @@ def ai_recipe(request,baking_type):
     ingredients = ""
     user = request.user
     for i in Ingredient.objects.filter(user=user):
-        ingredients += i.ingredientName+", "
+        ingredients += i.ingredientName + ", "
 
     # The main request
-    response = model.generate_content("give me a "+baking_type+" recipe only using the following ingredients:"+ingredients)
+    response = model.generate_content(
+        "give me a " + baking_type + " recipe only using the following ingredients:" + ingredients)
     return JsonResponse({"detail": response.text})
+
 
 # Add View for creating a recipe
 # Note: This is for the manual creation of the recipe, see Saved Recipe for the method to save the AI Generated Recipe.
@@ -256,7 +261,7 @@ def create_recipe(request):
     )
 
     # Get all word from the query and remove common punctuation
-    words = body.cleaned_data["recipe"].replace("*", "").replace('"', "").replace(",","").lower().split(" ")
+    words = body.cleaned_data["recipe"].replace("*", "").replace('"', "").replace(",", "").lower().split(" ")
 
     ingredients = Ingredient.objects.filter(user=request.user)
     # ingredients names, Single word per index
@@ -294,6 +299,7 @@ def create_recipe(request):
 
     return HttpResponse(status=201)
 
+
 # Add view for getting a recipe
 def get_user_recipes(request):
     if not request.user.is_authenticated:
@@ -302,6 +308,7 @@ def get_user_recipes(request):
 
     return JsonResponse(serialize("json", Recipe.objects.filter(user=user)), safe=False)
 
+
 @require_POST
 def save_recipe(request):
     if not request.user.is_authenticated:
@@ -309,6 +316,9 @@ def save_recipe(request):
     user = request.user
 
     body = json.loads(request.body)
+
+    if body.get("recipeName") is None or body.get("recipe") is None:
+        return HttpResponse(status=400)
 
     recipe = Recipe.objects.create(
         recipeName=body.get("recipeName"),
@@ -319,6 +329,7 @@ def save_recipe(request):
 
     return HttpResponse(status=201)
 
+
 def delete_recipe_view(request, recipe_id):
     if not request.method == "DELETE":
         return HttpResponse(status=404)
@@ -327,10 +338,11 @@ def delete_recipe_view(request, recipe_id):
         return JsonResponse({"detail": "You aren't log in"}, status=401)
 
     user = request.user
-    recipe = get_object_or_404(Recipe,id=recipe_id, user=user)
+    recipe = get_object_or_404(Recipe, id=recipe_id, user=user)
     recipe.delete()
 
     return JsonResponse({"detail": "Recipe deleted successfully"}, status=200)
+
 
 def get_user_recipe_by_id(request, recipe_id):
     if not request.method == "GET":
@@ -342,16 +354,16 @@ def get_user_recipe_by_id(request, recipe_id):
     user = request.user
     return JsonResponse(serialize("json", Recipe.objects.filter(user=user, id=recipe_id)), safe=False)
 
-def shared_recipe_view(request, user_id):
 
+def shared_recipe_view(request, user_id):
     pass
+
 
 # this code will receive json of user_ids list, and recipe id
 @require_POST
 def share_recipe_view(request):
-
     if not request.user.is_authenticated:
-        return JsonResponse({"error": "You aren't logged in"}, status = 401)
+        return JsonResponse({"error": "You aren't logged in"}, status=401)
     user = request.user
 
     body = SharedRecipeForm(request.POST)
@@ -366,19 +378,20 @@ def share_recipe_view(request):
     recipe = Recipe.objects.get(pk=recipe_id)
     for recipient in recipients:
         shared_recipe = Shared.objects.create(
-            recipeOwner = user,
-            recipeName = recipe,
-            userShared = recipient
+            recipeOwner=user,
+            recipeName=recipe,
+            userShared=recipient
         )
         shared_recipe.save()
 
     return JsonResponse({"message": "Recipe shared successfully"}, status=201)
 
-        # class Shared(models.Model):
-        #     recipeOwner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='recipeOwner')
-        #     recipeShared = models.ForeignKey(Recipe, on_delete=models.CASCADE)
-        #     userShared = models.ForeignKey(User, on_delete=models.CASCADE, related_name="userShared")
-        #     feedback = models.CharField(max_length=200)
+    # class Shared(models.Model):
+    #     recipeOwner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='recipeOwner')
+    #     recipeShared = models.ForeignKey(Recipe, on_delete=models.CASCADE)
+    #     userShared = models.ForeignKey(User, on_delete=models.CASCADE, related_name="userShared")
+    #     feedback = models.CharField(max_length=200)
+
 
 # this code will post the feedback to the shared recipe
 @require_POST
@@ -394,7 +407,7 @@ def feedback_shared_recipe_view(request, id):
             return JsonResponse({"error": "Feedback cannot be empty"}, status=400)
 
         # Fetch the shared recipe
-        shared_recipe = get_object_or_404(Shared, id=id,  userShared=request.user)
+        shared_recipe = get_object_or_404(Shared, id=id, userShared=request.user)
 
         # Update the feedback field
         shared_recipe.feedback = feedback
@@ -405,13 +418,13 @@ def feedback_shared_recipe_view(request, id):
     except json.JSONDecodeError:
         return JsonResponse({"error": "Invalid JSON format"}, status=400)
 
+
 def get_recipes_received_view(request):
     if not request.user.is_authenticated:
         return JsonResponse({"error": "You aren't logged in"}, status=401)
 
     user = request.user
     shared = Shared.objects.filter(userShared=user).select_related('recipeOwner', 'recipeName').all()
-
 
     shared_list = []
     for item in shared:
@@ -428,6 +441,7 @@ def get_recipes_received_view(request):
         shared_list.append(shared_dict)
 
     return JsonResponse(shared_list, safe=False)
+
 
 def get_feedback_for_recipe(request, recipe_id):
     if not request.user.is_authenticated:
@@ -451,6 +465,7 @@ def get_feedback_for_recipe(request, recipe_id):
 
     return JsonResponse(feedback_list, safe=False)
 
+
 @require_POST
 def save_to_my_recipes_view(request, recipe_id):
     if not request.user.is_authenticated:
@@ -459,14 +474,15 @@ def save_to_my_recipes_view(request, recipe_id):
     user = request.user
     recipe = get_object_or_404(Recipe, pk=recipe_id)
     clone_recipe = Recipe.objects.create(
-        recipeName = recipe.recipeName,
-        user = user,
-        recipe = recipe.recipe,
-        picture = recipe.picture
+        recipeName=recipe.recipeName,
+        user=user,
+        recipe=recipe.recipe,
+        picture=recipe.picture
     )
     clone_recipe.save()
 
     return JsonResponse({"detail": "Saved to my recipes successfully"}, status=201)
+
 
 def delete_recipe_received_view(request, shared_id):
     if not request.user.is_authenticated:
@@ -510,6 +526,7 @@ def get_ingredients_by_required(request, recipe_id):
         ingredients.append(required.ingredient)
 
     return JsonResponse(serialize("json", ingredients), safe=False)
+
 
 # This is used for markAsCreated where it will update the database with the new amounts
 @require_POST

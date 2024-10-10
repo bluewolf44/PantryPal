@@ -64,7 +64,8 @@ def test_create_recipe(user_factory, ingredient_factory):
     assert Required.objects.filter(recipe=recipe, ingredient=cheese)
 
 
-def get_user_recipes(user_factory, recipe_factory):
+@pytestPantryPal
+def test_get_user_recipes(user_factory, recipe_factory):
     c = Client()
     url = reverse("api_get_recipes")
     assert c.get(url).status_code == 401  # Not logged in
@@ -72,13 +73,13 @@ def get_user_recipes(user_factory, recipe_factory):
     user = user_factory(username="dave", password=make_password("password123"))
     c.force_login(user)
 
-    r1 = recipe_factory(user=user,recipeName="Cheese")
-    r2 = recipe_factory(user=user,recipeName="Flour")
-    r3 = recipe_factory(user=user,recipeName="Milk")
+    r1 = recipe_factory(user=user, recipeName="Cheese")
+    r2 = recipe_factory(user=user, recipeName="Flour")
+    r3 = recipe_factory(user=user, recipeName="Milk")
 
     other = user_factory(username="jeff", password=make_password("password123"))
     recipe_factory(user=other)
 
     response = c.get(url)
     assert response.status_code == 200
-    assert serialize("json", [r1, r2, r3]) == response.json()
+    assert serialize("json", Recipe.objects.filter(user=user)) == response.json()

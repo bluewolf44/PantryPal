@@ -7,7 +7,6 @@ from django.urls import reverse
 from django.test import Client
 
 from main.models import Ingredient
-from main.models import Recipe
 
 pytestPantryPal = pytest.mark.django_db
 
