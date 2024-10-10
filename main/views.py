@@ -354,11 +354,6 @@ def get_user_recipe_by_id(request, recipe_id):
     user = request.user
     return JsonResponse(serialize("json", Recipe.objects.filter(user=user, id=recipe_id)), safe=False)
 
-
-def shared_recipe_view(request, user_id):
-    pass
-
-
 # this code will receive json of user_ids list, and recipe id
 @require_POST
 def share_recipe_view(request):
