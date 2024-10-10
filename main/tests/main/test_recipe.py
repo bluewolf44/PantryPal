@@ -106,3 +106,27 @@ def test_save_recipe(user_factory):
     recipe = Recipe.objects.get(recipeName="Cheese")
     assert recipe.recipeName == "Cheese"
     assert recipe.recipe == "Make Cheese"
+
+
+@pytestPantryPal
+def delete_recipe_view(user_factory, recipe_factory):
+    c = Client()
+    url = reverse("delete_recipe_view", args=[9999])
+    assert c.delete(url).status_code == 401  # Not logged in
+
+    user = user_factory(username="dave", password=make_password("password123"))
+    c.force_login(user)
+
+    assert c.get(url).status_code == 404  # Not Delete
+    assert c.post(url).status_code == 404  # Not Delete
+
+    recipe1 = recipe_factory(user=user)
+    recipe2 = recipe_factory()
+    assert c.delete(url).status_code == 404  # No id connected
+
+    url = reverse("delete_recipe_view", args=[recipe2.id])
+    assert c.delete(url).status_code == 404  # Not right user
+    url = reverse("delete_recipe_view", args=[recipe1.id])
+    response = c.delete(url)
+    assert response.status_code == 200
+    assert len(Recipe.object.filter(user=user)) == 0
