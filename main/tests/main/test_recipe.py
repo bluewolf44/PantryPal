@@ -131,3 +131,26 @@ def test_delete_recipe_view(user_factory, recipe_factory):
     assert response.status_code == 200
     assert len(Recipe.objects.filter(user=user)) == 0
 
+
+@pytestPantryPal
+def test_get_user_recipe_by_id(user_factory, recipe_factory):
+    c = Client()
+    url = reverse("api_get_recipe_by_id", args=[9999])
+    assert c.get(url).status_code == 401  # Not logged in
+
+    user = user_factory(username="dave", password=make_password("password123"))
+    c.force_login(user)
+
+    recipe = recipe_factory(user=user, recipeName="Cheese")
+    recipe_factory(user=user, recipeName="Milk")
+    recipe_factory()
+
+    assert c.post(url).status_code == 404  # Not Delete
+    response = c.get(url)
+    assert response.status_code == 200
+    assert response.json() == "[]"
+
+    url = reverse("api_get_recipe_by_id", args=[recipe.id])
+    response = c.get(url)
+    assert response.status_code == 200
+    assert response.json() == serialize("json", Recipe.objects.filter(user=user, id=recipe.id))
