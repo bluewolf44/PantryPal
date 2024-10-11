@@ -5,10 +5,7 @@
 import factory
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import User
-from main.models import Ingredient
-from main.models import Recipe
-from main.models import Required
-from main.models import Shared
+from main.models import *
 
 
 # Not sure if we have a User setup or whether this is done separately in django
@@ -59,3 +56,9 @@ class SharedFactory(factory.django.DjangoModelFactory):
     recipeName = factory.SubFactory(RecipeFactory)
     userShared = factory.SubFactory(UserFactory)
     feedback = "This is a great recipe"
+
+class ProfileFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = Profile
+    user = factory.SubFactory(UserFactory)
+    picture = False

@@ -38,3 +38,10 @@ class TestSharedModel:
         shared = shared_factory()
         expected_string = "Cheese Scones made by postgres shared with postgres"
         assert shared.__str__() == expected_string
+
+@pytestPantryPal
+class TestProfileModel:
+    def test_str_return(self, profile_factory):
+        shared = profile_factory()
+        expected_string = "Profile of postgres"
+        assert shared.__str__() == expected_string

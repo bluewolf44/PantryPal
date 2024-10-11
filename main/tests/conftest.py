@@ -4,15 +4,12 @@
 
 from pytest_factoryboy import register
 
-from .factories import IngredientFactory
-from .factories import RecipeFactory
-from .factories import UserFactory
-from .factories import RequiredFactory
-from .factories import SharedFactory
+from .factories import *
 
 register(IngredientFactory)
 register(RecipeFactory)
 register(UserFactory)
 register(RequiredFactory)
 register(SharedFactory)
+register(ProfileFactory)
 

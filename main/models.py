@@ -49,4 +49,4 @@ class Profile(models.Model):
     picture = models.ImageField(upload_to='UserImages/ProfilePictures/', default='UserImages/DefaultPicture/default.jpg', null=True, blank=True)
 
     def __str__(self):
-        return "cheese"
+        return "Profile of " + self.user.username
