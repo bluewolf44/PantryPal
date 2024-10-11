@@ -2,6 +2,8 @@ import pytest
 import json
 
 from django.contrib.auth.hashers import make_password
+from django.core.serializers.json import DjangoJSONEncoder
+from django.forms import model_to_dict
 from django.urls import reverse
 from django.test import Client
 from django.core.serializers import serialize
@@ -56,3 +58,20 @@ def test_feedback_shared_recipe_view(user_factory, shared_factory):
     assert response.status_code == 200
     assert Shared.objects.get(id=shared.id).feedback == "10/10 would eat again"
 
+
+@pytestPantryPal
+def test_get_recipes_received_view(user_factory, shared_factory, profile_factory):
+    c = Client()
+    url = reverse("api_get_recipes_received")
+    assert c.get(url).status_code == 401  # Not logged in
+
+    user = user_factory(username="dave", password=make_password("password123"))
+    c.force_login(user)
+
+    owner = user_factory(username="bob", password=make_password("password123"))
+    profile_factory(user=owner)
+    shared_factory(userShared=user, recipeOwner=owner)
+
+    response = c.get(url)
+    assert response.status_code == 200
+    # Not dealing with the output
