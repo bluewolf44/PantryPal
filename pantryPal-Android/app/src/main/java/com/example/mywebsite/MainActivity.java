@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         myWeb = findViewById(R.id.myWeb);
         progressBar = findViewById(R.id.progressBar);
         setupWebView();
-        myWeb.loadUrl("http://3.228.232.110:8000/");
+        myWeb.loadUrl("http://pantrypal.fun:8000/");
     }
 
     private void setupWebView() {
@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private boolean isExternalLink(String url) {
-        return !url.startsWith("http://3.228.232.110:8000/");
+        return !url.startsWith("http://pantrypal.fun:8000/");
     }
 
     @Override
