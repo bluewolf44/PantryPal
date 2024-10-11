@@ -2,11 +2,8 @@ import pytest
 import json
 
 from django.contrib.auth.hashers import make_password
-from django.core.serializers.json import DjangoJSONEncoder
-from django.forms import model_to_dict
 from django.urls import reverse
 from django.test import Client
-from django.core.serializers import serialize
 
 from main.models import *
 
