@@ -3,6 +3,7 @@ import Modal from "react-modal";
 import axios from "axios";
 import RecipeDetailsModal from "./modals/RecipeDetailsModal";
 import { useNavigate, useLocation } from "react-router-dom";
+import Alert from './modals/alert';
 
 import "./css/sharedrecipe.css"; // Assuming your CSS is adapted for React
 
@@ -15,6 +16,8 @@ Modal.setAppElement("#root"); // Assuming your root div has an ID of 'root'
 function SharedRecipesGrid() {
   const [recipesReceived, setRecipesReceived] = useState([])
   const [recipesShared, setRecipesShared] = useState([])
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState('');  
 
   useEffect(() => {
     getRecipesReceived();
@@ -39,8 +42,14 @@ function SharedRecipesGrid() {
     try {
       const response = await axios.post(`/api/saveToMyRecipes/${recipe_id}/`)
       console.log("saveToMyRecipes: ", response.data)
+      setAlertMessage("Recipe successfully saved to your recipes!");
+        setShowAlert(true);
+        setTimeout(() => setShowAlert(false), 5000);  // Dismiss alert after 5 seconds
     } catch (error) {
       console.log("Error in saving shared recipes from backend: ", error);
+      setAlertMessage("Failed to save recipe.");
+        setShowAlert(true);
+        setTimeout(() => setShowAlert(false), 5000);
     }
   }
 
@@ -49,8 +58,14 @@ function SharedRecipesGrid() {
       const response = await axios.delete(`/api/deleteRecipeReceived/${shared_id}/`)
       console.log("deleteRecipeReceived: ", response.data)
       getRecipesReceived();
+      setAlertMessage("Shared recipe successfully deleted!");
+        setShowAlert(true);
+        setTimeout(() => setShowAlert(false), 5000);
     } catch (error) {
       console.log("Error in deleting a shared recipe from backend: ", error);
+      setAlertMessage("Failed to delete shared recipe.");
+        setShowAlert(true);
+        setTimeout(() => setShowAlert(false), 5000);
     }
   }
 
@@ -58,22 +73,19 @@ function SharedRecipesGrid() {
     const giveFeedback = (recipe_id) => {
         window.location.href = `/feedback/${recipe_id}`
     }
-  // useEffect(() => {
-  //   const getRecipesShared = async () => {
-  //     try {
-  //       const response = await axios.get("/api/getRecipesShared/");
-  //       setRecipesShared(response.data);
-  //       console.log("response.data: ", response.data)
-  //     } catch (error) {
-  //       console.log("Error in getting recipes shared from backend: ", error);
-  //     }
-  //   };
-  //   getRecipesShared();
-  // }, [useLocation()])
+
 
   return (
     <>
       <h2> Recipes Received: </h2>
+
+
+      {showAlert && (
+            <div className="alert">
+                {alertMessage}
+            </div>
+        )}
+
       <div className="recipes-grid">
         {recipesReceived.length != 0 ? (
           recipesReceived.map((shared) => (

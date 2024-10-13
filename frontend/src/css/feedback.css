@@ -1,88 +1,75 @@
+/* Global settings to ensure full page styling */
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif; /* Consistent font for the whole page */
+    background-color: #f4f4f4; /* Light grey background for the entire page */
+}
+
 /* Container for the entire feedback section */
-.recipe-card {
+.recipe-content1 {
     background-color: #fff;
-    padding: 30px;
-    border-radius: 12px;
-    max-width: 600px;
-    margin: 50px auto; /* Centers the card on the page */
+    width: 90%;  /* Responsive width */
+    max-width: 600px; /* Maximum width to maintain aesthetics */
+    margin: 40px auto; /* Centering the card with top and bottom margin */
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-.feed-div{
-    width: 90%;
+    
 }
 
-/* Title */
-.feed-div h2 {
-    text-align: center;
-    color: #0a02a1;
-    margin-bottom: 20px;
+/* Styling for the feedback header */
+.recipe-content1 h2 {
+    color: #333;  /* Dark grey for better readability */
     font-size: 24px;
-    font-weight: bold;
+    text-align: center;
+    margin-bottom: 15px; /* Space below the title */
 }
 
-/* Feedback textarea */
-.feed-div textarea {
-    width: 100%;
-    height: 150px;
+/* Feedback textarea styling */
+.recipe-content1 textarea {
+    width: 100%;  /* Full width to match container */
+    height: 200px; /* Sufficient height for text entry */
     padding: 15px;
-    border: 1px solid #ccc;
+    border: 1px solid #ccc; /* Subtle border */
     border-radius: 8px;
-    resize: none; /* Prevents resizing */
+    resize: none; /* Disabling resize to maintain layout */
     font-size: 16px;
-    box-sizing: border-box; /* Include padding in the element's total width and height */
-    margin-bottom: 20px;
+    background-color: #fff; /* White background */
+    box-sizing: border-box; /* Include padding and border in the width */
+    margin-bottom: 20px; /* Space below the textarea */
 }
 
-/* Container for buttons */
+/* Container for the form buttons */
 .recipe-buttons {
     display: flex;
-    justify-content: space-around; /* Evenly spaces the buttons */
-    width: 100%; /* Takes full width of the parent */
+    justify-content: space-between; /* Distribute buttons evenly */
+    width: 100%;  /* Full width to match container */
 }
 
-/* Individual buttons */
+/* Styling for individual buttons */
 .recipe-buttons button {
-    background-color: #0a02a1;
+    background-color: #0056b3; /* Theme blue for buttons */
     color: white;
-    padding: 12px 25px;
+    padding: 10px 20px;
     border: none;
     border-radius: 8px;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    transition: background-color 0.3s, transform 0.2s;
     font-size: 16px;
-    flex: 1; /* Allows buttons to grow evenly */
-    margin: 0 10px; /* Adds space between buttons */
+    width: 48%; /* Almost half width, accounting for margin */
 }
 
 /* Button hover effects */
 .recipe-buttons button:hover {
-    background-color: #ff4b92;
-    transform: scale(1.05); /* Slightly enlarges button on hover */
+    background-color: #ff4b92; /* Pink color on hover */
+    transform: scale(1.05); /* Slight enlargement on hover */
 }
 
-/* Loading text */
-p {
-    font-size: 18px;
-    color: #555;
-    text-align: center;
-}
-
-/* Media query for responsiveness */
+/* Adjustments for small screens and mobile devices */
 @media (max-width: 600px) {
-    .recipe-card {
-        padding: 20px;
-        margin: 20px;
-    }
-
-    .recipe-buttons {
-        flex-direction: column; /* Stacks buttons vertically */
-        align-items: center;
-    }
-
-    .recipe-buttons button {
-        width: 100%; /* Makes buttons take full width */
-        margin: 10px 0; /* Adds space between stacked buttons */
+    .recipe-content1 {
+        width: 95%; /* Slightly more width on smaller screens */
+        margin: 20px auto; /* Smaller margin */
     }
 }
