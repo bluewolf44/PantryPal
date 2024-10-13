@@ -38,6 +38,7 @@ function EditProfileGrid() {
         }
       });
       console.log("Profile Updated: ", response.data);
+      window.location.href = "editProfile"
       setShowUpdateAlert(true); // Show update success alert
       setTimeout(() => setShowUpdateAlert(false), 5000); // Hide alert after 5 seconds
     } catch (error) {
@@ -100,7 +101,7 @@ function EditProfileGrid() {
           </div>
         </form>
         {showUpdateAlert && (
-          <Alert message="Profile updated successfully!" onClose={() => setShowUpdateAlert(false)} />
+          <Alert message="Profile updated successfully!" onClose={() => handleSubmit } />
         )}
       </div>
     </div>
