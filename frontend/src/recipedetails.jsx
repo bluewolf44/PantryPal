@@ -6,6 +6,7 @@ import './css/showrecipe.css';
 import { useNavigate } from "react-router-dom";
 import formatRecipeText from "./formatRecipeText"
 import ShareRecipeModal from './modals/ShareRecipeModal';
+import Alert from './modals/alert';  // Ensure you have an Alert component
 
 Modal.setAppElement('#root');
 
@@ -16,6 +17,8 @@ function RecipeDetails() {
   const [isLoading, setIsLoading] = useState(true);
   const { id } = useParams();
   const navigate = useNavigate();
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState('');
 
   useEffect(() => {
     const getRecipeById = async () => {
@@ -61,8 +64,14 @@ function RecipeDetails() {
     try {
       const response = await axios.post("/api/shareRecipe/", data)
       console.log("share recipe: ", response.data)
+      setAlertMessage("Recipe shared successfully!");
+      setShowAlert(true);
+      setTimeout(() => setShowAlert(false), 5000);
     } catch (error) {
       console.log("Error occured trying to share recipe: ", error)
+      setAlertMessage("Failed to share recipe.");
+      setShowAlert(true);
+      setTimeout(() => setShowAlert(false), 5000);
     }
   }
 
@@ -81,6 +90,7 @@ function RecipeDetails() {
               <button onClick = {() => navigate('/markAsCreated/'+id)}>Mark as created</button>
               <button onClick={() => setIsShareRecipeModalOpen(true)} style={{ cursor: 'pointer' }}>Share Recipe</button>
           </div>
+          {showAlert && <Alert message={alertMessage} onClose={() => setShowAlert(false)} />}
         </>
       ) : (
         <p>No recipe found.</p>
@@ -109,28 +119,8 @@ function RecipeDetails() {
         )}
       </div>
 
-      {/* <div className="recipe-feedback-list">
-      <h2>Feedback:</h2>
-      {recipeFeedback.length != 0 ? (
-        recipeFeedback.map((feedback, index) => (
-          <div key={index} className="feedback-item">
-          <div className="profile-picture">
-            {
-              <img src={'/Storage/' + feedback.profile.picture} alt={`${feedback.userShared.username}'s profile`} />
-            }
-          </div>
-            <div className="feedback-user">
-              <strong>{feedback.userShared.username}</strong> says:
-            </div>
-            <div className="feedback-text">
-              {feedback.feedback}
-            </div>
-          </div>
-      ))
-    ) : (
-      <p>No Feedback :(</p>
-    )}
-      </div> */}
+    
+
       <ShareRecipeModal
           isOpen={isShareRecipeModalOpen}
           onClose={() => setIsShareRecipeModalOpen(false)}
