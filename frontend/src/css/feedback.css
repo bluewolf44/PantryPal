@@ -35,6 +35,7 @@ body, html {
     border-radius: 8px;
     resize: none; /* Disabling resize to maintain layout */
     font-size: 16px;
+    color: black ; /* Black text color */
     background-color: #fff; /* White background */
     box-sizing: border-box; /* Include padding and border in the width */
     margin-bottom: 20px; /* Space below the textarea */
