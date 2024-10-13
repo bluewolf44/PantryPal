@@ -1,0 +1,66 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam rectangle {
+    FontColor #FFFFFF
+    FontSize 14
+}
+
+
+
+' User types
+rectangle "User" as userType #0a02a1
+
+' Database Collections
+rectangle "User Collection" as userCollection #ffcb4c
+rectangle "Recipe Collection" as recipeCollection #ffcb4c
+rectangle "Pantry Collection" as pantryCollection #ffcb4c
+
+' Functions
+rectangle "Login" as login #ff4b92
+rectangle "Create Account" as createAccount #ff4b92
+rectangle "Delete Account" as deleteAccount #ff4b92
+rectangle "Edit Profile" as editProfile #ff4b92
+rectangle "View Pantry" as viewPantry #ff4b92
+rectangle "Add Ingredients" as addIngredients #ff4b92
+rectangle "Edit Ingredients" as editIngredients #ff4b92
+rectangle "Delete Ingredients" as deleteIngredients #ff4b92
+rectangle "Generate Recipes" as generateRecipes #ff4b92
+rectangle "Create Own Recipe" as createOwnRecipe #ff4b92
+rectangle "Save Generated Recipe" as saveGeneratedRecipe #ff4b92
+rectangle "Add Feedback to Recipe" as feedbackRecipe #ff4b92
+rectangle "Share Recipe with Users" as shareRecipe #ff4b92
+rectangle "Sign Out" as signOut #ff4b92
+
+' Connections
+userType --> createAccount
+userType --> login
+login --> viewPantry
+login --> generateRecipes
+login --> createOwnRecipe
+login --> signOut
+login --> editProfile
+editProfile --> deleteAccount
+viewPantry --> addIngredients
+viewPantry --> editIngredients
+viewPantry --> deleteIngredients
+generateRecipes --> saveGeneratedRecipe
+generateRecipes --> feedbackRecipe
+generateRecipes --> shareRecipe
+createOwnRecipe --> feedbackRecipe
+createOwnRecipe --> shareRecipe
+
+' Database interactions
+userType --> userCollection
+createAccount --> userCollection
+editProfile --> userCollection
+viewPantry --> pantryCollection
+addIngredients --> pantryCollection
+editIngredients --> pantryCollection
+deleteIngredients --> pantryCollection
+generateRecipes --> recipeCollection
+createOwnRecipe --> recipeCollection
+saveGeneratedRecipe --> recipeCollection
+feedbackRecipe --> recipeCollection
+shareRecipe --> recipeCollection
+
+@enduml
