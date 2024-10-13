@@ -38,7 +38,7 @@ function EditProfileGrid() {
         }
       });
       console.log("Profile Updated: ", response.data);
-      window.location.href = "editProfile"
+      window.location.href = "/"
       setShowUpdateAlert(true); // Show update success alert
       setTimeout(() => setShowUpdateAlert(false), 5000); // Hide alert after 5 seconds
     } catch (error) {
