@@ -1,14 +1,16 @@
 import {useState, useEffect} from "react";
-import {useParams} from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import Modal from 'react-modal';
 Modal.setAppElement('#root');
 import axios from "axios";
 import './css/markascreated.css';
 
+
 function MarkAsCreated() {
     const [ingredients,setIngredients] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const { id } = useParams();
+    const navigate = useNavigate();
 
     useEffect(() => {
         // get the ingredients that the recipe may use
@@ -26,6 +28,8 @@ function MarkAsCreated() {
         }
         getIngredientsByRequired();
     },[id]);
+
+
     //updates the amount
     const handleChange = (e,ingredient_pk) => {
         e.preventDefault();
@@ -49,7 +53,7 @@ function MarkAsCreated() {
             }
         })
         const response = await axios.post(`/api/updateIngredientByAmount`,data);
-        window.location.href = '/'
+        navigate('/', { state: { message: "Pantry updated successfully!" } });
     }
 
     return(

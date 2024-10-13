@@ -7,6 +7,7 @@ import AddModal from "./modals/AddModal";
 import EditModal from "./modals/EditModal";
 import AddRecipeModal from "./modals/AddRecipeModal";
 import Alert from './modals/alert';
+import { useLocation } from 'react-router-dom';
 
 axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFToken';
@@ -23,17 +24,19 @@ function PantryGrid() {
     const [ingredientToEdit, setIngredientToEdit] = useState(null);
     const [showDeleteAlert, setShowDeleteAlert] = useState(false); // State to manage delete alert visibility
     const [showEditAlert, setShowEditAlert] = useState(false); // State for the edit alert
+    const location = useLocation();
+    const [alertMessage, setAlertMessage] = useState('');
+    const [showAlert, setShowAlert] = useState(false);
 
 
-    // Get Ingredients
     useEffect(() => {
         get_ingredients();
-    }, []);
-
-    // Get Recipes
-    useEffect(() => {
-        get_recipes();
-    }, []);
+        if (location.state && location.state.message) {
+            setAlertMessage(location.state.message);
+            setShowAlert(true);
+            setTimeout(() => setShowAlert(false), 5000);
+        }
+    }, [location]);
 
     // Function to fetch ingredients
     const get_ingredients = () => {
@@ -161,6 +164,9 @@ function PantryGrid() {
                 )}
                 {showEditAlert && (
                     <Alert message="Ingredient edited successfully!" onClose={() => setShowEditAlert(false)} />
+                )}
+                {showAlert && (
+                    <Alert message={alertMessage} onClose={() => setShowAlert(false)} />
                 )}
 
 
