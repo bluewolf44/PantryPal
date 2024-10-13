@@ -77,7 +77,7 @@
     border-radius: 50%; /* Circular shape */
     overflow: hidden; /* Hide any overflow outside the circle */
     margin-right: 10px; /* Space between image and text */
-    border: none; /* Remove any container border */
+    border: none !important; /* Remove any container border */
 }
 
 /* Image inside the profile picture */
@@ -86,7 +86,7 @@
     height: 100%; /* Fill the container */
     object-fit: cover; /* Ensure the image covers the container area */
     border-radius: 50%; /* Circular shape */
-    border: none; /* Remove any image border */
+    border: none !important; /* Remove any image border */
     outline: none; /* Remove any outline */
 }
 
