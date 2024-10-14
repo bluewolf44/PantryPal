@@ -154,3 +154,22 @@ def test_get_user_recipe_by_id(user_factory, recipe_factory):
     response = c.get(url)
     assert response.status_code == 200
     assert response.json() == serialize("json", Recipe.objects.filter(user=user, id=recipe.id))
+
+@pytestPantryPal
+def save_to_my_recipes_view(user_factory, recipe_factory):
+    c = Client()
+    url = reverse("api_save_to_my_recipes",args=[9999])
+    assert c.post(url).status_code == 401  # Not logged in
+
+    user = user_factory(username="dave", password=make_password("password123"))
+    c.force_login(user)
+
+    assert c.post(url).status_code == 404  # not found
+
+    recipe = recipe_factory(recipeName="Cheese")
+
+    url = reverse("api_save_to_my_recipes",args=[recipe.id])
+
+    response = c.post(url)
+    assert response.status_code == 201
+    assert len(Recipe.objects.filter(user=user)) == 1
