@@ -18,35 +18,38 @@ function GiveFeedback(){
     useEffect(() => {
         console.log("test works");
         console.log("Shared ID:", id);
+        getRecipe(id);
     },[id]);
 
     const getRecipe = async () => {
         try {
-            const response = await axios.get(`/api/getRecipes/${id}`);
-            setFeedback(response.data);
+            const response = await axios.get(`/api/getSharedRecipe/${id}`);
+            console.log("Recipe data:", response.data);
             setIsLoading(false);
         } catch (error) {
             console.log("Error in getting recipe from backend: ", error);
         }
     };
 
-      // Function to handle feedback submission
-      const handleSubmit = async (e) => {
-          e.preventDefault();
-          console.log("Submitting feedback for recipe ID: ", id);
-          try {
-              const response = await axios.post(`/api/sharedRecipe/${id}/feedback`, { feedback });
-              console.log("Feedback submitted:", response.data);
-              setAlertMessage("Feedback successfully submitted!");
-                setShowAlert(true);
-             setTimeout(() => setShowAlert(false), 5000);
-          } catch (error) {
-              console.error("Error submitting feedback:", error);
-              setAlertMessage("Failed to submit feedback.");
-                setShowAlert(true);
-                setTimeout(() => setShowAlert(false), 5000);
-          }
-      };
+const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log("Submitting feedback for recipe ID: ", id);
+    try {
+        const response = await axios.post(`/api/sharedRecipe/${id}/feedback`,
+            { feedback },
+            { headers: { "Content-Type": "application/json" } }
+        );
+        console.log("Feedback submitted:", response.data);
+        setAlertMessage("Feedback successfully submitted!");
+        setShowAlert(true);
+        setTimeout(() => setShowAlert(false), 5000);
+    } catch (error) {
+        console.error("Error submitting feedback:", error);
+        setAlertMessage("Failed to submit feedback.");
+        setShowAlert(true);
+        setTimeout(() => setShowAlert(false), 5000);
+    }
+};
     return (
          <div className="recipe-content1">
              <h2>Give Feedback</h2>

@@ -33,6 +33,7 @@ urlpatterns = [
     path("api/getRecipes/<int:recipe_id>/", views.get_user_recipe_by_id, name="api_get_recipe_by_id"),
     path("api/saveRecipe/", views.save_recipe, name="api_save_recipe"),
     path("api/deleteRecipe/<int:recipe_id>/", views.delete_recipe_view, name="api_delete_recipe"),
+    path("api/getSharedRecipe/<int:shared_id>", views.get_shared_recipe, name="api_get_shared_recipes"),
     path("api/shareRecipe/", views.share_recipe_view, name="api_share_recipe"),
     path('api/sharedRecipe/<int:id>/feedback', views.feedback_shared_recipe_view, name='feedback_shared_recipe'),
     path("api/saveToMyRecipes/<int:recipe_id>/", views.save_to_my_recipes_view, name="api_save_to_my_recipes"),
