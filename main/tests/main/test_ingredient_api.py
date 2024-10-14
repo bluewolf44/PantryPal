@@ -104,8 +104,8 @@ def test_get_user_ingredients(user_factory, ingredient_factory):
 
     for item in response_data:
         fields = item.get("fields", {})
-        assert fields == {"ingredientName": "cheese", "user": 5, "amount": 2, "describe": "I have two slices of cheese", "picture": "", "liquid": False} or \
-               fields == {"ingredientName": "milk", "user": 5, "amount": 2, "describe": "I have two slices of cheese", "picture": "", "liquid": False}
+        assert fields == {"ingredientName": "cheese", "user": user.id, "amount": 2, "describe": "I have two slices of cheese", "picture": "", "liquid": False} or \
+               fields == {"ingredientName": "milk", "user": user.id, "amount": 2, "describe": "I have two slices of cheese", "picture": "", "liquid": False}
 
     assert len(response_data) == 2
     assert response_data[0] != response_data[1]
