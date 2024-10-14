@@ -4,7 +4,7 @@ from django.http import HttpResponse, JsonResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.views.decorators.csrf import ensure_csrf_cookie
-from django.views.decorators.http import require_POST
+from django.views.decorators.http import require_POST, require_GET
 from django.forms.models import model_to_dict
 
 from django.db import IntegrityError
@@ -387,6 +387,25 @@ def share_recipe_view(request):
     #     userShared = models.ForeignKey(User, on_delete=models.CASCADE, related_name="userShared")
     #     feedback = models.CharField(max_length=200)
 
+# Retrieve a single shared recipe by its id
+def get_shared_recipe(request, shared_id):
+    try:
+        shared_recipe = Shared.objects.get(id=shared_id)
+
+        # Build a dictionary containing the Shared fields
+        shared_dict = {
+            'id': shared_recipe.id,  # ID of the shared record
+            'recipe_owner': shared_recipe.recipeOwner.username,  # Username of the recipe owner
+            'recipe_name': shared_recipe.recipeName.recipeName,
+            'user_shared': shared_recipe.userShared.username,  # Username of the user this recipe was shared with
+            'feedback': shared_recipe.feedback,  # Feedback from the shared model
+        }
+
+        return JsonResponse(shared_dict, safe=False)
+    except Shared.DoesNotExist:
+        return JsonResponse({'error': 'Shared recipe not found'}, status=404)
+
+
 
 # this code will post the feedback to the shared recipe
 @require_POST
@@ -403,6 +422,7 @@ def feedback_shared_recipe_view(request, id):
 
         # Fetch the shared recipe
         shared_recipe = get_object_or_404(Shared, id=id, userShared=request.user)
+        print(shared_recipe)
 
         # Update the feedback field
         shared_recipe.feedback = feedback
