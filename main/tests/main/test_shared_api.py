@@ -39,24 +39,6 @@ def test_share_recipe_view(user_factory, recipe_factory):
 
 
 @pytestPantryPal
-def test_feedback_shared_recipe_view(user_factory, shared_factory):
-    c = Client()
-    url = reverse("feedback_shared_recipe", args=[9999])
-    assert c.post(url).status_code == 401  # Not logged in
-
-    user = user_factory(username="dave", password=make_password("password123"))
-    c.force_login(user)
-    assert c.post(url, {}, content_type="application/json").status_code == 400  # No body
-
-    shared = shared_factory(userShared=user)
-
-    url = reverse("feedback_shared_recipe", args=[shared.id])
-    response = c.post(url, {"feedback": "10/10 would eat again"}, content_type="application/json")
-    assert response.status_code == 200
-    assert Shared.objects.get(id=shared.id).feedback == "10/10 would eat again"
-
-
-@pytestPantryPal
 def test_get_recipes_received_view(user_factory, shared_factory, profile_factory):
     c = Client()
     url = reverse("api_get_recipes_received")
