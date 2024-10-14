@@ -26,3 +26,19 @@ def test_feedback_shared_recipe_view(user_factory, shared_factory):
     assert response.status_code == 200
     assert Shared.objects.get(id=shared.id).feedback == "10/10 would eat again"
 
+
+@pytestPantryPal
+def test_get_feedback_for_recipe(user_factory, recipe_factory):
+    c = Client()
+    url = reverse("api_get_feedback_for_recipe",args=[9999])
+    assert c.get(url).status_code == 401  # Not logged in
+
+    user = user_factory(username="dave", password=make_password("password123"))
+    c.force_login(user)
+
+    recipe = recipe_factory(user=user)
+
+    assert c.get(url).status_code == 404  # Not found
+    url = reverse("api_get_feedback_for_recipe",args=[recipe.id])
+    assert c.get(url).status_code == 200
+
