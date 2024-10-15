@@ -107,7 +107,7 @@ function SharedRecipesGrid() {
               {/* <span>{recipe.fields.recipe}</span> */}
               <div className="recipes-buttons">
                 <button onClick={() => saveToMyRecipes(shared.recipeName.id) }>Add to your recipes</button>
-                <button onClick={() => giveFeedback(shared.recipeName.id)}>Give Feedback</button>
+                <button onClick={() => giveFeedback(shared.id)}>Give Feedback</button>
                 <button onClick={() => deleteRecipeReceived(shared.id) }>Delete</button>
               </div>
 
