@@ -27,7 +27,7 @@ const AddRecipeModal = ({isOpen, onClose, onSubmit,defaultRecipe}) => {
             <input type="text" id="recipeName" name="recipeName" required/>
 
             <label htmlFor="picture">Picture:</label>
-            <input type="file" id="picture" name="picture" accept="image/*" onChange={handleFileChange}/>
+            <input type="file" id="picture" name="picture" accept="image/*"/>
 
             <label htmlFor="recipe">Recipe:</label>
             <textarea type="text" rows="10" id="recipe" name="recipe" required defaultValue={defaultRecipe}/>

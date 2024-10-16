@@ -257,11 +257,14 @@ def create_recipe(request):
     if not body.is_valid():
         return JsonResponse({"detail": "form missing values"}, status=400)
 
+    uploaded_pic = body.cleaned_data["picture"]
+    if uploaded_pic is None:
+        uploaded_pic = "/RecipeDetails/default.jpg"
     recipe = Recipe.objects.create(
         recipeName=body.cleaned_data["recipeName"],
         user=request.user,
         recipe=body.cleaned_data["recipe"],
-        picture=body.cleaned_data["picture"]
+        picture=uploaded_pic
     )
 
     # Get all word from the query and remove common punctuation
