@@ -36,9 +36,9 @@ function MarkAsCreated() {
         setIngredients(ingredients.map((ingredient) => {
             //check if ingredient is the corrent one and then update the amount
             if (ingredient.pk === ingredient_pk)
+            {
                 ingredient.fields.amount = e.target.value
-                return ingredient
-            //just return unChange ingredient
+            }
             return ingredient
         }));
     };

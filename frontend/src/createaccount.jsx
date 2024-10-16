@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './css/createaccount.css';
 import logo from "./images/pantrypal-logo.png";
+import PropTypes from 'prop-types';
 
 function CreateAccount({cookies}) {
     const [username, setUsername] = useState('');
@@ -81,5 +82,10 @@ function CreateAccount({cookies}) {
         </div>
     );
 }
+
+CreateAccount.propTypes = {
+  cookies: PropTypes.object
+};
+
 
 export default CreateAccount;

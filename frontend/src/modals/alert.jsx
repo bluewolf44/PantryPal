@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './alert.css'; // Make sure your CSS positions the alert as needed
+import PropTypes from 'prop-types';
 
 const Alert = ({ message, onClose }) => {
   const [isVisible, setIsVisible] = useState(true); // Manage visibility state
@@ -18,6 +19,11 @@ const Alert = ({ message, onClose }) => {
       {message}
     </div>
   );
+};
+
+Alert.propTypes = {
+  message: PropTypes.string,
+  onClose: PropTypes.func,
 };
 
 export default Alert;

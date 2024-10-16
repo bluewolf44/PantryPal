@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import './modal.css';
 import './userList.css'
 import axios from "axios";
+import PropTypes from 'prop-types';
+
 const ShareRecipeModal = ({isOpen, onClose, onSubmit, recipe}) => {
   const [users, setUsers] = useState([])
   const [filteredUsers, setFilteredUsers] = useState([])
@@ -93,5 +95,12 @@ const ShareRecipeModal = ({isOpen, onClose, onSubmit, recipe}) => {
     </div>
   );
 }
+
+ShareRecipeModal.propTypes = {
+  isOpen: PropTypes.bool,
+  onClose: PropTypes.func,
+  onSubmit: PropTypes.func,
+  recipe:PropTypes.object,
+};
 
 export default ShareRecipeModal;

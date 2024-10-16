@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './modal.css';
 import Alert from './alert'; // Ensure the import is correctly named
+import PropTypes from 'prop-types';
 
 const AddModal = ({isOpen, onClose, onSubmit}) => {
   const [showAlert, setShowAlert] = useState(false);
@@ -55,6 +56,12 @@ const AddModal = ({isOpen, onClose, onSubmit}) => {
       )}
     </>
   );
+};
+
+AddModal.propTypes = {
+  isOpen: PropTypes.bool,
+  onClose: PropTypes.func,
+  onSubmit: PropTypes.func,
 };
 
 export default AddModal;
