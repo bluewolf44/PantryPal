@@ -444,7 +444,7 @@ def get_recipes_received_view(request):
     shared_list = []
     for item in shared:
         shared_dict = model_to_dict(item)
-        profile = Profile.objects.get(user=item.recipeOwner)
+        profile = get_object_or_404(Profile, user=item.recipeOwner)
         shared_dict['recipeOwner'] = model_to_dict(item.recipeOwner)
         shared_dict['profile'] = model_to_dict(profile)
         # I added this part to convert "picture" to string directory.
