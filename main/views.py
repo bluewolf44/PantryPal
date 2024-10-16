@@ -158,12 +158,16 @@ def create_ingredient(request):
     if not body.is_valid():
         return JsonResponse({"detail": "form missing values"}, status=400)
 
+    uploaded_pic = body.cleaned_data["picture"]
+    print(uploaded_pic)
+    if uploaded_pic is None:
+        uploaded_pic = "/RecipeDetails/default.jpg"
     ingredient = Ingredient.objects.create(
         ingredientName=body.cleaned_data["ingredientName"],
         user=request.user,
         amount=int(body.cleaned_data["amount"]),
         describe=body.cleaned_data["describe"],
-        picture=body.cleaned_data["picture"],
+        picture=uploaded_pic,
         liquid=body.cleaned_data["liquid"]
     )
     ingredient.save()
