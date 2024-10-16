@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Modal from 'react-modal';
 import './css/pantrypage.css';  // Assuming your CSS is adapted for React
-import logo from "./images/pantrypal-logo.png";
 import axios from "axios";
 import AddModal from "./modals/AddModal";
 import EditModal from "./modals/EditModal";
@@ -17,7 +16,6 @@ Modal.setAppElement('#root');  // Assuming your root div has an ID of 'root'
 
 function PantryGrid() {
     const [ingredients, setIngredients] = useState([]);
-    const [recipes, setRecipes] = useState([]);
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
     const [isRecipeModalOpen, setIsRecipeModalOpen] = useState(false);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -61,33 +59,6 @@ function PantryGrid() {
                     </div>
                 ));
                 setIngredients(temp);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-    };
-
-//Function to fetch recipes
-    const get_recipes = () => {
-        fetch("/api/getRecipes/", {
-            headers: {
-                "Content-Type": "application/json",
-            },
-            credentials: "same-origin",
-        })
-            .then((res) => res.json()) // Parse the response as JSON
-            .then((data) => {
-                let temp = data.map((item) => (
-                    <div key={item.pk} className="item">
-                        <img src={'Storage/' + item.fields.picture} alt={item.fields.recipeName} />
-                        <span>{item.fields.recipeName}</span>
-                        <span>{item.fields.recipe}</span>
-                        <div className="item-buttons">
-                            <button onClick={() => deleteRecipe(item.pk)}>Delete</button>
-                        </div>
-                    </div>
-                ));
-                setRecipes(temp);
             })
             .catch((err) => {
                 console.log(err);
@@ -141,7 +112,6 @@ function PantryGrid() {
         try{
             console.log(data);
             await axios.post("/api/createRecipe/", data);
-            get_recipes();
             } catch (error) {
                 console.error("Error creating recipe:", error);
             }

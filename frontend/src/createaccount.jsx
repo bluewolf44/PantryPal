@@ -36,6 +36,7 @@ function CreateAccount({cookies}) {
                 setError(data.detail || 'Failed to create account');
             }
         } catch (error) {
+            console.log(error);
             setError('An error occurred. Please try again later.');
         }
     };

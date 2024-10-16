@@ -52,7 +52,7 @@ function MarkAsCreated() {
                 amount:ingredient.fields.amount
             }
         })
-        const response = await axios.post(`/api/updateIngredientByAmount`,data);
+        await axios.post(`/api/updateIngredientByAmount`,data);
         navigate('/', { state: { message: "Pantry updated successfully!" } });
     }
 
