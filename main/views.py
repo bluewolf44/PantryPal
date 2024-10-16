@@ -10,6 +10,7 @@ from django.forms.models import model_to_dict
 from django.db import IntegrityError
 
 from .models import Recipe, Shared, Profile
+from .forms import RecipeForm, SharedRecipeForm
 
 from main.forms import *
 from main.models import Ingredient, Recipe, Required
