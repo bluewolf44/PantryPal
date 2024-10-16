@@ -32,7 +32,7 @@ function PantryGrid() {
         if (location.state && location.state.message) {
             setAlertMessage(location.state.message);
             setShowAlert(true);
-            setTimeout(() => setShowAlert(false), 2000);
+            setTimeout(() => setShowAlert(false), 1000);
         }
     }, [location]);
 
