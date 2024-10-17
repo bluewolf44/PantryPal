@@ -3,7 +3,6 @@ import pytest
 from django.urls import reverse
 from django.test import Client
 
-
 pytestPantryPal = pytest.mark.django_db
 
 
@@ -22,7 +21,8 @@ def test_login_api(user_factory):
     user_factory(username="dave", password=make_password("password123"))
     assert c.post(url, content_type="application/json").status_code == 400
     assert c.post(url, {"password": "help", "username": "dave"}, content_type="application/json").status_code == 401
-    assert c.post(url, {"password": "password123", "username": "dave"}, content_type="application/json").status_code == 200
+    assert c.post(url, {"password": "password123", "username": "dave"},
+                  content_type="application/json").status_code == 200
 
 
 @pytestPantryPal
@@ -35,7 +35,21 @@ def test_logout_api(user_factory):
     assert c.get(url).status_code == 200
 
 
+@pytestPantryPal
+def test_get_all_users_view(user_factory, profile_factory):
+    c = Client()
+    url = reverse("api_get_all_users")
+    assert c.get(url).status_code == 401  # Not logged in
 
+    user = user_factory(username="dave", password=make_password("password123"))
+    profile_factory(user=user)
+    profile_factory(user=user_factory(username="bob", password=make_password("password123")))
+    profile_factory(user=user_factory(username="jeff", password=make_password("password123")))
+    profile_factory(user=user_factory(username="steve", password=make_password("password123")))
+    c.force_login(user)
 
-
-
+    response = c.get(url)
+    assert response.status_code == 200
+    for n in response.json():
+        if n["username"] not in ["bob", "jeff", "steve"]:
+            assert False

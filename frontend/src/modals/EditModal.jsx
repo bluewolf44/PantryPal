@@ -1,5 +1,6 @@
 import React from 'react';
 import './modal.css';
+import PropTypes from 'prop-types';
 
 const EditModal = ({isOpen, onClose, ingredient, onSubmit}) => {
   if (!isOpen) return null;
@@ -47,5 +48,12 @@ const EditModal = ({isOpen, onClose, ingredient, onSubmit}) => {
       </div>
   );
 }
+
+EditModal.propTypes = {
+  isOpen: PropTypes.bool,
+  onClose: PropTypes.func,
+  onSubmit: PropTypes.func,
+  ingredient:PropTypes.object,
+};
 
 export default EditModal;

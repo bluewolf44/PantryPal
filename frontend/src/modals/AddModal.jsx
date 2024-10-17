@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './modal.css';
 import Alert from './alert'; // Ensure the import is correctly named
+import PropTypes from 'prop-types';
 
 const AddModal = ({isOpen, onClose, onSubmit}) => {
   const [showAlert, setShowAlert] = useState(false);
@@ -40,7 +41,7 @@ const AddModal = ({isOpen, onClose, onSubmit}) => {
               <label htmlFor="ingredientName">Name:</label>
               <input type="text" id="ingredientName" name="ingredientName" required/>
               <label htmlFor="picture">Picture:</label>
-              <input type="file" id="picture" name="picture" accept="image/*" required/>
+              <input type="file" id="picture" name="picture" accept="image/*"/>
               <label htmlFor="describe">Describe:</label>
               <input type="text" id="describe" name="describe" required/>
               <label htmlFor="amount">Amount (g/mL):</label>
@@ -55,6 +56,12 @@ const AddModal = ({isOpen, onClose, onSubmit}) => {
       )}
     </>
   );
+};
+
+AddModal.propTypes = {
+  isOpen: PropTypes.bool,
+  onClose: PropTypes.func,
+  onSubmit: PropTypes.func,
 };
 
 export default AddModal;
