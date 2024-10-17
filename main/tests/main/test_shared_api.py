@@ -55,8 +55,9 @@ def test_get_recipes_received_view(user_factory, shared_factory, profile_factory
     assert response.status_code == 200
     # Not dealing with the output
 
+
 @pytestPantryPal
-def test_get_recipes_received_view(user_factory, shared_factory):
+def test_delete_recipe_received_view(user_factory, shared_factory):
     c = Client()
     url = reverse("api_delete_recipe_received",args=[9999])
     assert c.delete(url).status_code == 401  # Not logged in
@@ -71,6 +72,4 @@ def test_get_recipes_received_view(user_factory, shared_factory):
     assert c.delete(url).status_code == 200
 
     assert len(Shared.objects.filter(recipeOwner=user)) == 0
-
-
 

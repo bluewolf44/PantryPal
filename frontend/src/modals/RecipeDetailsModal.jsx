@@ -1,5 +1,6 @@
 import React from 'react';
 import './modal.css';
+import PropTypes from 'prop-types';
 
 const RecipeDetailsModal = ({isOpen, onClose, onSubmit, recipe}) => {
   if (!isOpen) return null
@@ -47,5 +48,12 @@ const RecipeDetailsModal = ({isOpen, onClose, onSubmit, recipe}) => {
       </div>
   );
 }
+
+RecipeDetailsModal.propTypes = {
+  isOpen: PropTypes.bool,
+  onClose: PropTypes.func,
+  onSubmit: PropTypes.func,
+  recipe:PropTypes.object,
+};
 
 export default RecipeDetailsModal;

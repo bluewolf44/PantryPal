@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
-import ReactDOM from 'react-dom';
+import React from 'react';
 import './css/loginUI.css';
 import logo from "./images/pantrypal-logo.png";
-import { useNavigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 function Login({ app, cookies, onLoginSuccess }) {
 
@@ -71,6 +70,12 @@ function Login({ app, cookies, onLoginSuccess }) {
         </div>
     );
 }
+
+Login.propTypes = {
+  app: PropTypes.element,
+  cookies: PropTypes.object,
+  onLoginSuccess: PropTypes.func,
+};
 
 // ReactDOM.render(<Login />, document.getElementById('login-root'));
 export default Login;

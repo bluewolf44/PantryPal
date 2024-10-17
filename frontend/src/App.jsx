@@ -1,6 +1,6 @@
-import React,{ useState, useEffect } from 'react';
+import React from 'react';
 import Login from './login';
-import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Cookies from "universal-cookie";
 import PantryGrid from './pantry';
 import CreateAccount from './createaccount';
@@ -148,7 +148,7 @@ class App extends React.Component {
             return(
                 <Router>
                     <Routes>
-                  <Route path="/" element={<Login app={this} cookies={cookies} onLoginSuccess={ this.handleSuccessfulLogin} /> } />
+                        <Route path="/" element={<Login app={this} cookies={cookies} onLoginSuccess={ this.handleSuccessfulLogin} /> } />
                         <Route path="/createAccount" element={<CreateAccount cookies={cookies}/>} />
                         <Route path ="*" element={<span onClick={() => window.location.href = '/'}>404 Go back</span>} />
                     </Routes>

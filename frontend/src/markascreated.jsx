@@ -1,4 +1,4 @@
-import {useState, useEffect} from "react";
+import {useState, useEffect, React} from "react";
 import { useParams, useNavigate } from 'react-router-dom';
 import Modal from 'react-modal';
 Modal.setAppElement('#root');
@@ -36,9 +36,9 @@ function MarkAsCreated() {
         setIngredients(ingredients.map((ingredient) => {
             //check if ingredient is the corrent one and then update the amount
             if (ingredient.pk === ingredient_pk)
+            {
                 ingredient.fields.amount = e.target.value
-                return ingredient
-            //just return unChange ingredient
+            }
             return ingredient
         }));
     };
@@ -52,7 +52,7 @@ function MarkAsCreated() {
                 amount:ingredient.fields.amount
             }
         })
-        const response = await axios.post(`/api/updateIngredientByAmount`,data);
+        await axios.post(`/api/updateIngredientByAmount`,data);
         navigate('/', { state: { message: "Pantry updated successfully!" } });
     }
 

@@ -30,6 +30,8 @@ DEBUG = True
 #ALLOWED_HOSTS = []
 ALLOWED_HOSTS = ['*']  # For development purpose only
 
+# CSRF_TRUSTED_ORIGINS
+CSRF_TRUSTED_ORIGINS = ['https://www.pantrypal.fun/']
 # Application definition
 
 INSTALLED_APPS = [

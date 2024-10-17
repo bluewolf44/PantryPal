@@ -158,12 +158,16 @@ def create_ingredient(request):
     if not body.is_valid():
         return JsonResponse({"detail": "form missing values"}, status=400)
 
+    uploaded_pic = body.cleaned_data["picture"]
+    print(uploaded_pic)
+    if uploaded_pic is None:
+        uploaded_pic = "/RecipeDetails/default.jpg"
     ingredient = Ingredient.objects.create(
         ingredientName=body.cleaned_data["ingredientName"],
         user=request.user,
         amount=int(body.cleaned_data["amount"]),
         describe=body.cleaned_data["describe"],
-        picture=body.cleaned_data["picture"],
+        picture=uploaded_pic,
         liquid=body.cleaned_data["liquid"]
     )
     ingredient.save()
@@ -253,11 +257,14 @@ def create_recipe(request):
     if not body.is_valid():
         return JsonResponse({"detail": "form missing values"}, status=400)
 
+    uploaded_pic = body.cleaned_data["picture"]
+    if uploaded_pic is None:
+        uploaded_pic = "/RecipeDetails/default.jpg"
     recipe = Recipe.objects.create(
         recipeName=body.cleaned_data["recipeName"],
         user=request.user,
         recipe=body.cleaned_data["recipe"],
-        picture=body.cleaned_data["picture"]
+        picture=uploaded_pic
     )
 
     # Get all word from the query and remove common punctuation
@@ -444,7 +451,7 @@ def get_recipes_received_view(request):
     shared_list = []
     for item in shared:
         shared_dict = model_to_dict(item)
-        profile = Profile.objects.get(user=item.recipeOwner)
+        profile = get_object_or_404(Profile, user=item.recipeOwner)
         shared_dict['recipeOwner'] = model_to_dict(item.recipeOwner)
         shared_dict['profile'] = model_to_dict(profile)
         # I added this part to convert "picture" to string directory.

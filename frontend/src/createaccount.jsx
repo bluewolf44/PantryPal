@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './css/createaccount.css';
 import logo from "./images/pantrypal-logo.png";
+import PropTypes from 'prop-types';
 
 function CreateAccount({cookies}) {
     const [username, setUsername] = useState('');
@@ -36,6 +37,7 @@ function CreateAccount({cookies}) {
                 setError(data.detail || 'Failed to create account');
             }
         } catch (error) {
+            console.log(error);
             setError('An error occurred. Please try again later.');
         }
     };
@@ -80,5 +82,10 @@ function CreateAccount({cookies}) {
         </div>
     );
 }
+
+CreateAccount.propTypes = {
+  cookies: PropTypes.object
+};
+
 
 export default CreateAccount;

@@ -1,19 +1,14 @@
-import {useState, useEffect} from "react";
-import { useParams, useNavigate } from 'react-router-dom';
-import Modal from 'react-modal';
+import {useState, useEffect, React} from "react";
+import { useParams } from 'react-router-dom';
 import axios from "axios";
 import './css/feedback.css';
-import Alert from './modals/alert';
 
 
 function GiveFeedback(){
     const [feedback, setFeedback] = useState('');
-    const [recipe, setRecipe] = useState(null);
-    const [isLoading, setIsLoading] = useState(true);
     const { id } = useParams();
     const [showAlert, setShowAlert] = useState(false);
     const [alertMessage, setAlertMessage] = useState('');
-    const navigate = useNavigate();
 
     useEffect(() => {
         console.log("test works");
@@ -25,31 +20,30 @@ function GiveFeedback(){
         try {
             const response = await axios.get(`/api/getSharedRecipe/${id}`);
             console.log("Recipe data:", response.data);
-            setIsLoading(false);
         } catch (error) {
             console.log("Error in getting recipe from backend: ", error);
         }
     };
 
-const handleSubmit = async (e) => {
-    e.preventDefault();
-    console.log("Submitting feedback for recipe ID: ", id);
-    try {
-        const response = await axios.post(`/api/sharedRecipe/${id}/feedback`,
-            { feedback },
-            { headers: { "Content-Type": "application/json" } }
-        );
-        console.log("Feedback submitted:", response.data);
-        setAlertMessage("Feedback successfully submitted!");
-        setShowAlert(true);
-        setTimeout(() => setShowAlert(false), 5000);
-    } catch (error) {
-        console.error("Error submitting feedback:", error);
-        setAlertMessage("Failed to submit feedback.");
-        setShowAlert(true);
-        setTimeout(() => setShowAlert(false), 5000);
-    }
-};
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        console.log("Submitting feedback for recipe ID: ", id);
+        try {
+            const response = await axios.post(`/api/sharedRecipe/${id}/feedback`,
+                { feedback },
+                { headers: { "Content-Type": "application/json" } }
+            );
+            console.log("Feedback submitted:", response.data);
+            setAlertMessage("Feedback successfully submitted!");
+            setShowAlert(true);
+            setTimeout(() => setShowAlert(false), 5000);
+        } catch (error) {
+            console.error("Error submitting feedback:", error);
+            setAlertMessage("Failed to submit feedback.");
+            setShowAlert(true);
+            setTimeout(() => setShowAlert(false), 5000);
+        }
+    };
     return (
          <div className="recipe-content1">
              <h2>Give Feedback</h2>

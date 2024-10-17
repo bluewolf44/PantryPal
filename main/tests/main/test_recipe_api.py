@@ -155,8 +155,9 @@ def test_get_user_recipe_by_id(user_factory, recipe_factory):
     assert response.status_code == 200
     assert response.json() == serialize("json", Recipe.objects.filter(user=user, id=recipe.id))
 
+
 @pytestPantryPal
-def save_to_my_recipes_view(user_factory, recipe_factory):
+def test_save_to_my_recipes_view(user_factory, recipe_factory):
     c = Client()
     url = reverse("api_save_to_my_recipes",args=[9999])
     assert c.post(url).status_code == 401  # Not logged in
@@ -168,8 +169,36 @@ def save_to_my_recipes_view(user_factory, recipe_factory):
 
     recipe = recipe_factory(recipeName="Cheese")
 
-    url = reverse("api_save_to_my_recipes",args=[recipe.id])
+    url = reverse("api_save_to_my_recipes", args=[recipe.id])
 
     response = c.post(url)
     assert response.status_code == 201
     assert len(Recipe.objects.filter(user=user)) == 1
+
+
+@pytestPantryPal
+def test_update_recipe(user_factory, recipe_factory):
+    c = Client()
+    url = reverse("api_update_recipe",args=[9999])
+    assert c.post(url).status_code == 401  # Not logged in
+
+    user = user_factory(username="dave", password=make_password("password123"))
+    c.force_login(user)
+
+    assert c.post(url, {}).status_code == 404
+
+    recipe = recipe_factory(user=user, recipeName="Cheese")
+    url = reverse("api_update_recipe", args=[recipe.id])
+    assert c.post(url, {}).status_code == 400
+
+    response = c.post(url, {
+        "recipeName": "Cheese",
+        "recipe": "Make Cheese",
+        "picture": "help.png"
+    }, files={"picture": ""})
+
+    assert response.status_code == 200
+    assert Recipe.objects.get(user=user).recipeName == "Cheese"
+    assert Recipe.objects.get(user=user).recipe == "Make Cheese"
+    assert Recipe.objects.get(user=user).picture
+

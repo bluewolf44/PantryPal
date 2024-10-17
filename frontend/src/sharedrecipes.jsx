@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
 import axios from "axios";
-import RecipeDetailsModal from "./modals/RecipeDetailsModal";
-import { useNavigate, useLocation } from "react-router-dom";
-import Alert from './modals/alert';
+import { useLocation } from "react-router-dom";
 
 import "./css/sharedrecipe.css"; // Assuming your CSS is adapted for React
 
@@ -15,7 +13,6 @@ Modal.setAppElement("#root"); // Assuming your root div has an ID of 'root'
 
 function SharedRecipesGrid() {
   const [recipesReceived, setRecipesReceived] = useState([])
-  const [recipesShared, setRecipesShared] = useState([])
   const [showAlert, setShowAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');  
 
@@ -107,7 +104,7 @@ function SharedRecipesGrid() {
               {/* <span>{recipe.fields.recipe}</span> */}
               <div className="recipes-buttons">
                 <button onClick={() => saveToMyRecipes(shared.recipeName.id) }>Add to your recipes</button>
-                <button onClick={() => giveFeedback(shared.recipeName.id)}>Give Feedback</button>
+                <button onClick={() => giveFeedback(shared.id)}>Give Feedback</button>
                 <button onClick={() => deleteRecipeReceived(shared.id) }>Delete</button>
               </div>
 
